@@ -8,7 +8,7 @@
       </div>
       <div class="search-item">
         费用类型：
-        <el-select class="selectInput" placeholder="请选择费用类型" v-model="feeType">
+        <el-select class="selectInput" placeholder="请选择费用类型"   clearable v-model="feeType">
           <el-option v-for="label,value in feeTypes" :key="value" :label="label" :value="value">
           </el-option>
         </el-select>

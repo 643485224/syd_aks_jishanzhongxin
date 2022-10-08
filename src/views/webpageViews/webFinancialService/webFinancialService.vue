@@ -176,7 +176,7 @@
               </div>
               <div class="item-right">
                 <h4>899</h4>
-                <p>今日创建药品发票笔数</p>
+                <p>今日创建器械发票笔数</p>
               </div>
             </div>
             <div class="invoicing">
@@ -208,28 +208,28 @@
             <div class="left_item">
               <div class="item-left">
                 <h4>899</h4>
-                <p>今日创建药品发票笔数</p>
+                <p>今日支付药品发票笔数</p>
               </div>
               <div class="item-right">
                 <h4>899</h4>
-                <p>今日创建药品发票笔数</p>
+                <p>今日支付器械发票笔数</p>
               </div>
             </div>
             <div class="invoicing">
               <ul class="invoi-ul">
-                <li :class="n==1?'active':''" @mouseenter ="n=1">药品最新开票情况</li>
-                <li :class="n==2?'active':''" @mouseenter ="n=2">药械最新开票情况</li>
+                <li :class="n==1?'active':''" @mouseenter ="n=1">药品最新收款情况</li>
+                <li :class="n==2?'active':''" @mouseenter ="n=2">药械最新收款情况</li>
               </ul>
               <div class="invoicing-content">
                 <div class="invoicing-item">
-                  <span>发票流水号</span>
-                  <span>开票单位</span>
+                  <span>支付流水号</span>
+                  <span>收款单位</span>
                   <span>区域</span>
                 </div>
              <div class="invoicing-item-ul" >
             <vue-seamless-scroll :data="tableHeader" class="warp" :class-option="classOption" >
               <ul>
-                <li v-for="(val, index) in tableHeader" :key="index">
+                <li v-for="(val, index) in tableHeader1" :key="index">
                   <span>{{val.Invoice}}</span>
                     <span>{{val.dw}}</span>
                     <span>{{val.title}}</span>
@@ -285,6 +285,36 @@ export default {
           Invoice:'1245678945',
           dw:'重庆四海医疗设备有限公司',
           title:'重庆市'
+        }, {
+          Invoice:'1245678945',
+          dw:'重庆四海医疗设备有限公司',
+          title:'重庆市'
+        }
+    ],
+    tableHeader1:[
+        {
+          Invoice:'127475088676',
+          dw:'控股重庆国万医药有限公司开...',
+          title:''
+        },
+        {
+          Invoice:'124131983710',
+          dw:'医药长油医药有限公司',
+          title:''
+        },
+        {
+          Invoice:'403294152062',
+          dw:'市世欣恒卓医药有限公司',
+          title:''
+        },
+        {
+          Invoice:'130121093643',
+          dw:'今瑜医药股份有限公司',
+          title:''
+        }, {
+          Invoice:'12635378740',
+          dw:'夫赛力君安医药有限公司',
+          title:''
         }, {
           Invoice:'1245678945',
           dw:'重庆四海医疗设备有限公司',

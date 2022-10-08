@@ -381,7 +381,6 @@ export default {
     select(buyerList) {
       console.log(this.group.buyerList, buyerList);
       // 选择数组 与已选数组 去重
-      // let list = [...new Set([...this.group.buyerList, ...buyerList])]
       let selectList = buyerList.map(item => {
         return {
           buyerId: item.id,
@@ -390,6 +389,7 @@ export default {
           unitType: item.unitType
         }
       })
+      // let list = [...new Set([...this.group.buyerList, ...selectList])]
       let list = this.unique([...this.group.buyerList, ...selectList])
       this.group.buyerList = list
       console.log(list);

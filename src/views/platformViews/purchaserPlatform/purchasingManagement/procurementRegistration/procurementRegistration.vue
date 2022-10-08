@@ -743,10 +743,6 @@ export default {
           align: "center",
         },
         {
-          title: "供应商id",
-          key: "supplierId",
-        },
-        {
           title: "通用名",
           slot: "commonName",
         },

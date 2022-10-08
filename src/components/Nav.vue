@@ -94,6 +94,10 @@ export default {
                 name: "vuex_token.tokenHead",
                 value: "",
               });
+              this.$store.commit("$uStore", {
+                name: "vuex_user",
+                value: {},
+              });
               // 清楚本地存储,重置路由
               setTimeout(() => {
                 window.location.href = `${location.origin}/`;

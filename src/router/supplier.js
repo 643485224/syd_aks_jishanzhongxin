@@ -168,7 +168,7 @@ export let supplierRoute = [
             component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierInstrumentEdit/supplierInstrumentEdit.vue"),
           },
           {
-            path: "supplierInstrumentBatchAdd", // 批量新增商品
+            path: "supplierInstrumentBatchAdd/:ypqxType", // 批量新增商品
             name: "supplierInstrumentBatchAdd",
             meta: {
               hideInMenu: true,

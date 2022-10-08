@@ -6,13 +6,11 @@
           <div class="inner-text">
             <div class="title">中心招商</div>
             <div class="subtitle">线下入驻 线上免入驻 同步交易更多选择</div>
-            <el-button class="apply-btn" @click="getapp">会员申请入驻</el-button>
+            <el-button class="apply-btn" @click="getapp"
+              >会员申请入驻</el-button
+            >
           </div>
-          <img
-            class="inner-img"
-            src="@/assets/images/webMainImage/entrePort_top.png"
-            alt=""
-          />
+          <img class="inner-img" src="@/assets/images/webMainImage/entrePort_top.png" alt="" />
         </div>
       </div>
       <div class="content-center">
@@ -21,37 +19,22 @@
           <div class="grid">
             <!-- v-for="item in priceList" :key="item" -->
             <div class="grid-col col-bg col-3">
-              <img
-                class="img"
-                src="../../../assets/images/webMainImage/entrePot/waterprice.png"
-              />
-              <div class="grid-title" >水费</div>
+              <img class="img" src="../../../assets/images/webMainImage/entrePot/waterprice.png" />
+              <div class="grid-title">水费</div>
               <div class="grid-desc">一键缴费 简单省事</div>
-              <el-button type="primary" round plain size="mini"
-              @click="getapp">去缴费</el-button
-              >
+              <el-button type="primary" round plain size="mini" @click="toPay">去缴费</el-button>
             </div>
             <div class="grid-col col-bg col-3">
-              <img
-                class="img"
-                src="../../../assets/images/webMainImage/entrePot/electricprice.png"
-              />
-              <div class="grid-title" >电费</div>
+              <img class="img" src="../../../assets/images/webMainImage/entrePot/electricprice.png" />
+              <div class="grid-title">电费</div>
               <div class="grid-desc">一键缴费 简单省事</div>
-              <el-button type="primary" round plain size="mini"
-              @click="getapp">去缴费</el-button
-              >
+              <el-button type="primary" round plain size="mini" @click="toPay">去缴费</el-button>
             </div>
             <div class="grid-col col-bg col-3">
-              <img
-                class="img"
-                src="../../../assets/images/webMainImage/entrePot/propertyprice.png"
-              />
-              <div class="grid-title" >物业费</div>
+              <img class="img" src="../../../assets/images/webMainImage/entrePot/propertyprice.png" />
+              <div class="grid-title">物业费</div>
               <div class="grid-desc">一键缴费 简单省事</div>
-              <el-button type="primary" round plain size="mini"
-              @click="getapp">去缴费</el-button
-              >
+              <el-button type="primary" round plain size="mini" @click="toPay">去缴费</el-button>
             </div>
           </div>
         </div>
@@ -60,51 +43,27 @@
           <div class="grid">
             <!-- -->
             <div class="grid-col col-6">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/youshi_001.jpg"
-                class="cover-img h_146"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_001.jpg" class="cover-img h_146" alt="" />
               <div class="grid-desc">入驻企业 医疗机构</div>
             </div>
             <div class="grid-col col-6">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/youshi_002.jpg"
-                class="cover-img h_146"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_002.jpg" class="cover-img h_146" alt="" />
               <div class="grid-desc">零售药店 主管部门</div>
             </div>
             <div class="grid-col col-6">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/youshi_003.jpg"
-                class="cover-img h_146"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_003.jpg" class="cover-img h_146" alt="" />
               <div class="grid-desc">科研院所 行业协会</div>
             </div>
             <div class="grid-col col-6">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/youshi_004.jpg"
-                class="cover-img h_146"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_004.jpg" class="cover-img h_146" alt="" />
               <div class="grid-desc">数据分析 管理建设</div>
             </div>
             <div class="grid-col col-6">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/youshi_005.jpg"
-                class="cover-img h_146"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_005.jpg" class="cover-img h_146" alt="" />
               <div class="grid-desc">孵化边缘独角兽企业</div>
             </div>
             <div class="grid-col col-6">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/youshi_06.jpg"
-                class="cover-img h_146"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_06.jpg" class="cover-img h_146" alt="" />
               <div class="grid-desc">新业态融合（直播）</div>
             </div>
           </div>
@@ -127,10 +86,7 @@
                   </div>
                 </li>
               </ul>
-              <img
-                src="../../../assets/images/webMainImage/entrePot/pay.png"
-                alt=""
-              />
+              <img src="../../../assets/images/webMainImage/entrePot/pay.png" alt="" />
             </div>
           </div>
         </div>
@@ -138,11 +94,7 @@
           <div class="section-title">大数据能力</div>
           <div class="grid">
             <div class="grid-col col-3">
-              <img
-                src="../../../assets/images/webMainImage/entrePot/datapower1.png"
-                class="cover-img h_250"
-                alt=""
-              />
+              <img src="../../../assets/images/webMainImage/entrePot/datapower1.png" class="cover-img h_250" alt="" />
               <div class="grid-title">海量医药数据库</div>
               <div class="grid-desc">
                 全国中标数据库、药品说明书、医保目录、基药目录、
@@ -150,22 +102,14 @@
               </div>
             </div>
             <div class="grid-col col-3">
-              <img
-                src="../../../assets/images/webMainImage/entrePot/datapower2.png"
-                class="cover-img h_250"
-                alt=""
-              />
+              <img src="../../../assets/images/webMainImage/entrePot/datapower2.png" class="cover-img h_250" alt="" />
               <div class="grid-title">专业的数据分析团队</div>
               <div class="grid-desc">
                 团队成员涵盖药学、计算机、统计分析等相关专业，具备多年的医药行业数据处理和分析经验
               </div>
             </div>
             <div class="grid-col col-3">
-              <img
-                src="../../../assets/images/webMainImage/entrePot/datapower3.png"
-                class="cover-img h_250"
-                alt=""
-              />
+              <img src="../../../assets/images/webMainImage/entrePot/datapower3.png" class="cover-img h_250" alt="" />
               <div class="grid-title">体系化的工具技术</div>
               <div class="grid-desc">
                 基于机器学习技术自主研发的数据标准化处理技术，自主可配的数据分析工具，图表并茂的可视化展现方式
@@ -177,10 +121,7 @@
           <div class="section-title mb_20">集散中心大数据衍生服务</div>
           <div class="grid">
             <div class="grid-col col-bg col-3">
-              <img
-                class="img"
-                src="../../../assets/images/webMainImage/entrePot/data1.png"
-              />
+              <img class="img" src="../../../assets/images/webMainImage/entrePot/data1.png" />
               <div class="grid-title">数据管理服务</div>
               <div class="grid-desc">数据存储|数据更新|数据质量|数据安全</div>
               <div class="grid-details">
@@ -190,10 +131,7 @@
               </div>
             </div>
             <div class="grid-col col-bg col-3">
-              <img
-                class="img"
-                src="../../../assets/images/webMainImage/entrePot/data2.png"
-              />
+              <img class="img" src="../../../assets/images/webMainImage/entrePot/data2.png" />
               <div class="grid-title">数据整合服务</div>
               <div class="grid-desc">数据分析|数据清洗|数据关联</div>
               <div class="grid-details">
@@ -201,10 +139,7 @@
               </div>
             </div>
             <div class="grid-col col-bg col-3">
-              <img
-                class="img"
-                src="../../../assets/images/webMainImage/entrePot/data3.png"
-              />
+              <img class="img" src="../../../assets/images/webMainImage/entrePot/data3.png" />
               <div class="grid-title">数据交换服务</div>
               <div class="grid-desc">数据采集|数据查询|数据下载|EDI接口</div>
               <div class="grid-details">
@@ -212,10 +147,7 @@
               </div>
             </div>
             <div class="grid-col col-bg col-3">
-              <img
-                class="img"
-                src="../../../assets/images/webMainImage/entrePot/data4.png"
-              />
+              <img class="img" src="../../../assets/images/webMainImage/entrePot/data4.png" />
               <div class="grid-title">数据应用服务</div>
               <div class="grid-desc">数据统计|数据分析|数据可视化|数据咨询</div>
               <div class="grid-details">
@@ -229,11 +161,7 @@
           <div class="section-title mb_20">应用案例</div>
           <div class="grid">
             <div class="grid-col col-3">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/yy_01.jpg"
-                class="cover-img"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_01.jpg" class="cover-img" alt="" />
               <div class="grid-title">区域信息共享</div>
               <div class="grid-details">
                 提供数据编码规范、清洗标准与接口标准
@@ -241,11 +169,7 @@
               </div>
             </div>
             <div class="grid-col col-3">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/yy_02.jpg"
-                class="cover-img"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_02.jpg" class="cover-img" alt="" />
               <div class="grid-title">行业主管部门监管</div>
               <div class="grid-details">
                 为卫生、医保、药监等行业主管部门对医药全流程采购行为、流通秩序、货款结算、
@@ -253,22 +177,14 @@
               </div>
             </div>
             <div class="grid-col col-3">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/yy_03.jpg"
-                class="cover-img"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_03.jpg" class="cover-img" alt="" />
               <div class="grid-title">医药供应链系统</div>
               <div class="grid-details">
                 医药流通数据标准为海量医药数据集成提供编码规范、接口标准与口径标准
               </div>
             </div>
             <div class="grid-col col-3">
-              <img
-                src="http://www.yjsds.com/static/web/images/bigdata/yy_04.jpg"
-                class="cover-img"
-                alt=""
-              />
+              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_04.jpg" class="cover-img" alt="" />
               <div class="grid-title">交易运营实时监测</div>
               <div class="grid-details">
                 医药交易注册、产品挂牌、合同签订、交易、交收、货款结算、评价全流程业务
@@ -285,6 +201,8 @@
   </div>
 </template>
 <script>
+import { logout } from "@/api/aksApi/platformApi/loginApi";
+
 export default {
   data() {
     return {
@@ -295,7 +213,7 @@ export default {
       ],
     };
   },
-  created() {},
+  created() { },
   methods: {
     // getImageUrl(name) {
     //   console.log(new URL(`@/assets/images/webMainImage/entrePot/${name}`, 'http://localhost:8082'));
@@ -303,10 +221,49 @@ export default {
     //   return new URL('');
     // },
 
-    getapp(){
+    getapp() {
       console.log(1111);
-   this.$router.push("/webUnderConstruction");
+      this.$router.push("/webUnderConstruction");
     },
+    toPay() {
+      let vuex_user = this.$store.state.vuex_user;
+      console.log(vuex_user);
+      if (!vuex_user || !vuex_user.sysType) {// 未登录
+        this.$store.commit("switchPlatform", "supplier");
+        this.$router.push("/login");
+      } else if (vuex_user.sysType == 3) {// 供应商已登录
+        this.$router.push({ name: "supplierPendingPayMent" });
+
+      } else {// 非供应商登录状态
+        logout()
+          .then((res) => {
+            console.log(res);
+            if (res.code == 200) {
+              this.$store.commit("$uStore", {
+                name: "vuex_token.tokenHead",
+                value: "",
+              });
+              this.$store.commit("$uStore", {
+                name: "vuex_user",
+                value: {},
+              });
+              let msg = this.$message.success('跳转中');
+              // 清楚本地存储,重置路由
+              setTimeout(() => {
+                // window.location.href = `${location.origin}/`;
+                localStorage.clear();
+                this.$store.commit("switchPlatform", "supplier");
+                this.$router.push("/login");
+                msg.close()
+              }, 800);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch((err) => { });
+
+      }
+    }
   },
 };
 </script>
@@ -318,11 +275,12 @@ export default {
   min-height: calc(100vh - 166px);
   background-color: #fff;
   color: #515a6e;
+
   .content-top {
     width: 100%;
     height: 400px;
     color: #fff;
-    background: #e13b07;
+    background: #fb5dcf;
 
     &-inner {
       display: flex;
@@ -347,8 +305,7 @@ export default {
       border-radius: 10px;
     }
 
-    .inner-img {
-    }
+    .inner-img {}
   }
 
   .content-center {
@@ -427,8 +384,7 @@ export default {
           background: #eef1fa;
         }
 
-        .col-3 {
-        }
+        .col-3 {}
       }
     }
 

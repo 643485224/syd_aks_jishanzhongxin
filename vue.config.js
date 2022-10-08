@@ -10,7 +10,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串
   devServer: {
-    public: '199.168.22.18', //设置本地启动的地址
+    // public: '199.168.22.26', //设置本地启动的地址
+    public: require('os').networkInterfaces()[Object.keys(require('os').networkInterfaces())[0]][1].address + ':8081',
     port: 8081, //设置本地启动的端口号以侦听
     hotOnly: false, //启用热模块替换，而无需页面刷新作为构建失败时的回退
     proxy: {

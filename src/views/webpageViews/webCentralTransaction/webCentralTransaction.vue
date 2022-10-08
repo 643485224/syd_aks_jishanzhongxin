@@ -191,7 +191,7 @@
       </div>
       <div class="content-four">
         <el-tabs v-model="activeName2" @tab-click="handleClick">
-          <el-tab-pane label="药品交易目录" name="third">
+          <el-tab-pane label="药品交易行情" name="third">
             <div class="four-table">
               <table>
                 <div class="four_table_title">
@@ -217,7 +217,7 @@
               </vue-seamless-scroll>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="器械交易目录" name="fourth">
+          <el-tab-pane label="器械交易行情" name="fourth">
             <div class="four-table">
               <table>
                 <div class="four_table_title">
