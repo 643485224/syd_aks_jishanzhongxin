@@ -1,0 +1,131 @@
+.page-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
+.label {
+  margin-right: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00023a;
+}
+
+.small-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff480e;
+}
+
+.content-top {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0px 120px 40px;
+  // border-bottom: 1px solid #cbcbcb;
+
+  .price {
+    font-size: 48px;
+    font-weight: bold;
+    color: #ff480e;
+  }
+  .left,.right {
+    flex:1;
+  }
+  .left {
+    .info-box {
+      width: 80%;
+      text-align: center;
+      padding: 40px;
+      border: 1px solid #cbcbcb;
+      span {
+        margin: 0 10px;
+      }
+    }
+  }
+  .right {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    .price {
+      margin: 20px 0;
+    }
+  }
+
+  .center {
+    flex: 1;
+    text-align: center;
+  }
+  .btn_ff480e,
+  .btn_156CC2 {
+    border-radius: 4px;
+    width: 120px;
+  }
+}
+
+.content-center {
+  display: flex;
+  font-weight: bold;
+  color: #00023a;
+
+  .left,
+  .right {
+    flex: 1;
+    &-content {
+      font-size: 16px;
+      border: 1px solid #cbcbcb;
+    }
+  }
+  .settle-item {
+    margin: 10px 0;
+  }
+  .left-content {
+    height: calc(100% - 50px);
+  }
+  .right-content {
+    display: flex;
+    flex-wrap: wrap;
+    .settle-item {
+      width: 50%;
+    }
+  }
+}
+
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 20px 0 30px;
+  font-size: 14px;
+
+  .search-item {
+    margin-right: 18px;
+
+    .el-input {
+      width: 230px;
+    }
+    ::v-deep .el-input__inner {
+      height: 31px;
+    }
+    ::v-deep .el-range-editor.el-input__inner {
+      width: 250px;
+      height: 31px !important;
+    }
+
+    ::v-deep .el-input__icon {
+      line-height: 1;
+    }
+  }
+
+  .search-btn {
+    height: 32px;
+    background: #ff480e;
+    border: none;
+    border-radius: 4px 4px 4px 4px;
+  }
+}

@@ -1,0 +1,72 @@
+.page-container {
+    height: 100%;
+    padding: 20px;
+    overflow: auto;
+    font-size: 16px;
+    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+.enterprise-info {
+    .info {
+        padding: 10px 5px;
+        color: #00023a;
+
+        &-title {
+            padding: 6px 0;
+            font-size: 16px;
+            font-weight: 500;
+            font-weight: 600;
+        }
+
+        &-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            width: calc(100% / 2 - 20px);
+            padding: 6px 0;
+            font-size: 14px;
+            margin: 4px 0;
+
+            .label {
+                width: 100px;
+                margin-right: 10px;
+                text-align: right;
+                color: #999999;
+            }
+
+        }
+
+        .operate-item {
+            @extend .info-item;
+            align-items: baseline;
+            width: 70%;
+
+            .operate-desc {
+                flex: 1;
+                padding-right: 20px;
+            }
+
+            .operate-btn {
+                color: #ff480e;
+            }
+        }
+    }
+}
+
+.form {
+    width: 60%;
+    margin: 40px auto 0;
+
+    .form-btn {
+        position: absolute;
+        margin-left: 20px;
+        height: 34px;
+    }
+}

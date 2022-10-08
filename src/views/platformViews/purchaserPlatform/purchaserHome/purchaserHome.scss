@@ -1,0 +1,199 @@
+// 全屏模式下使用背景
+// @media screen and (min-height: 1080px) {
+//     .page-container {
+//         background: url('~@/components/image/BG.svg') no-repeat center 0px;
+//         padding: 40px;
+//     }
+// }
+
+.page-container {
+    width: 100%;
+    height: calc(100% - 40px);
+    color: #fff;
+    font-size: 16px;
+    overflow: auto;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+}
+
+// 卡片
+.card {
+    padding: 20px;
+    border: 1px solid #206ed4;
+}
+
+.cards_list {
+    display: flex;
+    margin-bottom: 38px;
+
+    .card_logo {
+        min-width: 350px;
+        height: 349px;
+        margin-right: 38px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .logo_img {
+            width: 138px;
+            height: 138px;
+        }
+
+        .logo_title {
+            margin-top: 20px;
+            margin-bottom: 4px;
+        }
+
+    }
+
+    .card_pie {
+        flex: 1;
+        min-width: 680px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.card_line {
+    width: 100%;
+    min-width: 1068px;
+    height: 400px;
+    margin-bottom: 38px;
+}
+
+
+
+// 销售相关表格
+.sale-tables {
+    width: 100%;
+    min-width: 1068px;
+    font-weight: 500;
+    color: #ffffff;
+
+    &-header {}
+
+    &-title {
+        font-size: 20px;
+    }
+
+    &-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 36px 0px 36px;
+    }
+
+    &-item {
+        width: 48%;
+
+        &:first-child {
+            margin-right: 4%;
+        }
+
+        .table-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 16px;
+
+            .light {
+                margin-left: 6px;
+                color: #ff480e;
+                vertical-align: text-top;
+            }
+
+            .more {}
+        }
+
+        .sale-table {
+            width: 100%;
+            font-weight: 500;
+
+            ::v-deep .el-table {
+                background-color: transparent !important;
+
+                .el-table__body-wrapper::-webkit-scrollbar {
+                    display: none;
+                    // width: 4px; // 横向滚动条
+                    // height: 4px; // 纵向滚动条 必写
+                }
+
+                .el-table__body-wrapper::-webkit-scrollbar-thumb {
+                    display: none;
+                    // border-radius: 15px;
+                    // background-color: #60626680;
+                }
+
+                // 有滚动条时，多出来的一块
+
+                th.el-table__cell.gutter {
+                    background: transparent !important;
+                }
+
+                th {
+                    background-color: #cbcbcb !important;
+                }
+
+                tr {
+                    background-color: transparent !important;
+                }
+
+                .el-table__expanded-cell {
+                    background-color: transparent !important;
+                }
+
+                thead {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #00023a;
+                    background-color: #cbcbcb !important;
+
+                    .el-table__cell {
+                        height: 42px;
+                        text-align: center;
+                        padding: 0;
+                        line-height: normal;
+
+                        &:not(:nth-last-child(2)) {
+                            border-right: 1px solid #00023a;
+                        }
+
+                        &:last-child {
+                            border-right: 1px solid #ffffff;
+                        }
+                    }
+
+                    .gutter {
+                        display: none;
+                        // background-color: transparent !important;
+                    }
+                }
+
+                .el-table_row {
+                    height: 42px;
+                }
+
+                tbody {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #eeeeee;
+
+                    .el-table__cell {
+                        height: 42px;
+                        margin: 1px;
+                        padding: 0;
+                        text-align: center;
+                        border: 1px solid #cbcbcb;
+                        background-color: transparent !important;
+                    }
+                }
+
+                .el-table__empty-block {
+                    border: 1px solid;
+                }
+            }
+        }
+    }
+}

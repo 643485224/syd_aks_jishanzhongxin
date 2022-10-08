@@ -1,0 +1,183 @@
+.content_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 166px - 170px);
+
+    .content_one {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .one_div {
+            width: 1200px;
+            height: 400px;
+            background: #FFFFFF;
+        }
+    }
+
+    .content_two {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .two_div {
+            width: 1200px;
+            background: #FFFFFF;
+            min-height: 250px;
+            display: flex;
+
+            .two_div_image {
+                width: 580px;
+                margin-right: 40px;
+
+                .two_div_imageItem {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .two_div_txt {
+                width: 580px;
+                padding: 20px 20px 20px 0px;
+
+
+                .two_div_txt_title {
+                    font-size: 24px;
+                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                    font-weight: 500;
+                    color: #00023A;
+                }
+
+                .two_div_txt_describe {
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #999999;
+                }
+
+                .two_div_txt_body {
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #00023A;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .two_div_txt_body_txt {
+                        width: 380px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis
+                    }
+
+                    .two_div_txt_body_time {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis
+                    }
+                }
+
+                .two_div_txt_body:hover {
+                    color: #156cc2;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .content_three {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .three_div {
+            padding: 20px;
+            width: 1200px;
+            min-height: 250px;
+            background: #FFFFFF;
+
+            .three_right_title {
+                font-size: 24px;
+                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-weight: 500;
+                color: #00023A;
+                margin-bottom: 10px;
+            }
+
+            .three_right_FG {
+                width: 100%;
+                height: 1px;
+                background: #FF480E;
+                margin-bottom: 10px;
+            }
+
+            .three_right_tabsListHeight {
+                min-height: 252px;
+
+                .three_right_tabsList {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #00023A;
+                    margin-bottom: 10px;
+
+                    .tabsList_title {
+                        width: 680px;
+                        white-space: nowrap; //内容超宽后禁止换行显示
+                        overflow: hidden; //超出部分隐藏
+                        text-overflow: ellipsis; //文字超出部分以省略号显示
+                    }
+                }
+
+                .three_right_tabsList:hover {
+                    color: #156cc2;
+                    text-decoration: underline;
+                }
+            }
+
+
+            .three_right_page {
+                margin-top: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        }
+    }
+}
+
+
+// 分页样式-选中后橙色底白字
+::v-deep .ivu-page-item-active {
+    border-color: #FF480E;
+    background-color: #FF480E;
+
+    a {
+        color: #FFFFFF;
+    }
+}
+
+::v-deep .ivu-page-item:hover {
+    border-color: #FF480E;
+    background-color: #FF480E;
+
+    a {
+        color: #FFFFFF;
+    }
+}
+
+::v-deep .ivu-page-next:hover {
+    border-color: #FF480E;
+    background-color: #FF480E;
+
+    a {
+        color: #FFFFFF;
+    }
+}

@@ -1,0 +1,267 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex_ac {
+  display: flex;
+  align-items: center;
+}
+
+.flex_fc_ac {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.flex_jc {
+  display: flex;
+  justify-content: center;
+}
+
+.flex_ac_jb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex_ac_je {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.flex_jb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex_fc_jc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flex_1 {
+  flex: 1;
+}
+
+// 内容区宽高
+.content-box {
+  height: calc(100vh - 76px - 14px - 68px - 18px - 20px - 20px);
+  // height: 100%;
+  // width: calc(100vw - 270px - 20px - 20px - 20px - 20px);
+  padding: 20px;
+  overflow: auto;
+}
+
+// 全局按钮
+.el-button--primary {
+  height: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  // border-radius: 8px;
+  border-radius: 2px;
+  margin: 0px;
+}
+
+
+
+
+.el-button--default {
+  height: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  // border-radius: 8px;
+  border-radius: 2px;
+  margin: 0px;
+}
+
+// 按钮颜色
+.btn_00C514 {
+  height: 32px;
+  background: #00C514 !important;
+  color: #ffffff !important;
+  border-color: #00C514 !important;
+}
+
+.btn_ff480e {
+  height: 32px;
+  background: #ff480e !important;
+  color: #ffffff !important;
+  border-color: #ff480e !important;
+}
+
+.btn_156CC2 {
+  height: 32px;
+  background: #156CC2 !important;
+  color: #ffffff !important;
+  border-color: #156CC2 !important;
+}
+
+.c_00C514 {
+  color: #00C514 !important;
+}
+.c_ff480e {
+  color: #ff480e !important;
+}
+
+.c_156CC2 {
+  color: #156CC2 !important;
+}
+
+// 表格里的输入框
+.table_el_input {
+  .el-input__inner {
+    border: none;
+    outline: none;
+    text-align: center;
+  }
+
+}
+
+.el-input-number {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  line-height: 38px;
+}
+
+// 弹框中取消按钮
+.el-button--text.el-button--mini {
+  // height: 28px;
+  // padding-top: 0px;
+  // padding-bottom: 0px;
+  // border-radius: 8px;
+  // border: 1px solid red;
+  // padding: 0px 15px;
+  // margin: 0px 0px 0px 0px;
+}
+
+// 弹框中确定按钮
+.el-button--primary.el-button--mini {
+  height: 28px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-radius: 8px;
+  margin: 0px 0px 0px 10px;
+}
+
+.el-button--primary.is-disabled {
+  background: #828282 !important;
+  border-color: #828282 !important;
+}
+
+//  表格复选框
+.el-checkbox {
+
+  //修改选中框的大小
+  .el-checkbox__inner {
+    width: 20px;
+    height: 20px;
+
+    //修改选中框中的对勾的大小和位置
+    &::after {
+      height: 12px;
+      left: 7px;
+    }
+  }
+}
+
+// 全局默认浮动
+.Hover:hover {
+  transform: scale(1.04);
+}
+
+/* 日历样式 控制footer下的按钮 2022-07-21 00:00:00 至 2022-07-22 00：00：00 */
+.elDatePicker {
+  .el-picker-panel__footer {
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  .el-button {
+    width: 60px;
+    height: 40px;
+  }
+
+  .el-button--text {
+    width: 60px;
+    height: 40px;
+  }
+}
+
+// 操作按钮
+.operation-btn {
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+}
+
+// 必填
+.require {
+  color: #ff480e;
+}
+
+// //滚动条的宽度
+// .scrollbar::-webkit-scrollbar {
+//   width: 10px;
+//   height: 10px;
+// }
+// //滚动条的滑块
+// .scrollbar::-webkit-scrollbar-thumb {
+//   background-color: #a1a3a9;
+//   border-radius: 3px;
+// }
+// 如果是整个页面的滚动条风格是一致的，直接改全局的滚动条样式也可以有效果
+//滚动条的宽度
+// .scrollbar
+// ::-webkit-scrollbar {
+//   width: 10px;
+//   height: 10px;
+// }
+// //滚动条的滑块
+// ::-webkit-scrollbar-thumb {
+//   background-color: red;
+//   border-radius: 3px;
+// }
+// ::-webkit-scrollbar-track {
+//   /*滚动条里面轨道样式*/
+//   -webkit-box-shadow: inset 0 0 5px rgba(223, 223, 223, 0.2);
+//   border-radius: 100px;
+//   background: rgba(0, 0, 0, 0.1);
+// }
+.cursor_p {
+  cursor: pointer;
+}
+
+.page-container {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+  font-weight: 400;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.table-page {
+  min-width: calc(1200px - 220px - 40px);
+  color: #00023a !important;
+  background: #fff;
+}
+
+// .table-page-item {
+//   background: url(../src//cuview-ui/components/cu-table/image/tableBackground.png) !important;
+
+// }
+
+
+.aDisabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

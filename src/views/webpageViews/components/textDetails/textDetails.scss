@@ -1,0 +1,49 @@
+.content_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 166px - 170px);
+}
+
+.content_body_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    width: 1200px;
+    background: #ffffff;
+}
+
+.content_one {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 20px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #00023A;
+}
+
+.content_two {
+    width: 1134px;
+    margin-top: 3px;
+    height: 45px;
+    line-height: 45px;
+    background: #EEEEEE;
+    text-align: center;
+    font-size: 14px;
+    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+    font-weight: 400;
+    color: #999999;
+}
+
+.content_three {
+    margin-top: 25px;
+    width: 1131px;
+    font-size: 14px;
+    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+    font-weight: 400;
+    color: #000000;
+    line-height: 31px;
+    margin-bottom: 22px;
+}

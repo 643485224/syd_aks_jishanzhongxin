@@ -1,0 +1,118 @@
+.content_one {
+    width: 100%;
+    height: 400px;
+    background: #E13B07;
+    display: flex;
+    justify-content: center;
+
+    .content_one1 {
+        width: 1200px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .content_one11 {
+            .content_one111 {
+                font-size: 60px;
+                font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+                font-weight: bold;
+                color: #FFFFFF;
+            }
+
+            .content_one112 {
+                font-size: 24px;
+                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-weight: 500;
+                color: #FFFFFF;
+            }
+        }
+
+        .content_one12 {
+            width: 508px;
+            height: 339px;
+            background: url("./image/webNoticeAndAnnouncement_1.png");
+        }
+    }
+
+}
+
+.content_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FFFFFF;
+}
+
+.content_two {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #020552;
+}
+
+.content_three {
+    margin-top: 27px;
+    width: 1200px;
+
+    .content_three1 {
+        font-size: 14px;
+        font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+        font-weight: 400;
+        color: #00023A;
+        text-indent: 2em;
+    }
+}
+
+.content_four {
+    margin-top: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #020552;
+}
+
+.content_five {
+    margin-top: 69px;
+    width: 1200px;
+    font-size: 14px;
+    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+    font-weight: 400;
+    color: #00023A;
+
+    .content_five1 {}
+
+    .content_five2 {
+        margin-top: 10px;
+    }
+
+    .content_five3 {
+        margin-top: 10px;
+    }
+
+    .content_five4 {
+        margin-top: 10px;
+    }
+
+    .content_five5 {
+        margin-top: 10px;
+    }
+}
+
+.content_six {
+    margin-top: 52px;
+    width: 1200px;
+    height: 366px;
+    background: #E13B07;
+    position: relative;
+}
+
+.content_seven {
+    margin-top: 86px;
+}

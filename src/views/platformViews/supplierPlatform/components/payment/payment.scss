@@ -1,0 +1,87 @@
+// 在线支付弹框
+.onlinePayment {
+  .onlinePayment_one {
+    width: 100%;
+    font-size: 32px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #00023a;
+  }
+
+  .onlinePayment_two {
+    width: 100%;
+    height: 80px;
+    background: #eeeeee;
+
+    .el_radio_1 {
+      display: inline-block;
+      width: 300px;
+      padding-left: 20px;
+      font-size: 20px;
+
+    }
+    .el_radio_2 {
+      font-size: 16px;
+
+    }
+    .el-radio {
+      height: 80px;
+      line-height: 80px;
+    }
+  }
+}
+
+// 输入密码弹框
+.inputPassword {
+  width: 100%;
+
+  .el_row {
+    margin-top: 20px;
+    width: 400px;
+
+    .el_col {
+      display: flex;
+      align-items: center;
+
+      .title {
+        width: 120px;
+        text-align: right;
+        margin-right: 20px;
+      }
+
+      .el_input {
+        width: 300px;
+
+        ::v-deep .el-input__inner {
+          border-radius: 0px 0px 0px 0px;
+        }
+      }
+    }
+  }
+}
+
+// 支付收银台弹框
+.paymentCashier {
+  height: 262px;
+
+  .paymentCashier_one {
+    height: 80px;
+    width: 80px;
+    // background: rebeccapurple;
+    background: url("./image/success.png");
+  }
+
+  .paymentCashier_two {
+    font-size: 32px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #00c514;
+  }
+
+  .paymentCashier_three {
+    font-size: 32px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #00023a;
+  }
+}

@@ -1,0 +1,109 @@
+.page-container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+}
+
+
+.trade-tabs {
+    display: flex;
+    width: 100%;
+    min-height: 60vh;
+    // border: 1px solid #206ED4;
+
+    .el-tabs {
+        width: 100%;
+
+        ::v-deep .el-tabs__item {
+            font-size: 14px;
+            font-weight: 500;
+            // color: rgba(255, 255, 255, 0.4);
+        }
+
+        ::v-deep .is-active {
+            // color: #fff;
+        }
+
+        ::v-deep .el-tabs__nav-wrap::before {
+            content: '';
+            width: 0 !important;
+        }
+
+        ::v-deep .el-tabs__nav-wrap::after {
+            content: '';
+            width: 0 !important;
+        }
+
+        /* 去除底部蓝色 */
+        ::v-deep .el-tabs__active-bar {
+            background: rgba(0, 0, 0, 0.1);
+            height: 0 !important;
+        }
+    }
+}
+
+// 订单详情(待收货)
+.contentBox_distinguis_one {
+    .distinguis_Title {
+        height: 40px;
+        font-size: 20px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+        text-align: center;
+    }
+}
+
+// 订单详情(已收货)
+.contentBox_distinguis_two {
+    .distinguis_Title {
+        height: 40px;
+        font-size: 20px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+        text-align: center;
+    }
+}
+
+.logistics-details {
+    display: flex;
+    padding: 50px;
+    font-size: 16px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 500;
+
+    .info {
+        height: 50vh;
+        margin-right: 62px;
+        overflow: auto;
+
+        .info-top {
+            color: #00023A;
+            padding-bottom: 40px;
+
+        }
+
+        .stage {
+            .stage-item:not(:last-child) {
+                padding-bottom: 40px;
+            }
+        }
+
+    }
+
+    .map {
+        flex: 1;
+    }
+}
+
+// 返回上一页按钮位置
+.Buttonposition {
+    position: absolute;
+    z-index: 999;
+}

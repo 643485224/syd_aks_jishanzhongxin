@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+  <!-- <link rel="icon" href="static/images/Logo.png" type="images/Logo.png">
+  <link rel="shortcut icon" href="static/images/Logo.png" type="images/Logo.png"> -->
+
+  <title>网数融综管运服平台</title>
+  <style>
+    /* .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%);
+        font-size: 16px;
+        color: #cbcbcb;
+      } */
+    /* /deep/.el-loading-spinner .circular {
+        height: 82px;
+        width: 82px;
+        animation: loading-rotate 2s linear infinite;
+      }
+      @keyframes loading-rotate {
+        100% {
+          transform: rotate(1turn);
+        }
+      } */
+    html,
+    body,
+    #app {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .preload {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      letter-spacing: 1px;
+      background: #2f3447;
+      /* background-image: url('LoginBg.png'); */
+      /* background-image: url("https://file.digitaling.com/eImg/uimages/20150907/1441607116441149.gif"); */
+
+    }
+
+    .preload .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      user-select: none;
+      flex-grow: 1;
+    }
+
+    .preload .name {
+      font-size: 30px;
+      color: #fff;
+      letter-spacing: 5px;
+      font-weight: bold;
+    }
+
+    .preload .loading {
+      height: 120px;
+      width: 120px;
+    }
+
+    .preload .title {
+      color: #fff;
+      font-size: 14px;
+      margin: 20px;
+    }
+
+    .preload .sub-title {
+      color: #ababab;
+      font-size: 12px;
+    }
+
+    .preload .footer {
+      text-align: center;
+      padding: 10px 0 20px 0;
+    }
+
+    .preload .footer a {
+      font-size: 12px;
+      color: #ababab;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+      properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <!-- <div id="app">
+    <div class="loading">loading...
+      <div class="el-loading-spinner">
+        <svg viewBox="25 25 50 50" class="circular">
+          <circle cx="50" cy="50" r="20" fill="none" class="path"></circle>
+        </svg>
+      </div>
+    </div>
+  </div> -->
+
+  <div id="app">
+    <div class="preload">
+      <div class="container">
+        <p class="name">阿克苏集散中心</p>
+        <img class="loading" src="loading.gif">
+        <p class="title">正在加载资源...</p>
+        <p class="sub-title">初次加载资源可能需要较多时间 请耐心等待</p>
+      </div>
+
+      <div class="footer">
+        <a href="" target="_blank"> 网数融综管运服平台 </a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- built files will be auto injected -->
+</body>
+<script>
+  // 自动计算图片大小
+  window.autosize = (ImgD, h, w) => {
+      var image = new Image();
+      image.src = ImgD.src;
+      image.onload = () => {
+        if (image.width < w && image.height < h) {
+          ImgD.width = image.width;
+          ImgD.height = image.height;
+        } else {
+          if (w / h <= image.width / image.height) {
+            ImgD.width = w;
+            ImgD.height = w * (image.height / image.width);
+          } else {
+            ImgD.width = h * (image.width / image.height);
+            ImgD.height = h;
+          }
+        }
+      }
+    }
+    (function flexible(window, document) {
+      var docEl = document.documentElement
+      var dpr = window.devicePixelRatio || 1
+
+      // adjust body font size
+      function setBodyFontSize() {
+        if (document.body) {
+          document.body.style.fontSize = (12 * dpr) + 'px'
+        } else {
+          document.addEventListener('DOMContentLoaded', setBodyFontSize)
+        }
+      }
+
+      setBodyFontSize();
+
+      // set 1rem = viewWidth / 10
+      function setRemUnit() {
+        var docEl = document.documentElement
+        var rem = docEl.clientWidth / 10
+        if (document.getElementById("login-form")) {
+
+          if (rem > docEl.style.fontSize.split('px')[0] && document.body.clientHeight - document.getElementById(
+              "login-form").offsetHeight < 150) {
+            return;
+          }
+        }
+        docEl.style.fontSize = (rem > 180 ? 180 : rem) + 'px'
+      }
+
+      setRemUnit()
+      window.setRemUnit = setRemUnit;
+
+      // reset rem unit on page resize
+      window.addEventListener('resize', setRemUnit)
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+          setRemUnit()
+        }
+      })
+
+      // detect 0.5px supports
+      if (dpr >= 2) {
+        var fakeBody = document.createElement('body')
+        var testElement = document.createElement('div')
+        testElement.style.border = '.5px solid transparent'
+        fakeBody.appendChild(testElement)
+        docEl.appendChild(fakeBody)
+        if (testElement.offsetHeight === 1) {
+          docEl.classList.add('hairlines')
+        }
+        docEl.removeChild(fakeBody)
+      }
+    }(window, document))
+</script>
+
+</html>

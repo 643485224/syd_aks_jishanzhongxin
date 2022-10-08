@@ -1,0 +1,225 @@
+.content-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 166px - 170px);
+
+    .content-one {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .one-div {
+            width: 1200px;
+            min-height: 380px;
+            display: flex;
+
+            .one-left {
+                width: 230px;
+                min-height: 396px;
+                background: #FFFFFF;
+                margin-right: 20px;
+
+                .one-left-title {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 30px;
+
+                    .one-left-titleIconName {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .one-left-titleIcon {
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 10px;
+                        }
+
+                        .one-left-titleName {
+                            font-size: 18px;
+                            font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                            font-weight: 600;
+                            color: #00023A;
+                        }
+                    }
+
+                    .one-left-titleEnglish {
+                        font-size: 12px;
+                        font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                        font-weight: 400;
+                        color: #999999;
+                    }
+
+                }
+
+                .one-left-item {
+                    height: 48px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                    font-weight: 600;
+                    color: #00023A;
+                }
+
+                .active {
+                    color: #FFFFFF;
+                    background: #FF480E;
+                }
+            }
+
+            .one-right {
+                width: 950px;
+                min-height: 396px;
+                background: #FFFFFF;
+                padding: 30px 20px 20px 20px;
+
+                .one-right-title {
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                    font-weight: 500;
+                    color: #00023A;
+                    margin-bottom: 10px;
+                }
+
+                .one-right-FG {
+                    width: 100%;
+                    height: 1px;
+                    background: #FF480E;
+                    margin-bottom: 10px;
+                }
+
+                .one-right-tabsListHeight {
+                    min-height: 252px;
+
+                    .one-right-tabsList {
+                        display: flex;
+                        width: 900px;
+                        justify-content: space-between;
+                        font-size: 14px;
+                        font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                        font-weight: 400;
+                        color: #00023A;
+                        margin-bottom: 10px;
+
+                        .tabsList-title {
+                            width: 680px;
+                            white-space: nowrap; //内容超宽后禁止换行显示
+                            overflow: hidden; //超出部分隐藏
+                            text-overflow: ellipsis; //文字超出部分以省略号显示
+                        }
+                    }
+
+                    .one-right-tabsList:hover {
+                        color: #156cc2;
+                        text-decoration: underline;
+                    }
+                }
+
+
+                .one-right-page {
+                    margin-top: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+
+
+
+
+        }
+    }
+
+
+
+    .content-two {
+        margin: 20px 0px;
+        height: 180px;
+        width: 1200px;
+        background: #FFFFFF;
+        padding: 20px;
+
+        .two-title {
+            span:nth-child(1) {
+                font-size: 24px;
+                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-weight: 500;
+                color: #156CC2;
+            }
+
+            span:nth-child(2) {
+                font-size: 12px;
+                font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                font-weight: 400;
+                color: #999999;
+            }
+        }
+    }
+}
+
+// 分页样式-选中后橙色底白字
+::v-deep .ivu-page-item-active {
+    border-color: #FF480E;
+    background-color: #FF480E;
+
+    a {
+        color: #FFFFFF;
+    }
+}
+
+::v-deep .ivu-page-item:hover {
+    border-color: #FF480E;
+    background-color: #FF480E;
+
+    a {
+        color: #FFFFFF;
+    }
+}
+
+::v-deep .ivu-page-next:hover {
+    border-color: #FF480E;
+    background-color: #FF480E;
+
+    a {
+        color: #FFFFFF;
+    }
+}
+
+
+
+// 弹框样式
+.detailTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 600;
+    color: #000000;
+}
+
+.detailTime {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 12px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 400;
+}
+
+.detail {
+    font-size: 18px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    font-weight: 400;
+    color: #000000;
+    text-indent: 2em;
+}

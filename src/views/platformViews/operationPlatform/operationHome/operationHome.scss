@@ -1,0 +1,241 @@
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.page-container {
+  width: 100%;
+  min-width: calc(1200px - 220px - 40px);
+  height: calc(100% - 40px);
+  overflow: auto;
+  // padding-bottom: 40px;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
+.statistics-cards {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .card-item {
+    width: calc((100% - 100px) / 3);
+    height: 349px;
+    margin-bottom: 35px;
+    padding: 20px;
+    border: 1px solid #206ed4;
+
+    &:not(:nth-child(3n + 3)) {
+      margin-right: 50px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+  }
+
+  .echart-wrap {
+    padding: 0;
+  }
+
+  // logo展示
+  .logo-card {
+    .card-content {
+      text-align: center;
+    }
+  }
+
+  // 交易统计
+  .trade-card {
+    padding: 10px;
+    .card-content {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      height: calc(100% - 70px);
+      align-items: center;
+    }
+
+    .trade-amount,
+    .trade-count {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px 10px;
+      margin: 6px;
+      text-align: center;
+      border-radius: 0px 0px 0px 0px;
+      opacity: 1;
+      border: 1px solid #107eff;
+
+      &-num {
+        font-size: 44px;
+        font-weight: bold;
+        color: #107eff;
+      }
+
+      &-text {
+        font-size: 14px;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.logo-card {
+  .card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .logo {
+      width: 138px;
+      height: 138px;
+      margin-bottom: 28px;
+    }
+  }
+}
+
+// 年度采购趋势
+.purcharse-trend {
+  width: 100%;
+  height: 466px;
+  margin-bottom: 40px;
+  border: 1px solid #206ed4;
+}
+
+// 销售相关表格
+.sale-tables {
+  width: 100%;
+  // height: 466px;
+  padding: 20px;
+  border: 1px solid #206ed4;
+  font-weight: 500;
+  color: #ffffff;
+
+  &-header {
+  }
+
+  &-title {
+    font-size: 20px;
+  }
+
+  &-content {
+    display: flex;
+    // flex-wrap: wrap;
+    margin: 10px 36px;
+  }
+
+  &-item {
+    width: calc((100% - 77px) / 2);
+    // margin-right: 77px;
+    &:first-child {
+      margin-right: 77px;
+    }
+
+    .table-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+
+      .light {
+        margin-left: 6px;
+        color: #ff480e;
+        vertical-align: text-top;
+      }
+
+      .more {
+      }
+    }
+
+    .sale-table {
+      width: 100%;
+      font-weight: 500;
+
+      ::v-deep .el-table {
+        background-color: transparent !important;
+        .el-table__body-wrapper {
+          overflow-x: auto;
+          border-left: 1px solid #fff;
+          border-right: 1px solid #fff;
+        }
+
+        // 有滚动条时，多出来的一块
+
+        th.el-table__cell.gutter {
+          background: transparent !important;
+        }
+
+        th {
+          background-color: #cbcbcb !important;
+        }
+
+        tr {
+          background-color: transparent !important;
+        }
+
+        .el-table__expanded-cell {
+          background-color: transparent !important;
+        }
+
+        thead {
+          font-size: 14px;
+          font-weight: 500;
+          color: #00023a;
+          background-color: #cbcbcb !important;
+
+          .el-table__cell {
+            height: 42px;
+            text-align: center;
+            padding: 0;
+            line-height: normal;
+
+            &:not(:nth-last-child(2)) {
+              border-right: 1px solid #00023a;
+            }
+
+            &:last-child {
+              border-right: 1px solid #ffffff;
+            }
+          }
+
+          .gutter {
+            display: none;
+            // background-color: transparent !important;
+          }
+        }
+
+        .el-table_row {
+          height: 42px;
+        }
+
+        tbody {
+          font-size: 14px;
+          font-weight: 500;
+          color: #eeeeee;
+
+          .el-table__cell {
+            height: 42px;
+            margin: 1px;
+            padding: 0;
+            text-align: center;
+            border: 1px solid #cbcbcb;
+            background-color: transparent !important;
+          }
+        }
+
+        .el-table__empty-block {
+          border: 1px solid;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,513 @@
+.content-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 166px - 170px);
+
+    .content-LBs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+
+        .content-LB {
+            width: 100%;
+            height: 400px;
+            background: #E13B07;
+
+            .headerBox {
+                width: 1200px;
+                padding: 0px 0px 0px 30px;
+                display: flex;
+                align-items: center;
+                margin: auto;
+
+                .headerTitleBox {
+                    width: 70%;
+
+                    .headerTitle {
+                        font-size: 60px;
+                        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                        font-weight: bold;
+                        line-height: 70px;
+                        color: #ffffff;
+                        line-height: 28px;
+                        margin-bottom: 50px;
+                    }
+
+                    .headerTitlePY {
+                        width: 637px;
+                        font-size: 24px;
+                        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                        font-weight: 500;
+                        color: #ffffff;
+                    }
+                }
+
+                .headerImg {
+                    width: 40%;
+                    margin-top: 30px;
+                    height: 356px;
+                    background: url(./image/headerImg.png) no-repeat;
+                }
+            }
+        }
+    }
+
+    .content-btn {
+        width: 1200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px;
+
+        .content_btnItem {
+            padding: 29px 0px 0px 0px;
+            display: flex;
+            width: 300px;
+            height: 160px;
+            justify-content: space-between;
+            position: relative;
+
+            .itemImage {
+                width: 130px;
+                height: 130px;
+                position: absolute;
+                right: 0;
+            }
+
+            .itemBox {
+                .itemTitle {
+                    margin-left: 20px;
+                    font-size: 28px;
+                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                    font-weight: 600;
+                    color: #FFFFFF;
+                    line-height: 28px;
+                    margin-bottom: 10px;
+                    white-space: nowrap;
+                }
+
+                .itemTitlePY {
+                    margin-left: 20px;
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                    font-weight: 700;
+                    color: #FFFFFF;
+                    white-space: nowrap;
+                }
+            }
+        }
+
+        .btnItem_one {
+            background: url(./image/webTradingMall-btn1.png);
+        }
+
+        .btnItem_two {
+            background: url(./image/webTradingMall-btn2.png);
+        }
+
+        .btnItem_three {
+            background: url(./image/webTradingMall-btn3.png);
+        }
+
+        .btnItem_four {
+            background: url(./image/webTradingMall-btn4.png);
+        }
+    }
+
+    .content-two {
+        width: 1200px;
+        background: #FFFFFF;
+        border-radius: 0px 0px 0px 0px;
+        opacity: 1;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .two-div {
+            width: 590px;
+            height: 320px;
+            background: #FFFFFF;
+            border: 1px solid #CBCBCB;
+            box-sizing: border-box;
+            padding: 20px;
+
+            .two-title {
+                span:nth-child(1) {
+                    font-size: 24px;
+                    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                    font-weight: 500;
+                    color: #156CC2;
+                }
+
+                span:nth-child(2) {
+                    font-size: 12px;
+                    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #999999;
+                }
+            }
+
+            .two-body {
+                .two-numberList {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .two-numberListItem {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        width: 160px;
+
+                        .number {
+                            display: flex;
+                            font-size: 40px;
+                            font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+                            font-weight: bold;
+                            color: #3549FF;
+                        }
+
+                        .numberName {
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #00023A;
+                        }
+                    }
+                }
+
+                .two-iconList {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .two-iconitem {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        width: 160px;
+
+                        img {
+                            width: 70px;
+                            height: 70px;
+                        }
+
+                        .iconName {
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #00023A;
+                        }
+                    }
+
+                    .two-iconitem:nth-child(2) {
+                        width: 160px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        img {
+                            width: 70px;
+                            height: 70px;
+                        }
+
+                        .iconName {
+                            font-size: 14px;
+                            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                            font-weight: 400;
+                            color: #00023A;
+                        }
+                    }
+
+                    .two-iconitem:hover {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+    }
+
+    .content-three {
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1200px;
+
+        .three-div {
+            width: 1200px;
+            min-height: 250px;
+            box-sizing: border-box;
+
+            .three-title {
+                display: flex;
+                justify-content: space-between;
+
+                :nth-child(1) {
+                    width: 160px;
+                    height: 60px;
+                    font-size: 40px;
+                    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+                    font-weight: bold;
+                    color: #020552;
+                    line-height: 47px;
+                }
+
+                :nth-child(2) {
+                    padding-top: 25px;
+                    width: 85px;
+                    height: 25px;
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #999999;
+                    line-height: 16px;
+                }
+            }
+
+            .three-body {
+                width: 100%;
+                min-height: 250px;
+                background: #FFFFFF;
+                border-radius: 0px 0px 0px 0px;
+                opacity: 1;
+                border: 1px solid #CBCBCB;
+
+                .tabsList_title {
+                    font-size: 15px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #000000;
+                    line-height: 25px;
+                }
+
+                .tabslist-color {
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #999999;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+
+    .content-four {
+        width: 1200px;
+        margin-top: 50px;
+
+        .four-table {
+            min-height: 350px;
+            background: #FFFFFF;
+            border-radius: 0px 0px 0px 0px;
+            opacity: 1;
+            border: 1px solid #CBCBCB;
+            min-height: 350px;
+
+            .four_table_title {
+                width: 1195px;
+                background: #EEEEEE;
+                display: flex;
+                align-items: center;
+                padding: 10px 20px;
+                font-size: 14px;
+                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-weight: 600;
+                color: #00023A;
+
+                .four_table_Item {
+                    padding: 0px 10px;
+                    white-space: nowrap; //内容超宽后禁止换行显示
+                    overflow: hidden; //超出部分隐藏
+                    text-align: left;
+                    text-overflow: ellipsis; //文字超出部分以省略号显示
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #000000;
+                    line-height: 16px;
+                }
+
+                .four_table_Item:nth-child(1) {
+                    flex: 1;
+                }
+
+                .four_table_Item:nth-child(2) {
+                    flex: 1;
+                }
+
+                .four_table_Item:nth-child(3) {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
+
+.warp {
+    height: 332px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+
+    .item,
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+
+        li,
+        a {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            display: flex;
+            font-size: 15px;
+
+            .title {
+                width: 227px;
+                margin-left: 28px;
+            }
+
+            .item-tilet {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .datamar {
+                margin: 0 62px 0 162px;
+            }
+
+            .date {
+                width: 318px;
+            }
+        }
+    }
+
+    .item-item {
+        width: 100%;
+
+        li {
+            border-top: 1px solid #EEEEEE;
+            box-sizing: border-box;
+            height: 66px;
+            line-height: 32px;
+
+            .item-tilet {
+                span:nth-child(1) {
+                    height: 23px;
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #156CC2;
+                }
+
+                span:nth-child(2) {
+                    font-size: 14px;
+                    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #00023A;
+                    line-height: 32px;
+                }
+            }
+
+            .datamar,
+            .date {
+                font-size: 14px;
+                font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+                font-weight: 400;
+                color: #000000;
+                line-height: 32px;
+            }
+        }
+    }
+}
+
+.datamar,
+.data {
+    font-size: 14px;
+    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+    font-weight: 400;
+    color: #000000;
+    line-height: 32px;
+}
+
+.item {
+    font-size: 14px;
+    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+    font-weight: 400;
+    color: #000000;
+    line-height: 32px;
+}
+
+.three_right_tabsListHeight {
+    min-height: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+
+    .three_right_tabsList {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+        font-weight: 400;
+        color: #00023A;
+        margin-bottom: 10px;
+
+        .tabsList_title {
+            width: 680px;
+            white-space: nowrap; //内容超宽后禁止换行显示
+            overflow: hidden; //超出部分隐藏
+            text-overflow: ellipsis; //文字超出部分以省略号显示
+        }
+    }
+
+    .three_right_tabsList:hover {
+        text-decoration: underline;
+    }
+}
+
+//tabs样式修改
+::v-deep .el-tabs__item.is-active {
+    color: #FF480E;
+}
+
+::v-deep .el-tabs__active-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: #FF480E;
+    z-index: 1;
+    transition: transform .3s cubic-bezier(.645, .045, .355, 1);
+    list-style: none;
+}
+
+::v-deep .el-tabs__item {
+    padding: 0 20px;
+    height: 60px;
+    box-sizing: border-box;
+    line-height: 40px;
+    display: inline-block;
+    list-style: none;
+    font-size: 40px;
+    font-weight: bold;
+    color: #020552;
+    position: relative;
+}
+
+::v-deep .el-tabs__nav-wrap::after {
+    width: 0%;
+}
+
+.content[data-v-2816c258] {
+    margin: 50px 0px;
+    height: 180px;
+    width: 1200px;
+    background: #ffffff;
+    padding: 20px;
+}

@@ -1,0 +1,73 @@
+// 按钮背景色
+.bgOrange {
+    background: #ff480e;
+}
+
+.bgGreen {
+    background: #00c514;
+}
+
+.bgBlue {
+    background: #156cc2;
+}
+.warning-btn {
+    color: #FF480E;
+}
+
+.page-container {
+    width: 100%;
+    min-width: calc(1200px - 220px - 40px);
+    height: 100%;
+    padding: 20px;
+    overflow: auto;
+    padding-bottom: 40px;
+
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+}
+
+.search-bar {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    font-size: 14px;
+
+    .search-item {
+        margin: 4px 10px 4px 0;
+
+        .el-input {
+            width: 230px;
+
+            ::v-deep .el-input__inner {
+                height: 31px;
+            }
+        }
+
+        ::v-deep .el-range-editor.el-input__inner {
+            width: 250px;
+            height: 31px !important;
+        }
+
+        ::v-deep .el-input__icon {
+            line-height: 1;
+        }
+    }
+
+
+
+
+}
+
+
+
+.form {
+    width: 60%;
+    margin: 20px auto 0;
+    .form-btn {
+        position: absolute;
+        margin-left: 20px;
+        height: 34px;
+    }
+}

@@ -1,0 +1,93 @@
+.page-container {
+    height: 100%;
+    padding: 20px 40px;
+    overflow: auto;
+    font-size: 16px;
+    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+}
+
+.content_one {
+    font-size: 20px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #00023A;
+}
+
+.content_two {
+    width: 100%;
+    padding: 20px 40px;
+    border-radius: 0px 0px 0px 0px;
+    opacity: 1;
+    border: 1px solid #999999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .content_two_left {
+        .content_two_left1 {
+            font-size: 20px;
+            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+            font-weight: 600;
+            color: #00023A;
+            line-height: 40px;
+        }
+
+        .content_two_left2 {
+            font-size: 18px;
+            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+            font-weight: 400;
+            color: #999999;
+        }
+
+        .content_two_left3 {
+            font-size: 18px;
+            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+            font-weight: 400;
+            color: #999999;
+        }
+    }
+
+    .content_two_right {
+        width: 200px;
+        text-align: right;
+
+        .content_two_right1 {
+            font-size: 16px;
+            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+            font-weight: 400;
+            color: #999999;
+        }
+
+        .content_two_right2 {
+            font-size: 16px;
+            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+            font-weight: 400;
+            color: #2d8cf0;
+        }
+
+        .content_two_right3 {
+            font-size: 16px;
+            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+            font-weight: 400;
+            color: #FF480E;
+        }
+    }
+
+}
+
+.content_three {
+    .content_three_item {
+        display: flex;
+        align-items: center;
+
+        .content_three_item_lable {
+            width: 140px;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .content_three_item_input {
+            width: 330px;
+        }
+    }
+}

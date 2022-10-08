@@ -1,0 +1,145 @@
+// 生成订单弹框
+.generateOrder {
+    height: 68vh;
+    width: 100%;
+    overflow: auto;
+
+    .generateOrder_one {
+        font-size: 16px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+    }
+
+    .generateOrder_two {
+        font-size: 14px;
+        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+        font-weight: 500;
+        color: #00023A;
+    }
+
+    .generateOrder_three {
+        font-size: 16px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #999999;
+    }
+
+    .generateOrder_four {
+        height: 40px;
+        padding-left: 20px;
+        background: rgba(21, 108, 194, 0.2);
+        border-radius: 0px 0px 0px 0px;
+        display: flex;
+        align-items: center;
+
+        .generateOrder_bodytext {
+            font-size: 14px;
+            font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+            font-weight: 500;
+            color: #00023A;
+        }
+    }
+
+    .generateOrder_five {
+        width: 100%;
+        height: 118px;
+        background: #CBCBCB;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+
+        .generateOrder_five_left {
+            font-size: 20px;
+            font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+            font-weight: 600;
+            color: #00023A;
+        }
+
+        .generateOrder_five_right {
+            font-size: 14px;
+            font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+            font-weight: 600;
+            color: #00023A;
+        }
+    }
+}
+
+// 在线支付弹框
+.onlinePayment {
+    .onlinePayment_one {
+        width: 100%;
+        font-size: 32px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+    }
+
+    .onlinePayment_two {
+        width: 100%;
+        height: 80px;
+        background: #EEEEEE;
+
+        .el_radio_1 {
+            display: inline-block;
+            width: 300px;
+            padding-left: 20px;
+        }
+    }
+}
+
+// 输入密码弹框
+.inputPassword {
+    width: 100%;
+
+    .el_row {
+        margin-top: 20px;
+        width: 400px;
+
+        .el_col {
+            display: flex;
+            align-items: center;
+
+            .title {
+                width: 120px;
+                text-align: right;
+                margin-right: 20px;
+            }
+
+            .el_input {
+                width: 300px;
+
+                ::v-deep .el-input__inner {
+                    border-radius: 0px 0px 0px 0px;
+                }
+            }
+        }
+
+    }
+}
+
+// 支付收银台弹框
+.paymentCashier {
+    height: 262px;
+
+    .paymentCashier_one {
+        height: 80px;
+        width: 80px;
+        // background: rebeccapurple;
+        background: url("./image/success.png");
+    }
+
+    .paymentCashier_two {
+        font-size: 32px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00C514;
+    }
+
+    .paymentCashier_three {
+        font-size: 32px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+    }
+}

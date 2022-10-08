@@ -1,0 +1,117 @@
+.page-container {
+    width: 100%;
+    min-width: calc(1200px - 220px - 40px);
+    height: 100%;
+    overflow: auto;
+    // padding-bottom: 40px;
+  
+    // &::-webkit-scrollbar {
+    //   width: 0px;
+    // }
+  }
+  .iocs2{
+    display: inline-block;
+    font-size: 16px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    color: #00023A;
+  }
+  .iocs1{
+    width: 110px;
+    text-align: right;
+    font-size: 16px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    color: #00023A;
+    display: inline-block;
+  }
+  .wying{
+    padding: 40px 0;
+  }
+  .wying-item{
+    width: 100%;
+    p{
+      padding: 0 20px;
+      color: #00023A;
+      font-size: 16px;
+      font-family: Source Han Sans CN-Medium;
+    }
+    .wying-content{
+      width: 100%;
+      padding: 15px 60px;
+      display: flex;
+      flex-wrap: wrap;
+      .wying-title{
+        display: flex;
+        height: 56px;
+        line-height: 28px;
+        font-size: 16px;
+    color: #00023A;
+        .ions{
+          display: inline-block;
+          table-layout: fixed; 
+          word-wrap: break-all;
+          width: 500px;
+        }
+      }
+      .wying-right,
+      .wying-left{
+        width: 50%;
+        line-height: 28px;
+        font-size: 16px;
+    font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+    color: #00023A;
+      }
+    }
+  }
+.orange {
+    // margin-left: 10px;
+    color: #ff480e;
+  }
+  
+  .search-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 20px 0 30px;
+    font-size: 14px;
+  
+    .search-item {
+        // width: 25%;
+        margin: 6px 18px;
+  
+        .el-input,.el-select {
+            width: 230px;
+        }
+        ::v-deep .el-input__inner {
+            height: 31px;
+        }
+        ::v-deep .el-range-editor.el-input__inner {
+            width: 230px;
+            height: 31px !important;
+        }
+  
+        ::v-deep .el-input__icon {
+            line-height: 1;
+        }
+    }
+  
+    .search-btn {
+        height: 32px;
+        background: #FF480E;
+        border: none;
+        border-radius: 4px 4px 4px 4px;
+  
+    }
+  }
+  
+  .sale-table {
+    // width: 100%;
+    font-weight: 500;
+  }
+  
+  .dialog-form {
+    padding: 20px;
+  
+    p {
+        padding: 20px 0;
+    }
+  }

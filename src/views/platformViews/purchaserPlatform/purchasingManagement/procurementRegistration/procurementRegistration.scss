@@ -1,0 +1,365 @@
+.page-container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
+}
+
+// 搜索功能
+.search_box {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0 0 0;
+    font-size: 14px;
+
+    .search_item {
+        display: flex;
+        align-items: center;
+
+        .el_input {
+            width: 200px;
+            height: 32px;
+
+            ::v-deep .el-input__inner {
+                height: 32px;
+            }
+        }
+
+        ::v-deep .el_date_picker.el-input__inner {
+            width: 250px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        ::v-deep .el-input__icon {
+            line-height: 24px;
+        }
+
+        ::v-deep .el-range-separator {
+            line-height: 24px;
+        }
+
+        .el_select {
+            width: 200px;
+
+            ::v-deep .el-input__inner {
+                height: 32px;
+            }
+        }
+    }
+
+
+}
+
+
+
+// 新增采购项目弹框
+.addPurchase {
+    height: 68vh;
+    width: 100%;
+    overflow: auto;
+
+    .addPurchase_title {
+        font-size: 16px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+    }
+
+    .el_row {
+        width: 100%;
+
+        .el_col {
+            display: flex;
+            align-items: center;
+
+            .title {
+                width: 20%;
+                text-align: right;
+                margin-right: 10px;
+            }
+
+            .el_input {
+                width: 70%;
+            }
+        }
+    }
+}
+
+// 修改采购项目弹框
+.editPurchase {
+    height: 70vh;
+    width: 100%;
+    overflow: auto;
+}
+
+// 添加商品弹框
+.addItem {
+    height: 70vh;
+    width: 100%;
+    overflow: auto;
+}
+
+// 导入采购单弹框
+.importPurchaseOrder {
+    height: 70vh;
+    width: 100%;
+    overflow: auto;
+
+    .importPurchaseOrderBody {
+        height: 100%;
+        width: 100%;
+
+        .importPurchaseOrder_1 {
+
+            img {
+                height: 150px;
+                width: 150px;
+            }
+        }
+
+        .importPurchaseOrder_2 {
+
+            .importPurchaseOrder_2_1 {
+                font-size: 20px;
+                font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+                font-weight: 500;
+                color: #00023A;
+            }
+
+            .importPurchaseOrder_2_2 {
+                font-size: 14px;
+                font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                font-weight: 400;
+                color: #00023A;
+            }
+
+            .importPurchaseOrder_2_3 {
+                font-size: 20px;
+                font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                font-weight: 400;
+                color: #156CC2;
+                text-decoration: underline;
+                -moz-user-select: none;
+                /*mozilar*/
+                -webkit-user-select: none;
+                /*webkit*/
+                -ms-user-select: none;
+                /*IE*/
+                user-select: none;
+                cursor: pointer;
+            }
+        }
+
+    }
+}
+
+// 批量导入采购单弹框
+.batchImportPurchaseOrder {
+    height: 70vh;
+    width: 100%;
+    overflow: auto;
+
+    .batchImportPurchaseOrderBody {
+        width: 100%;
+        padding: 50px 70px;
+
+
+        .batchImportPurchaseOrderItem_one {
+            width: 100%;
+            height: 104px;
+            border: 1px solid #CBCBCB;
+            display: flex;
+            align-items: center;
+
+            .batchImportPurchaseOrderItem_one1 {
+                height: 76px;
+                width: 76px;
+                margin-left: 43px;
+            }
+
+            .batchImportPurchaseOrderItem_one2 {
+                height: 60px;
+                margin-left: 32px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .batchImportPurchaseOrderItem_one21 {
+                    font-size: 20px;
+                    font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+                    font-weight: 400;
+                    color: #00023A;
+                }
+
+                .batchImportPurchaseOrderItem_one22 {
+                    color: #156CC2;
+                }
+            }
+        }
+
+        .batchImportPurchaseOrderItem_three {
+            width: 100%;
+            height: 250px;
+            overflow: auto;
+            padding: 20px;
+            border: 1px solid #CBCBCB;
+            font-size: 14px;
+            font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+            font-weight: 400;
+            color: #00023A;
+            line-height: 28px;
+        }
+    }
+}
+
+
+
+// 生成订单弹框
+.generateOrder {
+    .generateOrder_one {
+        font-size: 16px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+    }
+
+    .generateOrder_two {
+        font-size: 14px;
+        font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+        font-weight: 500;
+        color: #00023A;
+    }
+
+    .generateOrder_three {
+        font-size: 16px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #999999;
+    }
+
+    .generateOrder_four {
+        height: 40px;
+        padding-left: 20px;
+        background: rgba(21, 108, 194, 0.2);
+        border-radius: 0px 0px 0px 0px;
+        display: flex;
+        align-items: center;
+
+        .generateOrder_bodytext {
+            font-size: 14px;
+            font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+            font-weight: 500;
+            color: #00023A;
+        }
+    }
+
+    .generateOrder_five {
+        width: 100%;
+        height: 118px;
+        background: #CBCBCB;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+
+        .generateOrder_five_left {
+            font-size: 20px;
+            font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+            font-weight: 600;
+            color: #00023A;
+        }
+
+        .generateOrder_five_right {
+            font-size: 14px;
+            font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+            font-weight: 600;
+            color: #00023A;
+        }
+    }
+}
+
+// 在线支付弹框
+.onlinePayment {
+    .onlinePayment_one {
+        width: 100%;
+        font-size: 32px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+    }
+
+    .onlinePayment_two {
+        width: 100%;
+        height: 80px;
+        background: #EEEEEE;
+
+        .el_radio_1 {
+            display: inline-block;
+            width: 300px;
+            padding-left: 20px;
+        }
+    }
+}
+
+// 输入密码弹框
+.inputPassword {
+    width: 100%;
+
+    .el_row {
+        margin-top: 20px;
+        width: 400px;
+
+        .el_col {
+            display: flex;
+            align-items: center;
+
+            .title {
+                width: 120px;
+                text-align: right;
+                margin-right: 20px;
+            }
+
+            .el_input {
+                width: 300px;
+
+                ::v-deep .el-input__inner {
+                    border-radius: 0px 0px 0px 0px;
+                }
+            }
+        }
+
+    }
+}
+
+// 支付收银台弹框
+.paymentCashier {
+    height: 262px;
+
+    .paymentCashier_one {
+        height: 80px;
+        width: 80px;
+        // background: rebeccapurple;
+        background: url("./image/success.png");
+    }
+
+    .paymentCashier_two {
+        font-size: 32px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00C514;
+    }
+
+    .paymentCashier_three {
+        font-size: 32px;
+        font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+        font-weight: bold;
+        color: #00023A;
+    }
+}
