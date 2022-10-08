@@ -6,7 +6,7 @@
     <!-- <cu-hoverItemX></cu-hoverItemX> -->
     <!-- 全局鼠标 点击爆炸波纹 -->
     <!-- <cu-clickBone></cu-clickBone> -->
-    <router-view></router-view>
+    <router-view> </router-view>
   </div>
 </template>
 <script></script>
