@@ -14,7 +14,7 @@
           </div>
           <div class="info-item">
             <div class="label">手机号码:</div>
-            {{ info.phone }}
+            {{ buyerAccountManageGetUserAndPhoneReturnPhone }}
           </div>
         </div>
       </div>
@@ -23,12 +23,14 @@
         <div class="info-content">
           <div class="operate-item">
             <div class="label">手机号码:</div>
-            <div class="operate-desc">{{ info.phone }}</div>
+            <div class="operate-desc">
+              {{ buyerAccountManageGetUserAndPhoneReturnPhone }}
+            </div>
             <el-button
               type="text"
               size="mini"
               class="operate-btn"
-              @click="showPhoneDialogButton"
+              @click="phoneVisibleButton"
               >修改</el-button
             >
           </div>
@@ -39,7 +41,7 @@
               type="text"
               size="mini"
               class="operate-btn"
-              @click="showPassDialog"
+              @click="loginPasswordVisibleButton"
               >修改</el-button
             >
           </div>
@@ -84,87 +86,89 @@
     </div>
     <cu-dialog
       :title="'修改手机号'"
-      width="50vw"
+      width="520px"
       :visible="phoneVisible"
       :showClose="true"
-      @handleClose="phoneVisible = false"
+      @handleClose="phoneHandleClose"
+      @handleOk="phoneHandleOk"
     >
-      <!-- :destroyOnClose="true" @menuListInitData="menuListInitData"-->
-      <cu-form
-        ref="form"
-        :formData.sync="phoneForm"
-        :formRule="phoneFormRule"
-        class="form"
-        :labelWidth="'100px'"
-        @submitForm="changePhoneOK"
-        @closeForm="phoneVisible = false"
+      <el-form
+        class="phoneDialogClass"
+        :label-position="'right'"
+        :model="buyerAccountManageUpdatePhoneOut"
+        :rules="rulesbuyerAccountManageUpdatePhoneOut"
+        ref="refbuyerAccountManageUpdatePhoneOut"
+        label-width="110px"
       >
-        <template v-slot:code="value">
+        <el-form-item label="当前手机号" prop="oldPhone">
           <el-input
-            type="text"
-            v-model="value.form[value.value.key]"
-            :placeholder="value.value.placeholder"
-            autocomplete="new-password"
+            :disabled="true"
+            v-model="buyerAccountManageUpdatePhoneOut.oldPhone"
+            placeholder="请输入当前手机号"
           ></el-input>
-          <el-button
-            type="primary"
-            size="mini"
-            class="form-btn"
-            @click="getCode"
-            >获取验证码</el-button
-          >
-        </template>
-      </cu-form>
-      <template #footer>
-        <div></div>
-      </template>
+        </el-form-item>
+        <el-form-item label="新手机号" prop="newPhone" style="margin-bottom: 0">
+          <el-input
+            v-model="buyerAccountManageUpdatePhoneOut.newPhone"
+            placeholder="请输入新手机号"
+          ></el-input>
+        </el-form-item>
+      </el-form>
     </cu-dialog>
     <cu-dialog
       :title="'修改登录密码'"
-      width="50vw"
-      :visible="passVisible"
+      width="520px"
+      :visible="loginPasswordVisible"
       :showClose="true"
-      @handleClose="passVisible = false"
+      @handleClose="loginPasswordHandleClose"
+      @handleOk="loginPasswordHandleOk"
     >
-      <!-- :destroyOnClose="true" @menuListInitData="menuListInitData"-->
-      <cu-form
-        ref="forms"
-        :formData.sync="passForm"
-        :formRule="passFormRule"
-        class="form"
-        :labelWidth="'100px'"
-        @submitForm="changePassOK"
-        @closeForm="passVisible = false"
+      <el-form
+        class="phoneDialogClass"
+        :label-position="'right'"
+        :model="buyerAccountManageUpdateAccountOut"
+        :rules="rulesbuyerAccountManageUpdateAccountOut"
+        ref="refbuyerAccountManageUpdateAccountOut"
+        label-width="110px"
       >
-        <template v-slot:code="value">
+        <el-form-item label="登录账号" prop="loginAccount">
           <el-input
-            type="text"
-            v-model="value.form[value.value.key]"
-            :placeholder="value.value.placeholder"
-            autocomplete="new-password"
+            :disabled="true"
+            v-model="buyerAccountManageUpdateAccountOut.loginAccount"
+            placeholder="请输入登录账号"
           ></el-input>
-          <el-button
-            type="primary"
-            size="mini"
-            class="form-btn"
-            @click="getCode"
-            >获取验证码</el-button
-          >
-        </template>
-      </cu-form>
-      <template #footer>
-        <div></div>
-      </template>
+        </el-form-item>
+        <el-form-item label="原登录密码" prop="oldPassword">
+          <el-input
+            show-password
+            v-model="buyerAccountManageUpdateAccountOut.oldPassword"
+            placeholder="请输入原登录密码"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="新密码" prop="password">
+          <el-input
+            show-password
+            v-model="buyerAccountManageUpdateAccountOut.password"
+            placeholder="请输入新密码"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="确认新密码" prop="password2">
+          <el-input
+            show-password
+            v-model="buyerAccountManageUpdateAccountOut.password2"
+            placeholder="请输入确认新密码"
+          ></el-input>
+        </el-form-item>
+      </el-form>
     </cu-dialog>
-
     <cu-dialog
       :title="'修改支付密码'"
       width="600px"
-      :visible="payPassVisible"
+      :visible="payPasswordVisible"
       :showClose="true"
-      @handleClose="payPassVisible = false"
+      @handleClose="payPasswordHandleClose"
+      @handleOk="payPasswordHandleOk"
     >
-      <!-- :destroyOnClose="true" @menuListInitData="menuListInitData"-->
       <cu-form
         ref="formss"
         :formData.sync="payPassForm"
@@ -172,7 +176,7 @@
         class="form"
         :labelWidth="'120px'"
         @submitForm="changePayPassOK"
-        @closeForm="payPassVisible = false"
+        @closeForm="payPasswordVisible = false"
       >
         <template v-slot:code="value">
           <el-input
@@ -208,35 +212,83 @@ import { mapState } from "vuex";
 import test from "@/cuview-ui/function/test.js";
 import {
   buyerAccountManageGetBuyer,
-  settlementSetPayPwd,
-  buyerAccountManageSetPayPwd,
   buyerAccountManageUpdatePayPwd,
   buyerAccountManageUpdatePhone,
   buyerAccountManageUpdateAccount,
+  buyerAccountManageGetUserAndPhone,
 } from "@/api/aksApi/platformApi/purchaserPlatformApi.js";
 import setPaymentPasswordsetPaymentPassword from "../../components/setPaymentPassword/setPaymentPassword.vue";
-const validateCode = (rule, value, callback) => {
-  if (!value) {
-    return callback(new Error("验证码不能为空"));
-  }
-  if (!test.code(value)) {
-    return callback(new Error("验证码格式不正确"));
-  }
-  return callback();
-};
-
 export default {
   components: {
     setPaymentPasswordsetPaymentPassword,
   },
   data() {
+    const validateCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("验证码不能为空"));
+      }
+      if (!test.code(value)) {
+        return callback(new Error("验证码格式不正确"));
+      }
+      return callback();
+    };
+
+    var validatePhone = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("新手机号不能为空"));
+      } else if (!test.mobile(value)) {
+        return callback(new Error("手机格式不正确"));
+      } else {
+        callback();
+      }
+    };
+    var validateOldPass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("原登录密码不能为空"));
+      } else if (!test.password(value)) {
+        return callback(new Error("密码需6-12位数字、字母组合"));
+      } else {
+        callback();
+      }
+    };
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("新密码不能为空"));
+      } else if (!test.password(value)) {
+        return callback(new Error("密码需6-12位数字、字母组合"));
+      } else {
+        if (this.buyerAccountManageUpdateAccountOut.password2 !== "") {
+          this.$refs.refbuyerAccountManageUpdateAccountOut.validateField(
+            "password2"
+          );
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("确认新密码不能为空"));
+      } else if (value !== this.buyerAccountManageUpdateAccountOut.password) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+    var validatePassword = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入支付密码"));
+      } else if (!test.numberSix(value)) {
+        return callback(new Error("请输入六位支付密码"));
+      } else {
+        callback();
+      }
+    };
     return {
       supplierTypes: {
         1: "药品",
         2: "器械",
       },
       info: {},
-      phoneVisible: false,
       phoneForm: {
         oldPhone: "",
         newPhone: "",
@@ -273,8 +325,7 @@ export default {
         //   rules: [{ required: true, message: "请输入手机验证码", trigger: "blur", validator: validateCode }],
         // },
       ],
-      passVisible: false,
-      payPassVisible: false,
+
       passForm: {
         account: "",
         oldPassword: "",
@@ -379,25 +430,108 @@ export default {
       ],
 
       setPaymentPasswordVisible: false, //设置支付密码弹框
+
+      // 获取当前账号手机号-接口回参
+      buyerAccountManageGetUserAndPhoneReturn: {},
+      buyerAccountManageGetUserAndPhoneReturnPhone: "", //手机号 默认为130****1861 中间四个星星的格式
+      // 修改当前账号手机号-弹框
+      phoneVisible: false,
+      // 修改当前账号手机号-接口传参
+      buyerAccountManageUpdatePhoneOut: {
+        oldPhone: "",
+        newPhone: "", //新手机号
+      },
+      // 修改当前账号手机号-表单验证
+      rulesbuyerAccountManageUpdatePhoneOut: {
+        oldPhone: [
+          { required: true, message: "当前手机号不能为空", trigger: "blur" },
+        ],
+        newPhone: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePhone,
+          },
+        ],
+      },
+
+      // 修改当前账号密码-弹框
+      loginPasswordVisible: false,
+      // 修改当前账号密码-接口传参
+      buyerAccountManageUpdateAccountOut: {
+        loginAccount: "", //登录账号
+        oldPassword: "", //原登录密码
+        password: "", //新密码
+        password2: "", //确认新密码
+      },
+      // 修改当前账号密码-表单验证
+      rulesbuyerAccountManageUpdateAccountOut: {
+        loginAccount: [
+          { required: true, message: "登录账号不能为空", trigger: "blur" },
+        ],
+        oldPassword: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validateOldPass,
+          },
+        ],
+        password: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePass,
+          },
+        ],
+        password2: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePass2,
+          },
+        ],
+      },
+
+      // 修改支付密码-弹框
+      payPasswordVisible: false,
     };
   },
   created() {
     this.buyerAccountManageGetBuyerApi(); // 获取企业信息-接口
-    this.phoneForm.oldPhone = this.vuex_user.phone;
+    this.buyerAccountManageGetUserAndPhoneApi(); // 获取当前账号手机号-接口
     this.passForm.account = this.vuex_user.name;
   },
   computed: {
     ...mapState(["vuex_user", "vuex_token"]),
   },
   methods: {
+    // 获取当前账号手机号-接口
+    buyerAccountManageGetUserAndPhoneApi() {
+      buyerAccountManageGetUserAndPhone()
+        .then((res) => {
+          if (res.code == 200) {
+            this.buyerAccountManageUpdatePhoneOut.oldPhone = res.data.phone;
+            this.buyerAccountManageUpdateAccountOut.loginAccount =
+              res.data.username;
+            this.buyerAccountManageGetUserAndPhoneReturn = res.data;
+            this.buyerAccountManageGetUserAndPhoneReturnPhone =
+              this.buyerAccountManageGetUserAndPhoneReturn.phone.slice(0, 3) +
+              "****" +
+              this.buyerAccountManageGetUserAndPhoneReturn.phone.slice(7, 12);
+          } else {
+            this.$message.error(res.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // 获取企业信息-接口
     buyerAccountManageGetBuyerApi() {
       buyerAccountManageGetBuyer()
         .then((res) => {
-          console.log(res);
           if (res.code == 200) {
             this.info = res.data;
-            console.log(this.info);
           } else {
             this.$message.warning("企业信息获取失败");
           }
@@ -410,10 +544,8 @@ export default {
     getCode() {
       captcha()
         .then((res) => {
-          console.log(res);
           if (res.code == 200) {
             this.info = res.data;
-            console.log(this.info);
           } else {
             this.$message.warning("验证码发送失败，请稍后重试");
           }
@@ -425,23 +557,71 @@ export default {
     setQuestion() {
       this.$message.info("该功能尚未开放");
     },
-    // 手机号码修改按钮
-    showPhoneDialogButton() {
+    // 修改手机号码按钮
+    phoneVisibleButton() {
       this.phoneVisible = true;
-      this.$refs.form.resetForm();
     },
-    changePhoneOK() {
+    // 修改手机号码弹框-取消按钮
+    phoneHandleClose() {
+      this.resetForm("refbuyerAccountManageUpdatePhoneOut");
+    },
+    // 修改手机号码弹框-确定按钮
+    phoneHandleOk() {
+      this.submitForm("refbuyerAccountManageUpdatePhoneOut"); //表单验证
+    },
+    // 修改当前账号手机号-接口
+    buyerAccountManageUpdatePhoneApi() {
       let valueData = new FormData();
-      valueData.append("oldPhone", this.phoneForm.oldPhone);
-      valueData.append("newPhone", this.phoneForm.newPhone);
+      valueData.append(
+        "oldPhone",
+        this.buyerAccountManageUpdatePhoneOut.oldPhone
+      );
+      valueData.append(
+        "newPhone",
+        this.buyerAccountManageUpdatePhoneOut.newPhone
+      );
       buyerAccountManageUpdatePhone(valueData)
         .then((res) => {
-          console.log(res);
           if (res.code == 200) {
-            this.phoneForm.oldPhone = this.phoneForm.newPhone;
+            this.resetForm("refbuyerAccountManageUpdatePhoneOut");
             this.$message.success("手机号码修改成功");
-            this.getUserInfo();
-            this.phoneVisible = false;
+            this.buyerAccountManageGetUserAndPhoneApi();
+          } else {
+            this.$message.warning(res.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 修改登录密码按钮
+    loginPasswordVisibleButton() {
+      this.loginPasswordVisible = true;
+    },
+    // 修改登录密码弹框-取消按钮
+    loginPasswordHandleClose() {
+      this.resetForm("refbuyerAccountManageUpdateAccountOut");
+    },
+    // 修改登录密码弹框-确定按钮
+    loginPasswordHandleOk() {
+      this.submitForm("refbuyerAccountManageUpdateAccountOut");
+    },
+    // 修改当前账号密码-接口
+    buyerAccountManageUpdateAccountApi() {
+      let valueData = new FormData();
+      valueData.append(
+        "oldPassword",
+        this.buyerAccountManageUpdateAccountOut.oldPassword
+      );
+      valueData.append(
+        "newPassword",
+        this.buyerAccountManageUpdateAccountOut.password2
+      );
+      buyerAccountManageUpdateAccount(valueData)
+        .then((res) => {
+          if (res.code == 200) {
+            this.$message.success(res.message);
+            this.resetForm("refbuyerAccountManageUpdateAccountOut"); //表单重置
           } else {
             this.$message.warning(res.message);
           }
@@ -454,7 +634,6 @@ export default {
       let token = this.vuex_token;
       userInfo({ name: token })
         .then((res) => {
-          console.log(res);
           let { permissions, user } = res;
           this.$store.commit("$uStore", {
             name: "vuex_user",
@@ -465,45 +644,27 @@ export default {
           console.error(err);
         });
     },
-    // 登录密码修改按钮
-    showPassDialog() {
-      this.passVisible = true;
-      this.$refs.forms.resetForm();
-    },
     // 支付密码修改按钮
     showPayPassDialogButton() {
-      this.payPassVisible = true;
+      this.payPasswordVisible = true;
       this.$refs.formss.resetForm();
     },
-    changePassOK(formData, formRef) {
-      let { oldPassword, password } = formData;
-      let valueData = new FormData();
-      valueData.append("oldPassword", oldPassword);
-      valueData.append("newPassword", password);
-      buyerAccountManageUpdateAccount(valueData)
-        .then((res) => {
-          console.log(res);
-          if (res.code == 200) {
-            this.$message.success(res.message);
-            this.passVisible = false;
-          } else {
-            this.$message.warning(res.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    // 支付密码修改弹框-取消按钮
+    payPasswordHandleClose() {
+      this.payPasswordVisible = false;
     },
+    // 支付密码修改弹框-确定按钮
+    payPasswordHandleOk() {},
+
     changePayPassOK(formData, formRef) {
       let valueData = new FormData();
       valueData.append("oldPayPwd", formData.oldPayPassword);
       valueData.append("newPayPwd", formData.checkPayPassword);
       buyerAccountManageUpdatePayPwd(valueData)
         .then((res) => {
-          console.log(res);
           if (res.code == 200) {
             this.$message.success(res.message);
-            this.payPassVisible = false;
+            this.payPasswordVisible = false;
           } else {
             this.$message.warning(res.message);
           }
@@ -523,6 +684,33 @@ export default {
     setPaymentPasswordHandleOk(value) {
       this.setPaymentPasswordVisible = value;
       this.buyerAccountManageGetBuyerApi(); // 获取企业信息-接口
+    },
+    // 表单验证
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 成功
+          if (formName == "refbuyerAccountManageUpdatePhoneOut") {
+            this.buyerAccountManageUpdatePhoneApi();
+          } else if (formName == "refbuyerAccountManageUpdateAccountOut") {
+            this.buyerAccountManageUpdateAccountApi();
+          }
+        } else {
+          // 失败
+        }
+      });
+    },
+    // 表单重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      // 修改当前账号手机号
+      this.phoneVisible = false;
+      this.buyerAccountManageUpdatePhoneOut.newPhone = "";
+      // 修改当前账号密码
+      this.loginPasswordVisible = false;
+      this.buyerAccountManageUpdateAccountOut.oldPassword = "";
+      this.buyerAccountManageUpdateAccountOut.password = "";
+      this.buyerAccountManageUpdateAccountOut.password2 = "";
     },
   },
 };

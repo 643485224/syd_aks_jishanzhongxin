@@ -27,6 +27,7 @@
 		"element-ui": "2.15.6",
 		"iview": "^3.5.4",
 		"jsencrypt": "^3.2.1",
+		"qrcodejs2": "0.0.2",
 		"screenfull": "^4.2.0",
 		"tinymce": "^6.1.2",
 		"vue": "^2.6.11",

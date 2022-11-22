@@ -3,11 +3,11 @@
     <div class="content-body">
       <div class="content-one">
         <div class="one-div">
-          <div class="one-left">
-            <div class="one-left-title">
+          <div class="bg_e0edff one-left">
+            <div class="bg_e0edff one-left-title">
               <div class="one-left-titleIconName">
                 <div class="one-left-titleIcon">
-                  <img src="./image/webPoliciesAndRegulations-1.png" alt="" />
+                  <img v-lazy src="./image/webPoliciesAndRegulations-1.png" alt="" />
                 </div>
                 <div class="one-left-titleName">新闻法规</div>
               </div>
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div
-            class="one-right"
+            class="bg_fde5e5  one-right"
             v-loading="isloading"
             element-loading-text="数据加载中，请稍后..."
             element-loading-spinner="el-icon-loading"

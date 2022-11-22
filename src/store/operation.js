@@ -103,6 +103,14 @@ export let operation_menu = [{
                 path: "/operationProductAudit",
                 children: [],
             },
+            {
+                name: "美食审核",
+                iconSvg: require("@/assets/images/aside/GZT.svg"),
+                iconSvgAction: require("@/assets/images/aside/GZT-Action.svg"),
+                state: 2,
+                path: "/operationDeliciousFood",
+                children: [],
+            }
         ],
 
     },
@@ -216,6 +224,14 @@ export let operation_menu = [{
                 state: 2,
                 path: "/Classification",
                 children: [],
+            },
+            {
+                name: "关于我们",
+                iconSvg: require("@/assets/images/aside/GZT.svg"),
+                iconSvgAction: require("@/assets/images/aside/GZT-Action.svg"),
+                state: 2,
+                path: "/operationAboutus",
+                children: [],
             }
         ],
     },
@@ -287,6 +303,14 @@ export let operation_menu = [{
                 iconSvgAction: require("@/assets/images/aside/GZT-Action.svg"),
                 state: 2,
                 path: "/operationPurchaserManage",
+                children: [],
+            },
+            {
+                name: "监管机构管理",
+                iconSvg: require("@/assets/images/aside/GZT.svg"),
+                iconSvgAction: require("@/assets/images/aside/GZT-Action.svg"),
+                state: 2,
+                path: "/operationRegulatoryAuthorityManagement",
                 children: [],
             },
         ],

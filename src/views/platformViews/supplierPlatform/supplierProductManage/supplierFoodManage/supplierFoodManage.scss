@@ -1,0 +1,95 @@
+  .page-container {
+    width: 100%;
+    min-width: calc(1200px - 220px - 40px);
+    height: 100%;
+    padding: 10px 20px;
+    overflow: auto;
+    padding-bottom: 40px;
+  
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+  }
+    //扩展信息
+.expand-info {
+  padding: 20px;
+  .title {
+      margin-bottom: 20px;
+      text-align: left;
+      font-size: 20px;
+      font-weight: bold;
+  }
+  .content {
+      display: flex;
+      flex-wrap: wrap;
+      
+
+      .item {
+          display: flex;
+          width: 50%;
+          font-size: 16px;
+          margin: 4px 0;
+          .label {
+              color:#999999;
+
+          }
+          .value {
+              margin-left: 5px;
+          }
+      }
+  }
+
+}
+  .search-bar {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin: 20px 0 30px;
+    font-size: 14px;
+  
+    .search-item {
+      display: flex;
+      align-items: center;
+      margin: 4px 10px 4px 0;
+      .label {
+        width: 60px;
+        margin-right: 10px;
+        text-align: right;
+      }
+  
+      .selectInput {
+        width: 200px;
+        ::v-deep .el-input__inner {
+          height: 32px;
+          line-height: 32px;
+        }
+      }
+      ::v-deep .el-cascader{
+        height: 32px;
+        line-height: 32px;
+      }
+  
+      ::v-deep .el-range-editor.el-input__inner {
+        width: 240px;
+        height: 32px !important;
+      }
+  
+      ::v-deep .el-input__icon {
+        line-height: 1;
+      }
+    }
+    .operations {
+      margin-left: auto;
+    }
+  }
+  
+  .form {
+    width: 60%;
+    margin: 20px auto 0;
+    .form-btn {
+      position: absolute;
+      margin-left: 20px;
+      height: 34px;
+    }
+  }
+  

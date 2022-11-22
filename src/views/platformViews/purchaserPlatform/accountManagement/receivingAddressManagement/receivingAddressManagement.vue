@@ -1,4 +1,5 @@
 <template>
+  <!-- 其他地方直接以这页面为组件进行了引用 中心商城->立即购买页面，点击更多地址调用 -->
   <div class="page-container table-page">
     <div class="content_one flex_ac_jb">
       <span>已有收货地址</span>
@@ -8,8 +9,9 @@
     </div>
     <div
       class="content_two mt_20"
-      v-for="item in buyerAddressGetAddressListData"
-      :key="item"
+      v-for="(item, index) in buyerAddressGetAddressListData"
+      :key="index"
+      @click="getisDefault(item.id, item.isDefault)"
     >
       <div class="content_two_left">
         <div class="content_two_left1">
@@ -18,11 +20,11 @@
         </div>
         <div class="content_two_left2">
           <span class="mr_20">收货地址:</span>
-          <span class="mr_20">{{ item.consigneeAddress }}</span>
+          <span class="mr_20">{{ item.consigneeArea }}</span>
         </div>
         <div class="content_two_left3">
           <span class="mr_20">详细收货地址:</span>
-          <span class="mr_20">{{ item.consigneeArea }}</span>
+          <span class="mr_20">{{ item.consigneeAddress }}</span>
         </div>
         <div class="content_two_left3">
           <span class="mr_20">邮政编码:</span>
@@ -60,68 +62,66 @@
       title="添加地址"
       :center="'center'"
       :showClose="true"
+      :appendToBody="true"
       :visible="addVisible"
       @handleClose="addHandleClose()"
       @handleOk="addHandleOk()"
     >
-      <div class="content_three mt_20 flex_fc_ac">
-        <div class="content_three_item">
-          <div class="content_three_item_lable">收货人:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressAddAddressRequest.consignee"
-              placeholder="请输入收货人姓名"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">联系号码:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressAddAddressRequest.contactPhone"
-              placeholder="请输入联系号码"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">收货地址:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressAddAddressRequest.consigneeArea"
-              placeholder="请输入收货地址"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">详细收货地址:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressAddAddressRequest.consigneeAddress"
-              placeholder="请输入收货地址"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">邮政编码:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressAddAddressRequest.zipCode"
-              placeholder="请输入邮政编码"
-            ></el-input>
-          </div>
-        </div>
-
-        <div class="content_three_item mt_10">
-          <div class="content_three_item_lable"></div>
-          <div class="content_three_item_input">
-            <el-checkbox
-              v-model="buyerAddressAddAddressRequest.isDefault"
-              label="设为默认收货地址"
-              name="type"
-            ></el-checkbox>
-          </div>
-        </div>
-      </div>
+      <el-form
+        class="mt_40 ml_40 mr_40"
+        :label-position="'right'"
+        :model="buyerAddressAddAddressRequest"
+        :rules="rulesBuyerAddressAddAddressRequest"
+        ref="refBuyerAddressAddAddressRequest"
+        label-width="110px"
+      >
+        <el-form-item label="收货人" prop="consignee">
+          <el-input
+            v-model="buyerAddressAddAddressRequest.consignee"
+            placeholder="请输入收货人"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="联系电话" prop="contactPhone">
+          <el-input
+            v-model="buyerAddressAddAddressRequest.contactPhone"
+            placeholder="请输入联系电话"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="收货地址" prop="consigneeArea">
+          <!-- <el-input
+            v-model="buyerAddressAddAddressRequest.consigneeArea"
+            placeholder="请选择收货地址(所在地区)"
+          ></el-input> -->
+          <el-cascader
+            clearable
+            filterable
+            style="width: 100%"
+            v-model="buyerAddressAddAddressRequest.consigneeArea"
+            :options="cityAllLists"
+            @change="handleChange"
+            placeholder="请选择收货地址(所在地区)"
+          ></el-cascader>
+        </el-form-item>
+        <el-form-item label="详细收货地址" prop="consigneeAddress">
+          <el-input
+            v-model="buyerAddressAddAddressRequest.consigneeAddress"
+            placeholder="小区楼栋/乡村名称"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="邮政编码">
+          <el-input
+            v-model="buyerAddressAddAddressRequest.zipCode"
+            placeholder="请输入邮政编码"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="" prop="isDefault" style="margin-bottom: 0px">
+          <el-checkbox
+            v-model="buyerAddressAddAddressRequest.isDefault"
+            label="设为默认收货地址"
+            name="type"
+          ></el-checkbox>
+        </el-form-item>
+      </el-form>
     </cu-dialog>
 
     <cu-dialog
@@ -129,68 +129,66 @@
       title="修改地址"
       :center="'center'"
       :showClose="true"
+      :appendToBody="true"
       :visible="editVisible"
       @handleClose="editHandleClose()"
       @handleOk="editHandleOk()"
     >
-      <div class="content_three mt_20 flex_fc_ac">
-        <div class="content_three_item">
-          <div class="content_three_item_lable">收货人:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressEditAddressRequest.consignee"
-              placeholder="请输入收货人姓名"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">联系号码:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressEditAddressRequest.contactPhone"
-              placeholder="请输入联系号码"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">收货地址:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressEditAddressRequest.consigneeArea"
-              placeholder="请输入收货地址"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">详细收货地址:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressEditAddressRequest.consigneeAddress"
-              placeholder="请输入收货地址"
-            ></el-input>
-          </div>
-        </div>
-        <div class="content_three_item mt_20">
-          <div class="content_three_item_lable">邮政编码:</div>
-          <div class="content_three_item_input">
-            <el-input
-              v-model="buyerAddressEditAddressRequest.zipCode"
-              placeholder="请输入邮政编码"
-            ></el-input>
-          </div>
-        </div>
-
-        <div class="content_three_item mt_10">
-          <div class="content_three_item_lable"></div>
-          <div class="content_three_item_input">
-            <el-checkbox
-              v-model="buyerAddressEditAddressRequest.isDefault"
-              label="设为默认收货地址"
-              name="type"
-            ></el-checkbox>
-          </div>
-        </div>
-      </div>
+      <el-form
+        class="mt_40 ml_40 mr_40"
+        :label-position="'right'"
+        :model="buyerAddressEditAddressRequest"
+        :rules="rulesBuyerAddressEditAddressRequest"
+        ref="refBuyerAddressEditAddressRequest"
+        label-width="110px"
+      >
+        <el-form-item label="收货人" prop="consignee">
+          <el-input
+            v-model="buyerAddressEditAddressRequest.consignee"
+            placeholder="请输入收货人"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="联系电话" prop="contactPhone">
+          <el-input
+            v-model="buyerAddressEditAddressRequest.contactPhone"
+            placeholder="请输入联系电话"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="收货地址" prop="consigneeArea">
+          <!-- <el-input
+            v-model="buyerAddressEditAddressRequest.consigneeArea"
+            placeholder="请输入收货地址"
+          ></el-input> -->
+          <el-cascader
+            clearable
+            filterable
+            style="width: 100%"
+            v-model="buyerAddressEditAddressRequest.consigneeArea"
+            :options="cityAllLists"
+            @change="handleChange"
+            placeholder="请选择收货地址(所在地区)"
+          ></el-cascader>
+        </el-form-item>
+        <el-form-item label="详细收货地址" prop="consigneeAddress">
+          <el-input
+            v-model="buyerAddressEditAddressRequest.consigneeAddress"
+            placeholder="请输入详细收货地址"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="邮政编码">
+          <el-input
+            v-model="buyerAddressEditAddressRequest.zipCode"
+            placeholder="请输入邮政编码"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="" prop="isDefault" style="margin-bottom: 0px">
+          <el-checkbox
+            v-model="buyerAddressEditAddressRequest.isDefault"
+            label="设为默认收货地址"
+            name="type"
+          ></el-checkbox>
+        </el-form-item>
+      </el-form>
     </cu-dialog>
   </div>
 </template>
@@ -199,67 +197,148 @@ import {
   buyerAddressAddAddress,
   buyerAddressDelAddress,
   buyerAddressEditAddress,
-  buyerAddressGetDefaultAddress,
   buyerAddressSetDefaultAddress,
   buyerAddressGetAddressList,
 } from "@/api/aksApi/platformApi/purchaserPlatformApi.js";
+import test from "@/cuview-ui/function/test";
+import { cityAllList } from "@/components/cityAll";
 export default {
   data() {
+    var validatePhone = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("联系电话不能为空"));
+      } else if (!test.mobile(value) && !test.landline(value)) {
+        return callback(new Error("手机格式不正确（移动电话或固定电话）"));
+      } else {
+        callback();
+      }
+    };
+    var validateZipCode = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("邮政编码不能为空"));
+      } else if (!test.postalCode(value)) {
+        return callback(new Error("邮政编码格式不正确"));
+      } else {
+        callback();
+      }
+    };
     return {
       // 获取采购商默认地址列表-接口回参
       buyerAddressGetAddressListData: [],
       buyerAddressGetAddressListItemData: {},
-      // 获取采购商默认地址-接口回参
-      buyerAddressGetDefaultAddressObject: {
-        buyerId: 0,
-        consignee: "",
-        consigneeAddress: "",
-        consigneeArea: "",
-        contactPhone: "",
-        id: 0,
-        isDefault: 0,
-        zipCode: "",
-      },
+
       // 新增采购商地址-接口传参
       buyerAddressAddAddressRequest: {
         consignee: "", //收货人
         contactPhone: "", //联系电话
-        consigneeArea: "", //收货地址
+        consigneeArea: [], //收货地址
         consigneeAddress: "", //详细收货地址
         zipCode: "", //邮政编码
         isDefault: 0, //是否默认地址 0否 1是
         id: 0,
         buyerId: 0, //采购商id
+      },
+      // 新增采购商地址-表单验证
+      rulesBuyerAddressAddAddressRequest: {
+        consignee: [
+          { required: true, message: "收货人不能为空", trigger: "blur" },
+        ],
+        contactPhone: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePhone,
+          },
+        ],
+        consigneeArea: [
+          { required: true, message: "收货地址不能为空", trigger: "change" },
+        ],
+        consigneeAddress: [
+          { required: true, message: "详细收货地址不能为空", trigger: "blur" },
+        ],
+        zipCode: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validateZipCode,
+          },
+        ],
+        isDefault: [{ required: false, message: "", trigger: "blur" }],
       },
 
       // 编辑采购商地址-接口传参
       buyerAddressEditAddressRequest: {
         consignee: "", //收货人
         contactPhone: "", //联系电话
-        consigneeArea: "", //收货地址
+        consigneeArea: [], //收货地址
         consigneeAddress: "", //详细收货地址
         zipCode: "", //邮政编码
         isDefault: 0, //是否默认地址 0否 1是
         id: 0,
         buyerId: 0, //采购商id
       },
+      // 编辑采购商地址-表单验证
+      rulesBuyerAddressEditAddressRequest: {
+        consignee: [
+          { required: true, message: "收货人不能为空", trigger: "blur" },
+        ],
+        contactPhone: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePhone,
+          },
+        ],
+        consigneeArea: [
+          { required: true, message: "收货地址不能为空", trigger: "change" },
+        ],
+        consigneeAddress: [
+          { required: true, message: "详细收货地址不能为空", trigger: "blur" },
+        ],
+        zipCode: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validateZipCode,
+          },
+        ],
+        isDefault: [{ required: false, message: "", trigger: "blur" }],
+      },
 
       addVisible: false, //添加弹框
       editVisible: false, //修改弹框
+
+      value: "",
+      cityAllLists: [],
     };
   },
   mounted() {
+    this.diquchuli(cityAllList);
+    this.cityAllLists = cityAllList;
+    console.log("sss:", this.cityAllLists);
     this.buyerAddressGetAddressListApi(); // 获取采购商默认地址列表-接口
-    this.buyerAddressGetDefaultAddressApi(); // 获取采购商默认地址-接口
   },
   methods: {
+    diquchuli(valueDate) {
+      valueDate.forEach((element) => {
+        element.label = element.name;
+        element.value = element.name;
+        if (element.children) {
+          return this.diquchuli(element.children);
+        }
+      });
+    },
+    handleChange(cityName) {
+      console.log("cityName:", cityName);
+    },
     // 新增采购商地址-接口
     buyerAddressAddAddressApi() {
       let valueData = {
         buyerId: this.buyerAddressAddAddressRequest.buyerId,
         consignee: this.buyerAddressAddAddressRequest.consignee,
         consigneeAddress: this.buyerAddressAddAddressRequest.consigneeAddress,
-        consigneeArea: this.buyerAddressAddAddressRequest.consigneeArea,
+        consigneeArea:
+          this.buyerAddressAddAddressRequest.consigneeArea.toString(),
         contactPhone: this.buyerAddressAddAddressRequest.contactPhone,
         id: this.buyerAddressAddAddressRequest.id,
         isDefault: this.buyerAddressAddAddressRequest.isDefault == true ? 1 : 0,
@@ -269,6 +348,7 @@ export default {
         .then((res) => {
           if (res.code == 200) {
             this.addVisible = false;
+            this.resetForm("refBuyerAddressAddAddressRequest");
             this.buyerAddressGetAddressListApi(); // 获取采购商默认地址列表-接口
             this.$message.success(res.message);
           } else {
@@ -300,7 +380,8 @@ export default {
         buyerId: this.buyerAddressEditAddressRequest.buyerId,
         consignee: this.buyerAddressEditAddressRequest.consignee,
         consigneeAddress: this.buyerAddressEditAddressRequest.consigneeAddress,
-        consigneeArea: this.buyerAddressEditAddressRequest.consigneeArea,
+        consigneeArea:
+          this.buyerAddressEditAddressRequest.consigneeArea.toString(),
         contactPhone: this.buyerAddressEditAddressRequest.contactPhone,
         id: this.buyerAddressEditAddressRequest.id,
         isDefault:
@@ -311,6 +392,7 @@ export default {
         .then((res) => {
           if (res.code == 200) {
             this.editVisible = false;
+            this.resetForm("refBuyerAddressEditAddressRequest");
             this.buyerAddressGetAddressListApi(); // 获取采购商默认地址列表-接口
             this.$message.success(res.message);
           } else {
@@ -335,21 +417,6 @@ export default {
           console.log(err);
         });
     },
-    // 获取采购商默认地址-接口
-    buyerAddressGetDefaultAddressApi() {
-      this.buyerAddressGetDefaultAddressObject = {};
-      buyerAddressGetDefaultAddress()
-        .then((res) => {
-          if (res.code == 200) {
-            this.buyerAddressGetDefaultAddressObject = res.data;
-          } else {
-            this.$message.error(res.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     // 设置采购商默认地址-接口
     buyerAddressSetDefaultAddressApi() {
       buyerAddressSetDefaultAddress(this.buyerAddressGetAddressListItemData.id)
@@ -365,53 +432,46 @@ export default {
           console.log(err);
         });
     },
+    //默认地址
+    getisDefault(id, isDefault) {
+      if (isDefault == 1) {
+        this.$message.success("已经是默认地址");
+      } else {
+        buyerAddressSetDefaultAddress(id)
+          .then((res) => {
+            if (res.code == 200) {
+              this.buyerAddressGetAddressListApi(); // 获取采购商默认地址列表-接口
+              this.$message.success(res.message);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
     // 添加地址按钮
     addButton() {
-      this.buyerAddressAddAddressRequest.consignee = ""; //收货人
-      this.buyerAddressAddAddressRequest.contactPhone = ""; //联系电话
-      this.buyerAddressAddAddressRequest.consigneeArea = ""; //收货地址
-      this.buyerAddressAddAddressRequest.consigneeAddress = ""; //详细收货地址
-      this.buyerAddressAddAddressRequest.zipCode = ""; //邮政编码
-      this.buyerAddressAddAddressRequest.isDefault = 0; //是否默认地址 0否 1是
-      this.buyerAddressAddAddressRequest.id = 0;
-      this.buyerAddressAddAddressRequest.buyerId = 0; //采购商id
       this.addVisible = true;
     },
     // 添加地址弹框-取消按钮
     addHandleClose() {
       this.addVisible = false;
+      this.resetForm("refBuyerAddressAddAddressRequest");
     },
     // 添加地址弹框-确定按钮
     addHandleOk() {
-      if (!this.buyerAddressAddAddressRequest.consignee) {
-        this.$message.error("收货人不能为空");
-        return;
-      }
-      if (!this.buyerAddressAddAddressRequest.contactPhone) {
-        this.$message.error("联系号码不能为空");
-        return;
-      }
-      if (!this.buyerAddressAddAddressRequest.consigneeArea) {
-        this.$message.error("收货地址不能为空");
-        return;
-      }
-      if (!this.buyerAddressAddAddressRequest.consigneeAddress) {
-        this.$message.error("详细收货地址不能为空");
-        return;
-      }
-      if (!this.buyerAddressAddAddressRequest.zipCode) {
-        this.$message.error("邮政编码不能为空");
-        return;
-      }
+      this.submitForm("refBuyerAddressAddAddressRequest");
       console.log("传参：", this.buyerAddressAddAddressRequest);
-      this.buyerAddressAddAddressApi();
     },
 
     // 修改地址按钮
     editButton(item) {
       this.buyerAddressEditAddressRequest.consignee = item.consignee; //收货人
       this.buyerAddressEditAddressRequest.contactPhone = item.contactPhone; //联系电话
-      this.buyerAddressEditAddressRequest.consigneeArea = item.consigneeArea; //收货地址
+      this.buyerAddressEditAddressRequest.consigneeArea =
+        item.consigneeArea.split(","); //收货地址
       this.buyerAddressEditAddressRequest.consigneeAddress =
         item.consigneeAddress; //详细收货地址
       this.buyerAddressEditAddressRequest.zipCode = item.zipCode; //邮政编码
@@ -424,31 +484,12 @@ export default {
     // 修改地址弹框-取消按钮
     editHandleClose() {
       this.editVisible = false;
+      this.resetForm("refBuyerAddressEditAddressRequest");
     },
     // 修改地址弹框-确定按钮
     editHandleOk() {
-      if (!this.buyerAddressEditAddressRequest.consignee) {
-        this.$message.error("收货人不能为空");
-        return;
-      }
-      if (!this.buyerAddressEditAddressRequest.contactPhone) {
-        this.$message.error("联系号码不能为空");
-        return;
-      }
-      if (!this.buyerAddressEditAddressRequest.consigneeArea) {
-        this.$message.error("收货地址不能为空");
-        return;
-      }
-      if (!this.buyerAddressEditAddressRequest.consigneeAddress) {
-        this.$message.error("详细收货地址不能为空");
-        return;
-      }
-      if (!this.buyerAddressEditAddressRequest.zipCode) {
-        this.$message.error("邮政编码不能为空");
-        return;
-      }
+      this.submitForm("refBuyerAddressEditAddressRequest");
       console.log("传参：", this.buyerAddressEditAddressRequest);
-      this.buyerAddressEditAddressApi();
     },
 
     // 删除按钮
@@ -460,6 +501,40 @@ export default {
     setAsDefaultAddressButton(item) {
       this.buyerAddressGetAddressListItemData = item;
       this.buyerAddressSetDefaultAddressApi();
+    },
+    // 表单提交
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.addVisible) {
+            this.buyerAddressAddAddressApi(); // 新增采购商地址-接口
+          } else if (this.editVisible) {
+            this.buyerAddressEditAddressApi(); // 编辑采购商地址-接口
+          }
+        } else {
+        }
+      });
+    },
+    // 表单重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      this.buyerAddressAddAddressRequest.consignee = ""; //收货人
+      this.buyerAddressAddAddressRequest.contactPhone = ""; //联系电话
+      this.buyerAddressAddAddressRequest.consigneeArea = []; //收货地址
+      this.buyerAddressAddAddressRequest.consigneeAddress = ""; //详细收货地址
+      this.buyerAddressAddAddressRequest.zipCode = ""; //邮政编码
+      this.buyerAddressAddAddressRequest.isDefault = 0; //是否默认地址 0否 1是
+      this.buyerAddressAddAddressRequest.id = 0;
+      this.buyerAddressAddAddressRequest.buyerId = 0; //采购商id
+
+      this.buyerAddressEditAddressRequest.consignee = ""; //收货人
+      this.buyerAddressEditAddressRequest.contactPhone = ""; //联系电话
+      this.buyerAddressEditAddressRequest.consigneeArea = []; //收货地址
+      this.buyerAddressEditAddressRequest.consigneeAddress = ""; //详细收货地址
+      this.buyerAddressEditAddressRequest.zipCode = ""; //邮政编码
+      this.buyerAddressEditAddressRequest.isDefault = 0; //是否默认地址 0否 1是
+      this.buyerAddressEditAddressRequest.id = 0;
+      this.buyerAddressEditAddressRequest.buyerId = 0; //采购商id
     },
   },
 };

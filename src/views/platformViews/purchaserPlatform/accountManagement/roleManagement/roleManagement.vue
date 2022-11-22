@@ -228,6 +228,8 @@ export default {
       if (this.date && this.date.length) {
         this.date[0] = dayjs(this.date[0]).format("YYYY-MM-DD 00:00:00");
         this.date[1] = dayjs(this.date[1]).format("YYYY-MM-DD 23:59:59");
+      }else {
+        this.date = []
       }
       let params = {
         currPageNo: this.pageNum,

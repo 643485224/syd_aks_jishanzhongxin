@@ -15,6 +15,7 @@ import animated from "animate.css";
 import axios from "axios";
 // 引入全局uView 自定义组件，方法
 import cuView from './cuview-ui'
+import './assets/font/font.css'
 import './style.scss'
 import './margin_padding.scss' //各种margin 与 padding
 import store from './store'
@@ -24,9 +25,13 @@ import countTo from 'vue-count-to'
 import VueAMap from 'vue-amap'
 import uploader from 'vue-simple-uploader'
 import '@/utils/directive'
+import '@/directives/lazy' //图片懒加载指令
+// import global from './utils/websocket.js'
+// Vue.prototype.global = global
 Vue.use(VueAMap)
 VueAMap.initAMapApiLoader({
   key: '16a302b5bbfb4ecd11a3738d9e6b3552', //申请的key码需要填写的地方，格式为长串字符数字
+  secretKey: '5aa29ed72e983fce44848bcc2198eba4', //安全密钥
   plugin: [ //按照你的需要，引入地图的哪些功能，不需要下面这么多
     "AMap.Autocomplete", //输入提示插件
     "AMap.PlaceSearch", //POI搜索插件
@@ -59,7 +64,7 @@ Vue.config.productionTip = false;
 
 //高德的安全密钥
 // window._AMapSecurityConfig = {
-//   // serviceHost:'您的代理服务器域名或地址/_AMapService',  
+//   // serviceHost:'您的代理服务器域名或地址/_AMapService',
 // 	securityJsCode:"2c14906619e151fd00294569914d0626" // "安全密钥",
 // }
 Vue.prototype.$echarts = echarts //挂载到Vue实例上面

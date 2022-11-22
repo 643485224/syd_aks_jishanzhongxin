@@ -8,6 +8,9 @@
             12 已退货") -->
           <el-tab-pane label="全部订单" name="0">
             <itemTabs
+              @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+              @evaluateHandleButton="evaluateHandleButton"
+              @listConfirmReceiptButton="listConfirmReceiptButton"
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
               :ref="'itemTabs0'"
@@ -17,30 +20,11 @@
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
-          <el-tab-pane label="待响应" name="1">
-            <itemTabs
-              :tableLoading="tableLoading"
-              @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs1'"
-              v-if="activeStatus == '1'"
-              :status="'1'"
-              :height="tableHeight"
-              @detailsButton="detailsButton"
-            ></itemTabs>
-          </el-tab-pane>
-          <el-tab-pane label="待发货" name="2">
-            <itemTabs
-              :tableLoading="tableLoading"
-              @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs2'"
-              v-if="activeStatus == '2'"
-              :status="'2'"
-              :height="tableHeight"
-              @detailsButton="detailsButton"
-            ></itemTabs>
-          </el-tab-pane>
           <el-tab-pane label="待收货" name="3">
             <itemTabs
+              @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+              @evaluateHandleButton="evaluateHandleButton"
+              @listConfirmReceiptButton="listConfirmReceiptButton"
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
               :ref="'itemTabs3'"
@@ -50,19 +34,39 @@
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
-          <el-tab-pane label="已收货" name="4">
+          <el-tab-pane label="待发货" name="2">
             <itemTabs
+              @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+              @evaluateHandleButton="evaluateHandleButton"
+              @listConfirmReceiptButton="listConfirmReceiptButton"
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs4'"
-              v-if="activeStatus == '4'"
-              :status="'4'"
+              :ref="'itemTabs2'"
+              v-if="activeStatus == '2'"
+              :status="'2'"
+              :height="tableHeight"
+              @detailsButton="detailsButton"
+            ></itemTabs>
+          </el-tab-pane>
+          <el-tab-pane label="待响应" name="1">
+            <itemTabs
+              @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+              @evaluateHandleButton="evaluateHandleButton"
+              @listConfirmReceiptButton="listConfirmReceiptButton"
+              :tableLoading="tableLoading"
+              @chosetableLoading="chosetableLoading"
+              :ref="'itemTabs1'"
+              v-if="activeStatus == '1'"
+              :status="'1'"
               :height="tableHeight"
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
           <el-tab-pane label="待付款" name="5">
             <itemTabs
+              @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+              @evaluateHandleButton="evaluateHandleButton"
+              @listConfirmReceiptButton="listConfirmReceiptButton"
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
               :ref="'itemTabs5'"
@@ -72,52 +76,11 @@
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
-          <el-tab-pane label="已完成" name="6">
+          <el-tab-pane label="取消中" name="10">
             <itemTabs
-              :tableLoading="tableLoading"
-              @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs6'"
-              v-if="activeStatus == '6'"
-              :status="'6'"
-              :height="tableHeight"
-              @detailsButton="detailsButton"
-            ></itemTabs>
-          </el-tab-pane>
-          <el-tab-pane label="已取消" name="7">
-            <itemTabs
-              :tableLoading="tableLoading"
-              @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs7'"
-              v-if="activeStatus == '7'"
-              :status="'7'"
-              :height="tableHeight"
-              @detailsButton="detailsButton"
-            ></itemTabs>
-          </el-tab-pane>
-          <el-tab-pane label="已拒绝" name="8">
-            <itemTabs
-              :tableLoading="tableLoading"
-              @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs8'"
-              v-if="activeStatus == '8'"
-              :status="'8'"
-              :height="tableHeight"
-              @detailsButton="detailsButton"
-            ></itemTabs>
-          </el-tab-pane>
-          <el-tab-pane label="已评价" name="9">
-            <itemTabs
-              :tableLoading="tableLoading"
-              @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs9'"
-              v-if="activeStatus == '9'"
-              :status="'9'"
-              :height="tableHeight"
-              @detailsButton="detailsButton"
-            ></itemTabs>
-          </el-tab-pane>
-          <el-tab-pane label="待取消" name="10">
-            <itemTabs
+              @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+              @evaluateHandleButton="evaluateHandleButton"
+              @listConfirmReceiptButton="listConfirmReceiptButton"
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
               :ref="'itemTabs10'"
@@ -127,8 +90,11 @@
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
-          <el-tab-pane label="待退货" name="11">
+          <el-tab-pane label="退货中" name="11">
             <itemTabs
+              @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+              @evaluateHandleButton="evaluateHandleButton"
+              @listConfirmReceiptButton="listConfirmReceiptButton"
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
               :ref="'itemTabs11'"
@@ -138,17 +104,88 @@
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
-          <el-tab-pane label="已退货" name="12">
-            <itemTabs
-              :tableLoading="tableLoading"
-              @chosetableLoading="chosetableLoading"
-              :ref="'itemTabs12'"
-              v-if="activeStatus == '12'"
-              :status="'12'"
-              :height="tableHeight"
-              @detailsButton="detailsButton"
-            ></itemTabs>
-          </el-tab-pane>
+          <el-tab-pane v-if="!ifMore" label="更多" name="999"> </el-tab-pane>
+          <template v-if="ifMore">
+            <el-tab-pane label="已收货" name="4">
+              <itemTabs
+                @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+                @listConfirmReceiptButton="listConfirmReceiptButton"
+                :tableLoading="tableLoading"
+                @chosetableLoading="chosetableLoading"
+                :ref="'itemTabs4'"
+                v-if="activeStatus == '4'"
+                :status="'4'"
+                :height="tableHeight"
+                @detailsButton="detailsButton"
+              ></itemTabs>
+            </el-tab-pane>
+            <el-tab-pane label="已完成" name="6">
+              <itemTabs
+                @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+                @listConfirmReceiptButton="listConfirmReceiptButton"
+                :tableLoading="tableLoading"
+                @chosetableLoading="chosetableLoading"
+                :ref="'itemTabs6'"
+                v-if="activeStatus == '6'"
+                :status="'6'"
+                :height="tableHeight"
+                @detailsButton="detailsButton"
+              ></itemTabs>
+            </el-tab-pane>
+            <el-tab-pane label="已取消" name="7">
+              <itemTabs
+                @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+                @listConfirmReceiptButton="listConfirmReceiptButton"
+                :tableLoading="tableLoading"
+                @chosetableLoading="chosetableLoading"
+                :ref="'itemTabs7'"
+                v-if="activeStatus == '7'"
+                :status="'7'"
+                :height="tableHeight"
+                @detailsButton="detailsButton"
+              ></itemTabs>
+            </el-tab-pane>
+            <el-tab-pane label="已拒绝" name="8">
+              <itemTabs
+                @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+                @listConfirmReceiptButton="listConfirmReceiptButton"
+                :tableLoading="tableLoading"
+                @chosetableLoading="chosetableLoading"
+                :ref="'itemTabs8'"
+                v-if="activeStatus == '8'"
+                :status="'8'"
+                :height="tableHeight"
+                @detailsButton="detailsButton"
+              ></itemTabs>
+            </el-tab-pane>
+            <el-tab-pane label="已评价" name="9">
+              <itemTabs
+                @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+                @listConfirmReceiptButton="listConfirmReceiptButton"
+                :tableLoading="tableLoading"
+                @chosetableLoading="chosetableLoading"
+                :ref="'itemTabs9'"
+                v-if="activeStatus == '9'"
+                :status="'9'"
+                :height="tableHeight"
+                @detailsButton="detailsButton"
+              ></itemTabs>
+            </el-tab-pane>
+            <el-tab-pane label="已退货" name="12">
+              <itemTabs
+                @listReturnGoodsButtonOut="listReturnGoodsButtonOut"
+                @listConfirmReceiptButton="listConfirmReceiptButton"
+                :tableLoading="tableLoading"
+                @chosetableLoading="chosetableLoading"
+                :ref="'itemTabs12'"
+                v-if="activeStatus == '12'"
+                :status="'12'"
+                :height="tableHeight"
+                @detailsButton="detailsButton"
+              ></itemTabs>
+            </el-tab-pane>
+            <el-tab-pane v-if="ifMore" label="收起" name="1000"> </el-tab-pane>
+          </template>
         </el-tabs>
       </div>
       <div
@@ -212,7 +249,15 @@
         />
       </div>
       <div class="flex mt_20">
-        <span class="mr_10">上传文件:</span>
+        <!-- :files.sync="formData.image" -->
+
+        <cu-upload-image
+          @uploadSuccess="upSuccess()"
+          @submit="submitFile(arguments, 'legalIdBackUrl')"
+          width="163px"
+          height="163px"
+        ></cu-upload-image>
+        <!-- <span class="mr_10">上传文件:</span>
         <el-upload
           action
           accept="image/jpeg,image/gif,image/png"
@@ -223,7 +268,7 @@
         >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">请上传图片格式文件</div>
-        </el-upload>
+        </el-upload> -->
       </div>
     </cu-dialog>
     <cu-dialog
@@ -298,6 +343,7 @@
         <div class="mt_20">商品信息:</div>
         <cu-table
           v-if="returnGoodsVisible"
+          :height="300"
           :tableHeader="returnGoodsTableHeader"
           :tableData="returnGoodsTableData"
           :showPagination="false"
@@ -420,14 +466,22 @@ export default {
       orderId: null,
       // 订单流程情况接口回参
       buyerTranManagerOrderProcessObject: {},
+
+      ifMore: false,
+
+      ifListOrDetails: 1, //1列表按钮使用 2详情按钮使用
+
+      urlReturn: "", //上传图片后 接口返回的路径
     };
   },
 
   mounted() {
-    this.handleHeight(); // 根据浏览器大小计算表格高度
-    window.onresize = () => {
+    this.$nextTick(() => {
       this.handleHeight(); // 根据浏览器大小计算表格高度
-    };
+      window.onresize = () => {
+        this.handleHeight(); // 根据浏览器大小计算表格高度
+      };
+    });
   },
   beforeDestroy() {
     //在组件生命周期结束的时候销毁。
@@ -435,27 +489,6 @@ export default {
   },
 
   methods: {
-    // 采购商收货-接口
-    buyerTranManagerReceivingOrderApi() {
-      let valueData = {
-        orderId: this.tableItemData.id,
-      };
-      buyerTranManagerReceivingOrder(valueData)
-        .then((res) => {
-          if (res.code == 200) {
-            this.$message.success(res.message);
-            this.$refs[
-              "itemTabs" + this.activeStatus
-            ].buyerTranManagerFindTradeInfoApi(); //刷新内部表格
-            this.buyerTranManagerFindOrderDetailApi(); // 交易订单明细(详情)-接口
-          } else {
-            this.$message.error(res.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     // 交易订单明细(详情)-接口
     async buyerTranManagerFindOrderDetailApi() {
       this.tableLoading = true;
@@ -496,15 +529,48 @@ export default {
           console.log(err);
         });
     },
+    // 采购商收货-接口
+    buyerTranManagerReceivingOrderApi() {
+      let valueData = {
+        orderId: this.tableItemData.id,
+      };
+      buyerTranManagerReceivingOrder(valueData)
+        .then((res) => {
+          if (res.code == 200) {
+            this.$message.success(res.message);
+            this.$refs[
+              "itemTabs" + this.activeStatus
+            ].buyerTranManagerFindTradeInfoApi(); //刷新内部表格
+            if (this.ifListOrDetails == 2) {
+              //1列表按钮使用 2详情按钮使用
+              this.buyerTranManagerFindOrderDetailApi(); // 交易订单明细(详情)-接口
+            }
+          } else {
+            this.$message.error(res.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     // 交易订单明细(退货)-接口
     buyerTranManagerReturnOrderApi() {
+      let returnGoodsVoList = [];
+      this.returnGoodsTableData.forEach((element) => {
+        let objects = {
+          goodsId: element.goodsId,
+          goodsNum: element.quantity,
+          returnGoodsNum: element.returnGoodsNum,
+        };
+        returnGoodsVoList.push(objects);
+      });
       let valueData = {
         backRemark: this.returnGoodsTextareaValue, //退货原因
         backType: this.returnGoodsRadio == "全部退货" ? 1 : 2, // 退货类型（1 全部退货 2 部分退货）
         buyerId: this.$store.state.vuex_token.buyer.id, //采购商ID(登录人id)
         orderId: this.tableItemData.id, //订单ID
         //退货明细
-        returnGoodsVoList: this.returnGoodsTableData,
+        returnGoodsVoList: returnGoodsVoList,
       };
       buyerTranManagerReturnOrder(valueData)
         .then((res) => {
@@ -512,7 +578,10 @@ export default {
             this.$refs[
               "itemTabs" + this.activeStatus
             ].buyerTranManagerFindTradeInfoApi(); //刷新内部表格
-            this.buyerTranManagerFindOrderDetailApi(); // 交易订单明细(详情)-接口
+            if (this.ifListOrDetails == 2) {
+              //1列表按钮使用 2详情按钮使用
+              this.buyerTranManagerFindOrderDetailApi(); // 交易订单明细(详情)-接口
+            }
             this.returnGoodsVisible = false;
             this.$message.success(res.message);
           } else {
@@ -537,6 +606,9 @@ export default {
         .then((res) => {
           if (res.code == 200) {
             this.evaluateVisible = false;
+            this.$refs[
+              "itemTabs" + this.activeStatus
+            ].buyerTranManagerFindTradeInfoApi(); //刷新内部表格
             this.$message.success(res.message);
           } else {
             this.$message.error(res.message);
@@ -548,25 +620,36 @@ export default {
     },
     // 根据浏览器大小计算表格高度   表格高度=整体大容器高度-其他非表格高度
     handleHeight() {
-      this.$nextTick(() => {
-        this.tableHeight =
-          this.$refs.contentBox.offsetHeight - 55 - 82 - 42 - 40;
-      });
+      this.tableHeight = this.$refs.contentBox.offsetHeight - 55 - 82 - 42 - 40;
     },
-    handleClick(value) {},
+    handleClick(value) {
+      if (value.label == "更多") {
+        this.ifMore = true;
+        this.$nextTick(function () {
+          setTimeout(() => {
+            this.activeStatus = "0";
+          }, 100);
+        });
+      } else if (value.label == "收起") {
+        this.ifMore = false;
+        this.$nextTick(function () {
+          setTimeout(() => {
+            this.activeStatus = "0";
+          }, 100);
+        });
+      }
+    },
     // 详情按钮
     detailsButton(itemData) {
       this.tableItemData = {};
       this.tableItemData = itemData;
-
       this.buyerTranManagerFindOrderDetailApi();
     },
-    // 确认收货按钮
-    confirmReceiptButton() {
-      this.buyerTranManagerReceivingOrderApi();
-    },
-    // 评价按钮
-    evaluateHandleButton() {
+
+    // 详情评价按钮
+    evaluateHandleButton(itemData) {
+      this.tableItemData = {};
+      this.tableItemData = itemData;
       this.score = 5; //评价弹框-综合评分
       this.goodsScore = 5; //评价弹框-商品评分
       this.logisticsScore = 5; //评价弹框-物流评分
@@ -590,16 +673,59 @@ export default {
     logisticsClose() {
       this.logisticsVisible = false;
     },
-    // 申请退货按钮
+    // 详情确认收货按钮
+    confirmReceiptButton() {
+      this.ifListOrDetails = 2; //1列表按钮使用 2详情按钮使用
+      this.buyerTranManagerReceivingOrderApi();
+    },
+    // 列表确认收货按钮
+    listConfirmReceiptButton(tableItemData) {
+      this.ifListOrDetails = 1; //1列表按钮使用 2详情按钮使用
+      this.tableItemData = tableItemData;
+      this.buyerTranManagerReceivingOrderApi();
+    },
+    // 详情申请退货按钮
     returnGoodsButton() {
+      this.ifListOrDetails = 2; //1列表按钮使用 2详情按钮使用
       this.returnGoodsRadio = "全部退货"; //退货单选值 全部退 部分退
       this.returnGoodsTextareaValue = ""; //退货原因值
-
       this.returnGoodsTableData = JSON.parse(
         JSON.stringify(this.derDetailData.goodsDetailVos)
       );
-
       this.returnGoodsVisible = true;
+    },
+    // 列表申请退货按钮
+    listReturnGoodsButtonOut(tableItemData) {
+      this.ifListOrDetails = 1; //1列表按钮使用 2详情按钮使用
+      this.tableLoading = true;
+      this.derDetailData = {};
+      this.tableItemData = tableItemData;
+      let valueData = {
+        id: this.tableItemData.id, //订单ID
+        orderType: this.tableItemData.orderType, //订单类型@ 1 药品  2  器械
+      };
+      buyerTranManagerFindOrderDetail(valueData)
+        .then((res) => {
+          this.tableLoading = false;
+          if (res.code == 200) {
+            this.derDetailData = res.data;
+            this.derDetailData.goodsDetailVos.forEach((element) => {
+              element.returnGoodsNum = 0;
+            });
+            this.returnGoodsRadio = "全部退货"; //退货单选值 全部退 部分退
+            this.returnGoodsTextareaValue = ""; //退货原因值
+            this.returnGoodsTableData = JSON.parse(
+              JSON.stringify(this.derDetailData.goodsDetailVos)
+            );
+            this.returnGoodsVisible = true;
+          } else {
+            this.$message.error(res.message);
+          }
+        })
+        .catch((err) => {
+          this.tableLoading = false;
+          console.log(err);
+        });
     },
     // 申请退货弹框取消按钮
     returnGoodsClose() {
@@ -654,6 +780,18 @@ export default {
       // console.log("quantity:", quantity);
       // console.log("returnGoodsNum:", returnGoodsNum);
       // console.log("index:", index);
+    },
+
+    // 上传成功钩子函数
+    upSuccess(response, file, image) {},
+    submitFile(args, type) {
+      let res = args[0];
+      if (res.code == 200) {
+        this.elRateImage = res.data;
+        this.$message.success("上传图片成功！");
+      } else {
+        this.$message.success("上传图片失败，请重试！");
+      }
     },
   },
 };

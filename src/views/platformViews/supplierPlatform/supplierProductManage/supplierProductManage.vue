@@ -51,18 +51,35 @@
       <cu-table class="sale-table" :loading="tableLoading" :height="tableHeight" :showTitle="false"
         :tableHeader="tableHeader" :tableData="tableData" @handleSizeChange="handleSizeChange"
         @handleCurrentChange="handleCurrentChange" :total="total">
-        <template slot="name" slot-scope="value">
+        <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">药品信息</div>
+            <div class="content">
+              <div class="item"><div class="label">类型:</div><div class="value">{{value.value.name == 1? '基药':'非基药'}}</div></div>
+              <div class="item"><div class="label">药理分类:</div><div class="value">{{value.value.lb}}</div></div>
+              <div class="item"><div class="label">状态:</div><div class="value">{{statusType[value.value.auditStatus]}}</div></div>
+              <div class="item"><div class="label">生产企业:</div><div class="value">{{value.value.manufacturer}}</div></div>
+              <div class="item"><div class="label">采购价:</div><div class="value">{{value.value.mallPrice}}</div></div>  
+              <div class="item"><div class="label">库存:</div><div class="value">{{value.value.quantity}}</div></div>
+              <div class="item"><div class="label">上架时间:</div><div class="value">{{formatDate(value.value.uploadTime, "yyyy-MM-dd")}}</div></div>
+
+          
+            </div>
+          </div>
+        </template>
+        <!-- <template slot="name" slot-scope="value">
+          
           {{  value.value.name == 1? '基药':'非基药'  }}
-        </template>
-        <template slot="auditStatus" slot-scope="value">
+        </template> -->
+        <!-- <template slot="auditStatus" slot-scope="value">
           {{  statusType[value.value.auditStatus]  }}
-        </template>
+        </template>-->
         <template slot="upload" slot-scope="value">
           {{  uploadTypes[value.value.upload]}}
         </template>
-        <template slot="uploadTime" slot-scope="value">
+        <!-- <template slot="uploadTime" slot-scope="value">
           {{  formatDate(value.value.uploadTime, "yyyy-MM-dd")  }}
-        </template>
+        </template> -->
 
         <template slot="operate" slot-scope="value">
           <el-button type="text" class="warning-btn" v-if="value.value.auditStatus == 1"
@@ -84,6 +101,7 @@
 
 import { getDrugList, declareGoods, withdraw, onShelf, offShelf,drugListExportXls } from "@/api/aksApi/platformApi/supplierPlatformApi.js";
 import { downloadXls } from "@/utils/exportXls.js";
+import { log } from "console";
 import dayjs from 'dayjs';
 import { mapState } from "vuex";
 
@@ -113,6 +131,10 @@ export default {
       },
       tableHeader: [
         {
+          slot: "expand",
+          align: "center",
+        },
+        {
           title: "商品编号",
           key: "sgId",
         },
@@ -137,40 +159,40 @@ export default {
           width: 160,
 
         },
-        {
-          title: "库存",
-          key: "quantity",
-        },
-        {
-          title: "类型",
-          slot: "name",
-        },
-        {
-          title: "药理分类",
-          key: "lb",
-        },
-        {
-          title: "状态",// 审核状态@ 1  待审核  2  审核通过   3  审核不通过
-          slot: "auditStatus",
-        },
-        {
-          title: "生产企业",
-          key: "manufacturer",
-        },
-        {
-          title: "采购价",
-          key: "mallPrice",
-        },
+        // {
+        //   title: "库存",
+        //   key: "quantity",
+        // },
+        // {
+        //   title: "类型",
+        //   slot: "name",
+        // },
+        // {
+        //   title: "药理分类",
+        //   key: "lb",
+        // },
+        // {
+        //   title: "状态",// 审核状态@ 1  待审核  2  审核通过   3  审核不通过
+        //   slot: "auditStatus",
+        // },
+        // {
+        //   title: "生产企业",
+        //   key: "manufacturer",
+        // },
+        // {
+        //   title: "采购价",
+        //   key: "mallPrice",
+        // },
         {
           title: "是否上架",
           slot: "upload",
           width: 120,
         },
-        {
-          title: "上架时间",
-          slot: "uploadTime",
-          width: 120,
-        },
+        // {
+        //   title: "上架时间",
+        //   slot: "uploadTime",
+        //   width: 120,
+        // },
         {
           title: "操作",
           slot: "operate",
@@ -216,6 +238,11 @@ export default {
     },
     pickDate(val) {
       console.log(val);
+      if(!val){
+        this.date = []
+      }
+      console.log(this.date);
+
     },
     formatDate(time, format) {
       return time ? new Date(time).Format(format) : "";
@@ -237,10 +264,13 @@ export default {
       console.log(event)
     },
     getDrugList() {
+      console.log(this.date);
       this.tableLoading = true;
       if (this.date && this.date.length) {
         this.date[0] = dayjs(this.date[0]).format("YYYY-MM-DD 00:00:00");
         this.date[1] = dayjs(this.date[1]).format("YYYY-MM-DD 23:59:59");
+      }else {
+        this.date = []
       }
       let params = {
         currPageNo: this.pageNum,
@@ -329,6 +359,8 @@ export default {
       if (this.date && this.date.length) {
         this.date[0] = dayjs(this.date[0]).format("YYYY-MM-DD 00:00:00");
         this.date[1] = dayjs(this.date[1]).format("YYYY-MM-DD 23:59:59");
+      }else {
+        this.date = []
       }
       let params = {
         currPageNo: 1,

@@ -40,7 +40,15 @@ http.interceptors.request.use(
         cancel
       })
     })
+
     config.headers['Authorization'] = store.state.vuex_token.tokenHead + store.state.vuex_token.token
+    if (window.location.href.indexOf("token=") != -1) {
+      config.headers['Authorization'] = window.location.href.slice(
+          window.location.href.indexOf("&tokenHead=") + 11,
+          window.location.href.indexOf("&token=")
+        ) +
+        window.location.href.slice(window.location.href.indexOf("token=") + 6);
+    }
     return config;
   },
   (err) => {

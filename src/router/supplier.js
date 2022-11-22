@@ -56,6 +56,16 @@ export let supplierRoute = [
             component: () => import("../views/platformViews/supplierPlatform/supplierTransactionManage/supplierRetailOrderList/supplierRetailOrderList.vue"),
           },
           {
+            path: "supplierRetailOrderDetails/:orderId/:orderNo", // 零售订单详情
+            name: "supplierRetailOrderDetails",
+            meta: {
+              hideInMenu: true,
+              title: '零售订单详情',
+              notCache: true,
+            },
+            component: () => import("../views/platformViews/supplierPlatform/supplierTransactionManage/supplierRetailOrderDetails/supplierRetailOrderDetails.vue"),
+          },
+          {
             path: "supplierSalesDailyStatistics", // 销售日报统计
             name: "supplierSalesDailyStatistics",
             meta: {
@@ -127,6 +137,18 @@ export let supplierRoute = [
             },
             component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierInstrumentManage/supplierInstrumentManage.vue"),
           },
+           // 美食管理
+          {
+            path: "supplierFoodManage",
+            name: "supplierFoodManage",
+            meta: {
+              hideInMenu: true,
+              title: '美食管理',
+              notCache: true,
+            },
+            component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierFoodManage/supplierFoodManage.vue"),
+          },
+          // 新增药品
           {
             path: "supplierProductAdd", // 新增药品
             name: "supplierProductAdd",
@@ -137,8 +159,9 @@ export let supplierRoute = [
             },
             component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierProductEdit/supplierProductEdit.vue"),
           },
+          // 编辑药品
           {
-            path: "supplierProductEdit/:sgId?", // 编辑药品
+            path: "supplierProductEdit/:sgId?",
             name: "supplierProductEdit",
             meta: {
               hideInMenu: true,
@@ -147,8 +170,9 @@ export let supplierRoute = [
             },
             component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierProductEdit/supplierProductEdit.vue"),
           },
+          // 新增药械
           {
-            path: "supplierInstrumentAdd", // 新增药械
+            path: "supplierInstrumentAdd",
             name: "supplierInstrumentAdd",
             meta: {
               hideInMenu: true,
@@ -157,8 +181,9 @@ export let supplierRoute = [
             },
             component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierInstrumentEdit/supplierInstrumentEdit.vue"),
           },
+           // 编辑药械
           {
-            path: "supplierInstrumentEdit/:sgId?", // 编辑药械
+            path: "supplierInstrumentEdit/:sgId?",
             name: "supplierInstrumentEdit",
             meta: {
               hideInMenu: true,
@@ -167,6 +192,41 @@ export let supplierRoute = [
             },
             component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierInstrumentEdit/supplierInstrumentEdit.vue"),
           },
+           // 新增美食
+           {
+            path: "supplierFoodAdd",
+            name: "supplierFoodAdd",
+            meta: {
+              hideInMenu: true,
+              title: '新增美食',
+              notCache: true,
+            },
+            component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierFoodEdit/supplierFoodEdit.vue"),
+          },
+           // 编辑美食
+          {
+            path: "supplierFoodEdit/:sgId?",
+            name: "supplierFoodEdit",
+            meta: {
+              hideInMenu: true,
+              title: '编辑美食',
+              notCache: true,
+            },
+            component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierFoodEdit/supplierFoodEdit.vue"),
+          },
+
+           // 美食详情
+           {
+            path: "supplierFoodDetail/:type/:sgId?",
+            name: "supplierFoodDetail",
+            meta: {
+              hideInMenu: true,
+              title: '美食详情',
+              notCache: true,
+            },
+            component: () => import("../views/platformViews/supplierPlatform/supplierProductManage/supplierFoodEdit/supplierFoodEdit.vue"),
+          },
+
           {
             path: "supplierInstrumentBatchAdd/:ypqxType", // 批量新增商品
             name: "supplierInstrumentBatchAdd",
@@ -250,6 +310,16 @@ export let supplierRoute = [
               notCache: true,
             },
             component: () => import("../views/platformViews/supplierPlatform/supplierAccountManagement/supplierEnterpriseInfoManage/supplierEnterpriseInfoManage.vue"),
+          },
+          {
+            path: "supplierEnterpriseIntroduce", // 企业介绍
+            name: "supplierEnterpriseIntroduce",
+            meta: {
+              hideInMenu: true,
+              title: '企业介绍',
+              notCache: true,
+            },
+            component: () => import("../views/platformViews/supplierPlatform/supplierAccountManagement/supplierEnterpriseIntroduce/supplierEnterpriseIntroduce.vue"),
           },
           {
             path: "supplierAccountSecurity", // 账号安全

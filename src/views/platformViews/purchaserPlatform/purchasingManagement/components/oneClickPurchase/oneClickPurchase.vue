@@ -132,7 +132,9 @@
 
     <cu-dialog
       width="60vw"
-      title="在线支付"
+      :title="
+        buyerTranManagerAddOrderObject.fkType == 1 ? '在线支付' : '货到付款'
+      "
       :center="'center'"
       :showClose="true"
       :visible="onlinePaymentVisible"
@@ -142,8 +144,12 @@
       <div class="onlinePayment">
         <div class="onlinePayment_one mt_40">
           <div class="flex">
-            请在 {{ hr }}小时 {{ min }}分钟
-            {{ sec }}秒内完成支付，否则订单自动取消
+            请在 {{ hr }}小时 {{ min }}分钟 {{ sec }}秒内完成支付,
+            {{
+              buyerTranManagerAddOrderObject.fkType == 1
+                ? "否则订单自动取消"
+                : "否则将影响信誉"
+            }}
           </div>
           <div class="flex" style="color: #999999">
             支付金额：
@@ -448,6 +454,8 @@ export default {
         ],
       },
 
+      buyerTranManagerAddOrderObjecthuixian: {}, //传参使用
+
       payType: null, //付款：1账号余额支付 2信用付款
       payRemark: "", //支付备注
       payBalance: 0, //余额
@@ -599,6 +607,30 @@ export default {
           );
         });
       });
+
+      this.buyerTranManagerAddOrderObjecthuixian = JSON.parse(
+        JSON.stringify(this.buyerTranManagerAddOrderObject)
+      );
+      supplier.forEach((name) => {
+        this.AllgenerateOrderData[name].forEach((element) => {
+          this.buyerTranManagerAddOrderObjecthuixian.supplierInfoList.forEach(
+            (elemen) => {
+              elemen.orderJcGoodsList = [];
+              if (element.supplierId == elemen.supplierId) {
+                element.price = element.buyPrice;
+                let objects = {
+                  goodsId: element.goodsId, //  货品id
+                  goodsName: element.goodsName, //  货品名称
+                  price: element.price, //  单价
+                  unit: element.unit, //  单位
+                  quantity: element.quantity, //  数量
+                };
+                elemen.orderJcGoodsList.push(objects);
+              }
+            }
+          );
+        });
+      });
     },
 
     // 新增集采订单-接口
@@ -616,7 +648,7 @@ export default {
         return;
       }
       this.loading = true;
-      buyerTranManagerAddOrder(this.buyerTranManagerAddOrderObject)
+      buyerTranManagerAddOrder(this.buyerTranManagerAddOrderObjecthuixian)
         .then((res) => {
           this.loading = false;
           if (res.code == 200) {
@@ -770,7 +802,7 @@ export default {
         fkType: this.buyerTranManagerAddOrderObject.fkType,
         payRemark: this.payRemark,
         payType: this.payType,
-        transportFee: this.AllgenerateOrderData.transportFeeS,
+        // transportFee: this.AllgenerateOrderData.transportFeeS,
       };
       buyerTranManagerPayment(valueData)
         .then((res) => {
@@ -836,6 +868,7 @@ export default {
     // 在线支付货到付款按钮
     fkTypeChange(value) {
       this.buyerTranManagerAddOrderObject.fkType = value;
+      this.buyerTranManagerAddOrderObjecthuixian.fkType = value;
     },
     // 在线支付弹框-取消按钮
     onlinePaymentHandleClose() {
@@ -885,13 +918,13 @@ export default {
       let timesss = 3;
       if (this.jumpValue == 1) {
         title = "s后将为您自动跳转到账号安全页面，您可以设置支付密码";
-        pathName = "/main/accountSecurity";
+        pathName = "/webPersonalMain/accountSecurity";
       } else if (this.jumpValue == 2) {
         title = "s后将为您自动跳转到收货地址管理页面，您可以设置收货地址";
-        pathName = "/main/receivingAddressManagement";
+        pathName = "/webPersonalMain/receivingAddressManagement";
       } else if (this.jumpValue == 3) {
         title = "s后将为您自动跳转到充值页面，您可以进行余额充值";
-        pathName = "/main/paymentSettlementCenter";
+        pathName = "/webPersonalMain/paymentSettlementCenter";
       }
       let times = setInterval(() => {
         this.$message.info(`${timesss}${title}`);

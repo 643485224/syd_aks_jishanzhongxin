@@ -5,12 +5,12 @@
         <div class="content-top-inner">
           <div class="inner-text">
             <div class="title">中心招商</div>
-            <div class="subtitle">线下入驻 线上免入驻 同步交易更多选择</div>
-            <el-button class="apply-btn" @click="getapp"
-              >会员申请入驻</el-button
-            >
+            <div class="subtitle">线上申请快捷入驻集散中心</div>
+            <cu-animation ref="cu_animation" :type="'bounce'" :time="0.5">
+              <el-button class="apply-btn" @click="toRegister">申请入驻&nbsp;&nbsp;集散中心</el-button>
+            </cu-animation>
           </div>
-          <img class="inner-img" src="@/assets/images/webMainImage/entrePort_top.png" alt="" />
+          <img v-lazy class="inner-img" src="@/assets/images/webMainImage/entrePort_top.png" alt="" />
         </div>
       </div>
       <div class="content-center">
@@ -18,23 +18,23 @@
           <div class="section-title">物业缴费</div>
           <div class="grid">
             <!-- v-for="item in priceList" :key="item" -->
-            <div class="grid-col col-bg col-3">
-              <img class="img" src="../../../assets/images/webMainImage/entrePot/waterprice.png" />
+            <div class="grid-col col-bg bg_e2ffec col-3">
+              <img v-lazy class="img" src="../../../assets/images/webMainImage/entrePot/waterprice.png" />
               <div class="grid-title">水费</div>
-              <div class="grid-desc">一键缴费 简单省事</div>
-              <el-button type="primary" round plain size="mini" @click="toPay">去缴费</el-button>
+              <div class="grid-desc wuyejiaofei">一键缴费 简单省事</div>
+              <el-button type="primary" class="pay_btn bg_e2ffec" round plain @click="toPay(1)">去缴费</el-button>
             </div>
-            <div class="grid-col col-bg col-3">
-              <img class="img" src="../../../assets/images/webMainImage/entrePot/electricprice.png" />
+            <div class="grid-col col-bg bg_e0edff col-3">
+              <img v-lazy class="img" src="../../../assets/images/webMainImage/entrePot/electricprice.png" />
               <div class="grid-title">电费</div>
-              <div class="grid-desc">一键缴费 简单省事</div>
-              <el-button type="primary" round plain size="mini" @click="toPay">去缴费</el-button>
+              <div class="grid-desc wuyejiaofei">一键缴费 简单省事</div>
+              <el-button class="pay_btn bg_e0edff" type="primary" round plain @click="toPay(2)" >去缴费</el-button>
             </div>
-            <div class="grid-col col-bg col-3">
-              <img class="img" src="../../../assets/images/webMainImage/entrePot/propertyprice.png" />
+            <div class="grid-col col-bg bg_fde5e5 col-3">
+              <img v-lazy class="img" src="../../../assets/images/webMainImage/entrePot/propertyprice.png" />
               <div class="grid-title">物业费</div>
-              <div class="grid-desc">一键缴费 简单省事</div>
-              <el-button type="primary" round plain size="mini" @click="toPay">去缴费</el-button>
+              <div class="grid-desc wuyejiaofei">一键缴费 简单省事</div>
+              <el-button class="pay_btn bg_fde5e5" type="primary" round plain @click="toPay(3)">去缴费</el-button>
             </div>
           </div>
         </div>
@@ -43,27 +43,33 @@
           <div class="grid">
             <!-- -->
             <div class="grid-col col-6">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_001.jpg" class="cover-img h_146" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/youshi_001.jpg" class="cover-img h_146"
+                alt="" />
               <div class="grid-desc">入驻企业 医疗机构</div>
             </div>
             <div class="grid-col col-6">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_002.jpg" class="cover-img h_146" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/youshi_002.jpg" class="cover-img h_146"
+                alt="" />
               <div class="grid-desc">零售药店 主管部门</div>
             </div>
             <div class="grid-col col-6">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_003.jpg" class="cover-img h_146" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/youshi_003.jpg" class="cover-img h_146"
+                alt="" />
               <div class="grid-desc">科研院所 行业协会</div>
             </div>
             <div class="grid-col col-6">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_004.jpg" class="cover-img h_146" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/youshi_004.jpg" class="cover-img h_146"
+                alt="" />
               <div class="grid-desc">数据分析 管理建设</div>
             </div>
             <div class="grid-col col-6">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_005.jpg" class="cover-img h_146" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/youshi_005.jpg" class="cover-img h_146"
+                alt="" />
               <div class="grid-desc">孵化边缘独角兽企业</div>
             </div>
             <div class="grid-col col-6">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/youshi_06.jpg" class="cover-img h_146" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/youshi_06.jpg" class="cover-img h_146"
+                alt="" />
               <div class="grid-desc">新业态融合（直播）</div>
             </div>
           </div>
@@ -86,7 +92,7 @@
                   </div>
                 </li>
               </ul>
-              <img src="../../../assets/images/webMainImage/entrePot/pay.png" alt="" />
+              <img v-lazy src="../../../assets/images/webMainImage/entrePot/pay.png" alt="" />
             </div>
           </div>
         </div>
@@ -94,24 +100,27 @@
           <div class="section-title">大数据能力</div>
           <div class="grid">
             <div class="grid-col col-3">
-              <img src="../../../assets/images/webMainImage/entrePot/datapower1.png" class="cover-img h_250" alt="" />
+              <img v-lazy src="../../../assets/images/webMainImage/entrePot/datapower1.png" class="cover-img h_250"
+                alt="" />
               <div class="grid-title">海量医药数据库</div>
-              <div class="grid-desc">
+              <div class="grid-details">
                 全国中标数据库、药品说明书、医保目录、基药目录、
                 低价药目录等海量数据库
               </div>
             </div>
             <div class="grid-col col-3">
-              <img src="../../../assets/images/webMainImage/entrePot/datapower2.png" class="cover-img h_250" alt="" />
+              <img v-lazy src="../../../assets/images/webMainImage/entrePot/datapower2.png" class="cover-img h_250"
+                alt="" />
               <div class="grid-title">专业的数据分析团队</div>
-              <div class="grid-desc">
+              <div class="grid-details">
                 团队成员涵盖药学、计算机、统计分析等相关专业，具备多年的医药行业数据处理和分析经验
               </div>
             </div>
             <div class="grid-col col-3">
-              <img src="../../../assets/images/webMainImage/entrePot/datapower3.png" class="cover-img h_250" alt="" />
+              <img v-lazy src="../../../assets/images/webMainImage/entrePot/datapower3.png" class="cover-img h_250"
+                alt="" />
               <div class="grid-title">体系化的工具技术</div>
-              <div class="grid-desc">
+              <div class="grid-details">
                 基于机器学习技术自主研发的数据标准化处理技术，自主可配的数据分析工具，图表并茂的可视化展现方式
               </div>
             </div>
@@ -121,7 +130,7 @@
           <div class="section-title mb_20">集散中心大数据衍生服务</div>
           <div class="grid">
             <div class="grid-col col-bg col-3">
-              <img class="img" src="../../../assets/images/webMainImage/entrePot/data1.png" />
+              <img v-lazy class="img" src="../../../assets/images/webMainImage/entrePot/data1.png" />
               <div class="grid-title">数据管理服务</div>
               <div class="grid-desc">数据存储|数据更新|数据质量|数据安全</div>
               <div class="grid-details">
@@ -131,7 +140,7 @@
               </div>
             </div>
             <div class="grid-col col-bg col-3">
-              <img class="img" src="../../../assets/images/webMainImage/entrePot/data2.png" />
+              <img v-lazy class="img" src="../../../assets/images/webMainImage/entrePot/data2.png" />
               <div class="grid-title">数据整合服务</div>
               <div class="grid-desc">数据分析|数据清洗|数据关联</div>
               <div class="grid-details">
@@ -139,7 +148,7 @@
               </div>
             </div>
             <div class="grid-col col-bg col-3">
-              <img class="img" src="../../../assets/images/webMainImage/entrePot/data3.png" />
+              <img v-lazy class="img" src="../../../assets/images/webMainImage/entrePot/data3.png" />
               <div class="grid-title">数据交换服务</div>
               <div class="grid-desc">数据采集|数据查询|数据下载|EDI接口</div>
               <div class="grid-details">
@@ -147,7 +156,7 @@
               </div>
             </div>
             <div class="grid-col col-bg col-3">
-              <img class="img" src="../../../assets/images/webMainImage/entrePot/data4.png" />
+              <img v-lazy class="img" src="../../../assets/images/webMainImage/entrePot/data4.png" />
               <div class="grid-title">数据应用服务</div>
               <div class="grid-desc">数据统计|数据分析|数据可视化|数据咨询</div>
               <div class="grid-details">
@@ -161,7 +170,7 @@
           <div class="section-title mb_20">应用案例</div>
           <div class="grid">
             <div class="grid-col col-3">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_01.jpg" class="cover-img" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/yy_01.jpg" class="cover-img" alt="" />
               <div class="grid-title">区域信息共享</div>
               <div class="grid-details">
                 提供数据编码规范、清洗标准与接口标准
@@ -169,7 +178,7 @@
               </div>
             </div>
             <div class="grid-col col-3">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_02.jpg" class="cover-img" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/yy_02.jpg" class="cover-img" alt="" />
               <div class="grid-title">行业主管部门监管</div>
               <div class="grid-details">
                 为卫生、医保、药监等行业主管部门对医药全流程采购行为、流通秩序、货款结算、
@@ -177,14 +186,14 @@
               </div>
             </div>
             <div class="grid-col col-3">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_03.jpg" class="cover-img" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/yy_03.jpg" class="cover-img" alt="" />
               <div class="grid-title">医药供应链系统</div>
               <div class="grid-details">
                 医药流通数据标准为海量医药数据集成提供编码规范、接口标准与口径标准
               </div>
             </div>
             <div class="grid-col col-3">
-              <img src="http://www.yjsds.com/static/web/images/bigdata/yy_04.jpg" class="cover-img" alt="" />
+              <img v-lazy src="http://www.yjsds.com/static/web/images/bigdata/yy_04.jpg" class="cover-img" alt="" />
               <div class="grid-title">交易运营实时监测</div>
               <div class="grid-details">
                 医药交易注册、产品挂牌、合同签订、交易、交收、货款结算、评价全流程业务
@@ -193,6 +202,25 @@
           </div>
         </div>
       </div>
+
+      <cu-dialog :title="'身份验证'" width="540px" :visible="loginVisible" :showClose="true" @handleClose="loginHandleClose"
+        @handleOk="loginHandleOk">
+        <el-form class="loginDialogClass" :label-position="'right'" :model="loginForm" :rules="rulesloginForm"
+          ref="refloginForm" label-width="80px">
+          <el-form-item label="类型" prop="supplierType">
+            <el-radio-group v-model="loginForm.supplierType">
+              <el-radio :label="+value" class="el_radio" v-for="label,value in supplierTypes" :key="value">{{label}}
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="登录账号" prop="username">
+            <el-input v-model="loginForm.username" placeholder="请输入登录账号"></el-input>
+          </el-form-item>
+          <el-form-item label="登录密码" prop="password" style="margin-bottom: 0">
+            <el-input show-password v-model="loginForm.password" placeholder="请输入登录密码"></el-input>
+          </el-form-item>
+        </el-form>
+      </cu-dialog>
       <!-- 友情链接组件 -->
       <cu-friendshipLink></cu-friendshipLink>
     </div>
@@ -201,16 +229,61 @@
   </div>
 </template>
 <script>
-import { logout } from "@/api/aksApi/platformApi/loginApi";
+import {
+  logout,
+  supplierLogin,
+  userInfo,
+  getMenusByUserId,
+} from "@/api/aksApi/platformApi/loginApi";
+import { catchAwait } from "@/utils/catchAwait.js";
+import test from "@/cuview-ui/function/test.js";
+import { supplierTypes } from "@/utils/httpDataTypes.js";
 
 export default {
   data() {
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("登录密码不能为空"));
+      }
+      //  else if (!test.password(value)) {
+      //   return callback(new Error("密码需6-12位数字、字母组合"));
+      // }
+      else {
+        callback();
+      }
+    };
     return {
       priceList: [
         // { icon: waterprice, title: '水费', desc: '一键缴费 简单省事' },
         // { icon: require('../../../assets/images/webMainImage/entrePot/electricprice.png'), title: '电费', desc: '一键缴费 简单省事' },
         // { icon: require('../../../assets/images/webMainImage/entrePot/propertyprice.png'), title: '物业费', desc: '一键缴费 简单省事' },
       ],
+      payPropertyType: null, // payPropertyType: 1水费   2电费   3物业费
+      // 身份验证-弹框
+      loginVisible: false,
+      // 身份验证-接口传参
+      loginForm: {
+        username: "",
+        password: "",
+        supplierType: 1,
+      },
+      // 身份验证-表单验证
+      rulesloginForm: {
+        username: [
+          { required: true, message: "登录账号不能为空", trigger: "blur" },
+        ],
+        password: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePass,
+          },
+        ],
+        supplierType: [
+          { required: true, message: "请选择登录类型", trigger: "blur" },
+        ],
+      },
+      supplierTypes,// 供应商类型
     };
   },
   created() { },
@@ -220,50 +293,114 @@ export default {
     //   // return new URL(`@/assets/images/webMainImage/entrePot/${name}`, import.meta.url).href;
     //   return new URL('');
     // },
-
-    getapp() {
-      console.log(1111);
-      this.$router.push("/webUnderConstruction");
+    // 身份验证码按钮
+    loginVisibleButton() {
+      this.loginVisible = true;
     },
-    toPay() {
-      let vuex_user = this.$store.state.vuex_user;
-      console.log(vuex_user);
-      if (!vuex_user || !vuex_user.sysType) {// 未登录
-        this.$store.commit("switchPlatform", "supplier");
-        this.$router.push("/login");
-      } else if (vuex_user.sysType == 3) {// 供应商已登录
-        this.$router.push({ name: "supplierPendingPayMent" });
-
-      } else {// 非供应商登录状态
-        logout()
-          .then((res) => {
-            console.log(res);
-            if (res.code == 200) {
-              this.$store.commit("$uStore", {
-                name: "vuex_token.tokenHead",
-                value: "",
-              });
-              this.$store.commit("$uStore", {
-                name: "vuex_user",
-                value: {},
-              });
-              let msg = this.$message.success('跳转中');
-              // 清楚本地存储,重置路由
-              setTimeout(() => {
-                // window.location.href = `${location.origin}/`;
-                localStorage.clear();
-                this.$store.commit("switchPlatform", "supplier");
-                this.$router.push("/login");
-                msg.close()
-              }, 800);
-            } else {
-              this.$message.error(res.message);
-            }
-          })
-          .catch((err) => { });
-
+    // 身份验证码弹框-取消按钮
+    loginHandleClose() {
+      this.resetForm("refloginForm");
+    },
+    // 身份验证码弹框-确定按钮
+    loginHandleOk() {
+      this.submitForm("refloginForm"); //表单验证
+    },
+    // 表单验证
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 成功
+          if (formName == "refloginForm") {
+            this.supplierLogin();
+          }
+        } else {
+          // 失败
+        }
+      });
+    },
+    // 表单重置
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      // 身份验证
+      this.loginVisible = false;
+      this.loginForm.username = "";
+      this.loginForm.password = "";
+      this.loginForm.password = 1;
+    },
+    toRegister() {
+      // this.$router.push("/Register?sysType=3");
+      this.$router.push("/webEntrepotRegister");
+    },
+    // 跳转物业缴费页
+    toPropertyPayment() {
+      this.$router.push({
+        path: "webEntrepotPropertyPayment",
+        query: {
+          payPropertyType: this.payPropertyType, // payPropertyType: 1水费   2电费   3物业费
+        },
+      });
+    },
+    // 供应商登录
+    async supplierLogin() {
+      let valueData = {
+        username: this.loginForm.username,
+        password: this.loginForm.password,
+        supplierType: this.loginForm.supplierType,
+      };
+      // 供应商-用于供应商登录-接口
+      let [err, res] = await catchAwait(supplierLogin(valueData));
+      if (err) {
+        return this.$message.error(res.message);
       }
-    }
+      if (res.code == 200) {
+        this.$message.success("身份验证成功");
+      }
+      if (res.code != 200) {
+        return this.$message.error(res.message);
+      }
+      this.$store.commit("$uStore", {
+        name: "vuex_token",
+        value: res.data,
+      });
+      await this.getUserInfo(res.data.token); // 获取用户信息
+      await this.getMenuList(); // 获取当前用户绑定角色下 权限菜单列表
+      await this.toPropertyPayment(); // 跳转物业缴费页
+    },
+    // 获取用户信息
+    async getUserInfo(token) {
+      let [err, res] = await catchAwait(userInfo({ name: token }));
+      if (err) {
+        this.$message.error("获取用户信息失败");
+      }
+      this.$store.commit("$uStore", {
+        name: "vuex_user",
+        value: res.user,
+      });
+    },
+    // 获取当前用户绑定角色下 权限菜单列表
+    async getMenuList() {
+      let [err, res] = await catchAwait(getMenusByUserId());
+      if (err || res.code != 200) {
+        this.$message.error("获取权限菜单失败");
+        return false;
+      }
+      this.$store.commit("saveLoginInfo", res.data);
+    },
+    toPay(payPropertyType) {
+      this.payPropertyType = payPropertyType;
+      // payPropertyType: 1水费   2电费   3物业费
+      let vuex_user = this.$store.state.vuex_user;
+      if (!vuex_user || !vuex_user.sysType) {
+        // 当前状态未登录
+        this.loginVisibleButton(); //进行身份验证
+      } else if (vuex_user.sysType == 3) {
+        // 供应商已登录
+        this.toPropertyPayment(); //已登录，前往物业缴费页
+      } else {
+        // 非供应商登录状态
+        this.loginVisibleButton(); //进行身份验证
+      }
+    },
   },
 };
 </script>
@@ -299,10 +436,15 @@ export default {
     }
 
     .apply-btn {
-      height: 60px;
-      font-size: 24px;
+      width: 300px;
+      height: 80px;
+      font-size: 30px;
       color: #ff480e;
       border-radius: 10px;
+
+      &:hover {
+        transform: scale(1.05);
+      }
     }
 
     .inner-img {}
@@ -375,13 +517,38 @@ export default {
             color: #00023a;
           }
 
+          .pay_btn {
+            font-size: 20px;
+            padding: 10px 20px;
+            height: 40px;
+            border: 1px solid #409eff;
+            color: #409eff;
+          }
+
+          .wuyejiaofei {
+            font-size: 18px;
+            color: #00023a;
+          }
+
           .grid-details {
             padding: 0 24px;
           }
         }
 
         .col-bg {
-          background: #eef1fa;
+          background: #ffe0e0;
+        }
+
+        .bg_e2ffec {
+          background: #e2ffec;
+        }
+
+        .bg_e0edff {
+          background: #e0edff;
+        }
+
+        .bg_fde5e5 {
+          background: #fde5e5;
         }
 
         .col-3 {}
@@ -464,5 +631,14 @@ export default {
       height: 146px !important;
     }
   }
+}
+
+// 身份验证弹框
+.loginDialogClass {
+  padding: 30px 40px 10px 20px;
+}
+
+.el-radio {
+  margin-bottom: 12px;
 }
 </style>

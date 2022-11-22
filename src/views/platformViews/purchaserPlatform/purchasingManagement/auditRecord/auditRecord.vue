@@ -42,11 +42,27 @@
         @handleCurrentChange="handleCurrentChange"
         :total="pages.total"
       >
+      <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">订单信息</div>
+            <div class="content">
+              <div class="item"><div class="label">采购单编号:</div><div class="value">{{value.value.purchaseNo}}</div></div>
+              <div class="item"><div class="label">采购预算:</div><div class="value">{{ value.value.budget }}</div></div>
+              <div class="item"><div class="label">商品类型:</div><div class="value">{{value.value.goodsType == 1?'药品':'器械'}}</div></div>
+              <div class="item"><div class="label">商品种类:</div><div class="value">{{value.value.category}}</div></div>
+              <div class="item"><div class="label">采购类型:</div><div class="value"> {{ typeList[value.value.type] }}</div></div>
+              <div class="item"><div class="label">采购数量:</div><div class="value">{{ value.value.quantity }}</div></div>
+              <div class="item"><div class="label">审核状态:</div><div class="value">{{ auditStatusList[value.value.auditStatus] }}</div></div>
+              <div class="item"><div class="label">提交时间:</div><div class="value">{{value.value.createTime}}</div></div>
+              <div class="item"><div class="label">审核时间:</div><div class="value">{{value.value.auditTime}}</div></div>
+            </div>
+          </div>
+        </template>
         <template slot="goodsType" slot-scope="value">
           {{ goodsTypeList[value.value.goodsType] }}
         </template>
         <template slot="auditStatus" slot-scope="value">
-          {{ auditStatusList[value.value.auditStatus] }}
+          <span class="c_ff480e">{{ auditStatusList[value.value.auditStatus] }}</span>
         </template>
         <template slot="operate" slot-scope="value">
           <a type="primary" @click="editPurchaseButton(value.value)"> 详情 </a>
@@ -131,6 +147,11 @@ export default {
         endTime: "", //结束时间
       },
       tableHeader: [
+      {
+          slot: "expand",
+          align: "center",
+          width: "40",
+        },
         {
           title: "序号",
           key: "index",
@@ -145,21 +166,28 @@ export default {
           title: "采购预算",
           key: "budget",
         },
-        {
-          title: "商品种类(个)",
-          key: "category",
-        },
+        // {
+        //   title: "商品种类(个)",
+        //   key: "category",
+        // },
         {
           title: "商品类型",
           slot: "goodsType",
+          width: "80",
         },
-        {
-          title: "采购数量",
-          slot: "quantity",
-        },
+        // {
+        //   title: "采购数量",
+        //   slot: "quantity",
+        // },
         {
           title: "审核状态",
           slot: "auditStatus",
+          width: "80",
+
+        },
+        {
+          title: "提交时间",
+          key: "createTime",
         },
         {
           title: "审核时间",
@@ -169,7 +197,7 @@ export default {
           title: "操作",
           slot: "operate",
           fixed: "right",
-          width: "180",
+          width: "120",
         },
       ],
       tableData: [],

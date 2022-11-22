@@ -214,13 +214,14 @@ export default {
     },
     // 每页条数改变回调
     handleSizeChange(value) {
+      console.log(value);
       this.pages.size = value;
-      // this.buyerFindSupplierPageApi();
+      this.getTableData();
     },
     // 页码改变回调
     handleCurrentChange(value) {
       this.pages.current = value;
-      // this.buyerFindSupplierPageApi();
+      this.getTableData();
     },
     getSettlementInfo() {
       getSupplierSettlement()
@@ -244,6 +245,8 @@ export default {
       if (this.date && this.date.length) {
         this.date[0] = this.formatDate(this.date[0], "yyyy-MM-dd 00:00:00");
         this.date[1] = this.formatDate(this.date[1], "yyyy-MM-dd 23:59:59");
+      }else {
+        this.date = []
       }
       let params = {
         currPageNo: this.pages.current,

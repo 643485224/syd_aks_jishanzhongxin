@@ -178,7 +178,7 @@ export const cartGetDrugPurchaseOrderDetails = (params = {}) => {
 // 获取购物车列表
 export const cartGetShopCarPage = (params = {}) => {
   return http
-    .get(`${baseURL}/cart/getShopCarPage?${qs.stringify(params)}`)
+    .get(`${baseURL}/cart/getShopCartPage?${qs.stringify(params)}`)
     .then(res => res.data)
 };
 // 批量删除购物车信息
@@ -188,10 +188,36 @@ export const cartBatchDelCart = (params = {}) => {
     .then(res => res.data)
 };
 
-// 一键采购
-export const cartOneKeyBuy = (params = {}) => {
+// 删除购物车商品
+export const cartDelCart = (cartId, goodsId) => {
   return http
-    .get(`${baseURL}/cart/oneKeyBuy?${qs.stringify(params)}`)
+    .delete(`${baseURL}/cart/delCart/${cartId}/${goodsId}`)
+    .then(res => res.data)
+};
+
+// 购物车商品加入关注
+export const cartFollow = (goodsType, goodsId) => {
+  return http
+    .post(`${baseURL}/cart/follow?goodsType=${goodsType}&goodsId=${goodsId}`)
+    .then(res => res.data)
+};
+// 购物车 => 取消关注
+export const cancelFollow = (goodsType,goodsId) => {
+  return http
+    .post(`${baseURL}/cart/cancelFollow?goodsType=${goodsType}&goodsId=${goodsId}`)
+    .then(res => res.data)
+}
+
+
+// 一键采购
+export const cartOneKeyBuy = ({
+  cartId,
+  goodsType,
+  goodsIds
+}) => {
+  let listStr = goodsIds.map(item => 'goodsIds=' + item).join('&')
+  return http
+    .get(`${baseURL}/cart/oneKeyBuy?cartId=${cartId}&goodsType=${goodsType}&${listStr}`)
     .then(res => res.data)
 };
 // 改变购物车商品数量
@@ -443,12 +469,32 @@ export const payCaptcha = (params = {}) => {
 
 
 // 始------------------------------------------------采购商-账号管理------------------------------------------------
+// 完善企业信息
+export const buyerAccountManageCompleteBuyerInfo = (params = {}) => {
+  return http
+    .post(`${baseURL}/buyerAccountManage/completeBuyerInfo`, params)
+    .then(res => res.data)
+};
 // 获取企业信息
 export const buyerAccountManageGetBuyer = (params = {}) => {
   return http
-    .get(`${baseURL}/buyerAccountManage/getBuyer?`)
+    .get(`${baseURL}/buyerAccountManage/getBuyer`)
     .then(res => res.data)
 };
+// 获取当前账号手机号
+export const buyerAccountManageGetUserAndPhone = (params = {}) => {
+  return http
+    .get(`${baseURL}/buyerAccountManage/getUserAndPhone`, )
+    .then(res => res.data)
+};
+// 更新企业信息
+export const buyerAccountManageModifyBuyerInfo = (params = {}) => {
+  return http
+    .post(`${baseURL}/buyerAccountManage/modifyBuyerInfo`, params)
+    .then(res => res.data)
+};
+
+
 // 设置支付密码
 export const buyerAccountManageSetPayPwd = (params = {}) => {
   return http
@@ -478,10 +524,18 @@ export const buyerAccountManageUpdatePhone = (params = {}) => {
 
 
 // 始------------------------------------------------采购商-结算中心------------------------------------------------
-// 信用付
+// 信用付头
 export const settlementCreditToPay = (params = {}) => {
   return http
-    .get(`${baseURL}/settlement/creditToPay?`, params)
+    .get(`${baseURL}/settlement/creditToPay`, params)
+    .then(res => res.data)
+};
+///信用付列表
+export const getloanPage = (params = {}) => {
+  return http
+    .get(`${baseURL}/settlement/loanPage`, {
+      params
+    })
     .then(res => res.data)
 };
 // 读取待支付订单列表

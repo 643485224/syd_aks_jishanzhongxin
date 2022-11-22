@@ -38,9 +38,9 @@
           @handleCurrentChange="handleCurrentChange"
           :total="Total"
         >
-        <!-- <template slot="description" slot-scope="value">
-                    {{ getinfoTags(value.value.description)}}
-                </template> -->
+        <template slot="pid" slot-scope="value">
+                    {{ getpid(value.value.pid) }}
+            </template>
           <template slot="operate" slot-scope="value">
             <el-button type="text" @click="getadd('edit', value.value)" class="green">编辑</el-button>
             <el-button type="text" class="orange" @click="showOpsition(value.value.id)" 
@@ -51,19 +51,29 @@
       </cu-animation>
       <cu-dialog :title="titles" width="60vw"  :visible="dialogVisible" :showClose="true"
               @handleClose="handleClose" @handleOk="getinformationedits">
-              <el-form class="add-form" :model="dict"  label-width="110px">
-              <el-form-item class="form-item" label="排序号:">
+              <el-form class="add-form" :model="dict"  :rules="rules"  label-width="110px">
+              <!-- <el-form-item class="form-item" label="排序号:">
                       <el-input class="selectInput" v-model="dict.sortOrder" placeholder="请输入排序号">
                       </el-input>
-                  </el-form-item>
-              <el-form-item class="form-item" label="父级名称:">
-                      <el-input class="selectInput" v-model="dict.pid" placeholder="请输入父级名称">
+                  </el-form-item> -->
+              <el-form-item class="form-item" label="类目名称:" prop="name" >
+                      <el-input class="selectInput" v-model="dict.name" placeholder="请输入类目名称">
                       </el-input>
                   </el-form-item>
-                  <el-form-item class="form-item" label="类目名称:">
-                    <el-select placeholder="请选择类目名称" v-model="dict.name" class="tzhigg" size="small" @change="ckTypes(dict.name)">
+                  <el-form-item class="form-item" label="父级名称:" prop="pid">
+                    <el-cascader
+        class="tzhigg"
+    v-model="selectdrus"
+    :options="options"
+    ref="cascaderArr"
+    :props="{ checkStrictly: true }"
+    @change="handleChan1"
+    clearable
+    ></el-cascader>
+
+                    <!-- <el-select placeholder="请选择父级名称" v-model="dict.name" class="tzhigg" size="small" @change="ckTypes(dict.name)">
             <el-option v-for="(val,i) in type" :key="i" :label="val.name" :value="val.name"></el-option>
-          </el-select>
+          </el-select> -->
                       <!-- <el-input class="selectInput" v-model="dict.type" placeholder="请输入字典类型">
                       </el-input> -->
                   </el-form-item>
@@ -76,32 +86,84 @@
       </cu-dialog>
       <cu-dialog title="详情" width="60vw"  :visible="dialogVisible1"
               @handleClose="handleClose1" @handleOk="handleClose1">
-                <div class="info">
+              <el-form
+        class="add-form"
+        :model="editAddDrugForm"
+        :rules="rules"
+        ref="editAddForm"
+        label-width="110px"
+        disabled
+      >
+      <el-form-item class="form-item" label="排序号:" >
+          <el-input
+            class="selectInput"
+            v-model="getinfo.sortOrder"
+            placeholder="请输入排序号"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item class="form-item" label="类目名称:" >
+          <el-input
+            class="selectInput"
+            v-model="getinfo.name"
+            placeholder="请输入类目名称"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item class="form-item" label="父级名称:" >
+          <el-input
+            class="selectInput"
+            v-model="getinfo.pid"
+            placeholder="请输入父级名称"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item class="form-item" label="说明:" >
+          <el-input type="textarea" v-model="getinfo.description"></el-input>
+        </el-form-item>
+        <el-form-item class="form-item" label="创建人:" >
+          <el-input
+            class="selectInput"
+            v-model="getinfo.createBy"
+            placeholder="请输入创建人"
+          >
+          </el-input>
+        </el-form-item>
+        <el-form-item class="form-item" label="创建时间:" >
+          <el-input
+            class="selectInput"
+            v-model="getinfo.createTime"
+            placeholder="请输入创建时间"
+          >
+          </el-input>
+        </el-form-item>
+      </el-form>
+                <!-- <div class="info">
                     <div class="info-title">
                         <span class="title-iocn1">排序号:</span>
                         <span class="title-iocn2">{{getinfo.sortOrder}}</span>
-                    </div>
-                    <div class="info-title">
+                    </div> -->
+                    <!-- <div class="info-title">
                         <span class="title-iocn1">类目名称:</span>
                         <span class="title-iocn2">{{getinfo.name}}</span>
-                    </div>
-                    <div class="info-title">
+                    </div> -->
+                    <!-- <div class="info-title">
                         <span class="title-iocn1">父级名称:</span>
-                        <span class="title-iocn2">{{getinfo.pid}}</span>
-                    </div>
-                    <div class="info-title">
+                        <span class="title-iocn2">{{getpid(getinfo.pid)}}</span>
+                    </div> -->
+                    <!-- <div class="info-title">
                         <span class="title-iocn1">说明:</span>
                         <span class="title-iocn2">{{getinfo.description}}</span>
-                    </div>
-                    <div class="info-title">
+                    </div> -->
+                    <!-- <div class="info-title">
                         <span class="title-iocn1">创建人:</span>
                         <span class="title-iocn2">{{getinfo.createBy}}</span>
-                    </div>
-                    <div class="info-title">
+                    </div> -->
+                    <!-- <div class="info-title">
                         <span class="title-iocn1">创建时间:</span>
                         <span class="title-iocn2">{{getinfo.createTime}}</span>
-                    </div>
-                </div>
+                    </div> 
+                </div> -->
       </cu-dialog>
     </div>
   </template>
@@ -148,7 +210,7 @@
           },
           {
             title: "父级名称",
-            key: "pid",
+            slot: "pid",
           },
           {
             title: "说明",
@@ -164,7 +226,7 @@
           },
         ],
         dict:{
-        deleteFlag: '',
+        deleteFlag: 0,
           createTime : '',
           description: '',
           id: 1,
@@ -172,9 +234,25 @@
           sortOrder:null,
           pid: null,
         },
+      
       selectdrus:[], 
       options:[],
+      rules: {
+        name: [
+          { required: true, message: "请输入类目名称", trigger: "change" },
+          {
+            min: 2,
+            max: 20,
+            message: "类目名称不得少于2个字符",
+            trigger: "blur",
+          },
+        ],
+        pid: [
+          { required: true, message: "请选择父级分类", trigger: "change" },
+        ],
+      },
       };
+      
     },
     created(){
       this.getquery()
@@ -195,12 +273,15 @@
         this.dict.description=val
       },
       handleChan(row){
-      console.log(row);
+      this.type1 = row[0]
       if(row.length==1){
-        this.type1 = row[0]
       } else{ 
         this.type1 =row[row.length-1]
       }
+    },
+    handleChan1(row){
+      console.log(row);
+this.dict.pid =row[row.length-1]
     },
         getinfoTags(val){
 
@@ -238,9 +319,16 @@
                 getsaleCategorydelete(params).then(res => {
                       console.log(res);
                       if (res.data.code == 200) {
+                        console.log(res,21212);
                           this.$message({
                               type: 'success',
-                              message: '删除成功!'
+                              message: res.message+'!'
+                          });
+                          this.getquery();
+                      } else{
+                        this.$message({
+                              type: 'info',
+                              message: res.message
                           });
                           this.getquery();
                       }
@@ -276,6 +364,16 @@
       }) 
       this.options= datens(datas)
         }
+      },
+      getpid(id){
+      console.log(id);
+    let arr =this.options.filter(val => val.value ==id)
+    console.log(arr,456);
+    for(var i =0;i<arr.length;i++){
+      console.log(arr[i].label);
+      this.lsttb =arr[i].label
+      return arr[i].label
+    }
       },
       handleSizeChange(val) {
         console.log(val);
@@ -351,13 +449,15 @@
                               console.log(err);
                           });
          }
-         this.dict.deleteFlag= ''
+         this.dict.deleteFlag=''
           this.dict.createTime= ''
           this.dict.description= ''
           this.dict.id= 1
           this.dict.name=''
           this.dict.sortOrder=null
           this.dict.pid= null
+          this.gettype()
+          this.getquery()
        
       },
       getquery(){
@@ -396,6 +496,10 @@
     height: 31px !important;
 line-height: 31px !important;
 }
+}
+.tzhigg
+{
+  width: 100%;
 }
     .info{
         padding: 20px 20px 0px 220px;

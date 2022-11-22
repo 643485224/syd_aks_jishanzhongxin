@@ -32,6 +32,7 @@
     v-model="selectdrus"
     :options="options"
     ref="cascaderArr"
+    :props="{ checkStrictly: true }"
     @change="handleChan"
     ></el-cascader>
       </div>
@@ -61,7 +62,7 @@
     {{getpid(value.value.pid)}}
         </template>
         <template slot="iconUrl" slot-scope="value">
-         <img :src="value.value.iconUrl" alt="" style="width:100%;height:100px">
+         <img v-lazy :src="value.value.iconUrl" alt="" style="width:100%;height:100px">
         </template>
         <template slot="operate" slot-scope="value">
           <el-button type="text" @click="editAddDrug('edit', value.value.id)"
@@ -101,10 +102,18 @@
           </el-input>
         </el-form-item>
         <el-form-item label="父级分类:" prop="pid">
-          <el-select v-model="editAddDrugForm.pid" placeholder="请选择父级分类">
+          <el-cascader
+          class="tzhigg"
+    v-model="editAddDrugForm.pid"
+    :options="options"
+    ref="cascaderArr"
+    :props="{ checkStrictly: true }"
+    @change="handleChan1"
+    ></el-cascader>
+          <!-- <el-select v-model="editAddDrugForm.pid" placeholder="请选择父级分类">
             <el-option label="区域一" value="1"></el-option>
             <el-option label="区域二" value="2"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
         <el-form-item class="form-item" label="描述:">
           <el-input
@@ -115,7 +124,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item class="form-item" label="图标:">
+        <!-- <el-form-item class="form-item" label="图标:">
           <div class="images">
             <el-upload
               class="avatar-uploader"
@@ -124,9 +133,9 @@
               :on-success="handleAvatarSuccess1"
               :before-upload="beforeAvatarUpload"
             >
-              <img v-if="iconUrl" :src="iconUrl" class="avatar" />
+              <img v-lazy v-if="iconUrl" :src="iconUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <!-- <div class="el-upload__text">添加图标</div> -->
+               <div class="el-upload__text">添加图标</div>
             </el-upload>
           </div>
         </el-form-item>
@@ -139,12 +148,12 @@
               :on-success="handleAvatarSuccess2"
               :before-upload="beforeAvatarUpload"
             >
-              <img v-if="picUrl" :src="picUrl" class="avatar" />
+              <img v-lazy v-if="picUrl" :src="picUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <!-- <div class="el-upload__text">添加图片</div> -->
+             <div class="el-upload__text">添加图片</div>
             </el-upload>
           </div>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item class="form-item" label="序列号:">
           <el-input placeholder="序列号" v-model="editAddDrugForm.sortOrder">
           </el-input>
@@ -174,10 +183,18 @@
           </el-input>
         </el-form-item>
         <el-form-item label="父级分类:">
-          <el-select v-model="editAddDrugForm.pid">
+          <!-- <el-cascader
+    v-model="editAddDrugForm.pid"
+    :options="options"
+    ref="cascaderArr"
+    @change="handleChan"
+    class="tzhigg"
+    ></el-cascader> -->
+    <el-input v-model="lsttb"> </el-input>
+          <!-- <el-select v-model="editAddDrugForm.pid">
             <el-option label="区域一" value="1"></el-option>
             <el-option label="区域二" value="2"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
         <el-form-item class="form-item" label="描述:">
           <el-input
@@ -187,17 +204,17 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="图标:">
+        <!-- <el-form-item label="图标:">
           <div
             class="images"
 
-          ><img :src="editAddDrugForm.iconUrl" alt="" style="width: 200px; height: 100px; "></div>
+          ><img v-lazy :src="editAddDrugForm.iconUrl" alt="" style="width: 200px; height: 100px; "></div>
         </el-form-item>
         <el-form-item label="照片:">
           <div
             class="images"
-          ><img :src="editAddDrugForm.picUrl" alt="" style="width: 200px; height: 100px;"></div>
-        </el-form-item>
+          ><img v-lazy :src="editAddDrugForm.picUrl" alt="" style="width: 200px; height: 100px;"></div>
+        </el-form-item> -->
         <el-form-item class="form-item" label="序列号:">
           <el-input v-model="editAddDrugForm.sortOrder"> </el-input>
         </el-form-item>
@@ -224,9 +241,14 @@ export default {
   data() {
     return {
       value: "",
+      abroadt:{
+        1:'国产',
+        2:'进口'
+      },
       name:'',
       pid: "",
       pid1:'',
+      lsttb:"",
       flag:true,
       iconUrl: "",
       picUrl: "",
@@ -237,6 +259,7 @@ export default {
       tableData: [],
       Total: 1,
       options:null,
+      listrow:null,
       editAddDrugForm: {
         deleteFlag: 0,
         description: "",
@@ -258,7 +281,9 @@ export default {
             trigger: "blur",
           },
         ],
-        pid: [{ required: true, message: "请选择父级分类", trigger: "change" }],
+        pid: [
+          { required: true, message: "请选择父级分类", trigger: "change" },
+        ],
       },
       tableHeader: [
         {
@@ -320,9 +345,13 @@ export default {
       console.log(row);
       if(row.length==1){
         this.pid = row[0]
+        
       } else{ 
         this.pid =row[row.length-1]
       }
+    },
+    handleChan1(row){
+      this.editAddDrugForm.pid =row[row.length-1]
     },
     //图片上传
     handleAvatarSuccess1(res, file) {
@@ -394,12 +423,14 @@ export default {
       this.getDrugClassificationList();
     },
     getpid(id){
-    let arr = this.selectdrug.filter(val => val.id ==id)
-    let str=''
-    arr.filter(val=>{
-        str = val.name
-      })
-      return str
+      console.log(id);
+    let arr =this.options.filter(val => val.value ==id)
+    console.log(arr,456);
+    for(var i =0;i<arr.length;i++){
+      console.log(arr[i].label);
+      this.lsttb =arr[i].label
+      return arr[i].label
+    }
     },
     handleSizeChange(val) {
       console.log(val);
@@ -513,6 +544,7 @@ export default {
         }
         this.getDrugClassificationList();
       });
+      this.selectdrugClass()
     },
     //删除药品分类
     deleteDrug(id) {
@@ -531,6 +563,11 @@ export default {
                 this.$message({
                   type: "success",
                   message: "删除成功!",
+                });
+              } else{
+                this.$message({
+                  type: "success",
+                  message: res.message,
                 });
               }
             })
@@ -631,7 +668,9 @@ line-height: 31px !important;
   .el-form-item__content {
     flex: 1;
   }
-
+  .tzhigg{
+    width:100%;
+}
   .el-input,
   .el-select,
   .el-input__inner {

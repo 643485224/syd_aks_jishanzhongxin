@@ -8,7 +8,7 @@
     >
       <div class="head">
         <div class="head-logo">
-          <img src="./image/LoginLogo.png" alt="" />
+          <img v-lazy src="./image/LoginLogo.png" alt="" />
           <p>阿克苏药品集散中心 网数融综管运服平台</p>
         </div>
         <div class="head-index" @click="getinde('webHomePage')">
@@ -81,7 +81,7 @@
     <cu-animation ref="cu_animation" :type="'flipInY'" :time="0.5" v-else>
       <div class="head">
         <div class="head-logo">
-          <img src="./image/LoginLogo.png" alt="" />
+          <img v-lazy src="./image/LoginLogo.png" alt="" />
           <p>阿克苏药品集散中心 网数融综管运服平台</p>
         </div>
         <div class="head-index" @click="getinde">

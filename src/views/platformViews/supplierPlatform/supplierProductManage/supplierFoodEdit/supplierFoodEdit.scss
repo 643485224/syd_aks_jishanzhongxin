@@ -1,0 +1,232 @@
+.page-container {
+  height: 100%;
+  padding: 0 20px 20px;
+  overflow: auto;
+  font-size: 16px;
+  font-family: Source Han Sans CN-Regular, Source Han Sans CN;
+
+  .back-btn {
+    position: absolute;
+    margin-top: 20px;
+    z-index: 999;
+    // width: 110px;
+    height: 32px;
+    background: #156cc2;
+    border: none;
+    outline: none;
+    border-radius: 2px 2px 2px 2px;
+    opacity: 1;
+
+    &:active,
+    &:hover {
+      // opacity: 0.8;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+.required {
+  color: red;
+}
+
+.header {
+  position: relative;
+  height: 76px;
+  line-height: 76px;
+  border-bottom: 1px solid #eeeeee;
+
+  &-title {
+    text-align: center;
+    font-size: 20px;
+    font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+    font-weight: bold;
+    color: #00023a;
+    text-align: center;
+  }
+}
+.goods-content {
+  .info {
+    padding: 18px 5px;
+    // padding-bottom: 10px 5px;
+    //   border-top: 1px solid #eee;
+    color: #00023a;
+    &-title {
+      padding: 6px 0;
+      font-size: 16px;
+      font-weight: 500;
+      font-weight: 600;
+    }
+
+    &-content {
+      display: flex;
+      flex-wrap: wrap;
+
+      .sum-price {
+        font-size: 20px;
+        color: #ff480e;
+      }
+    }
+
+    &-item {
+      // display: flex;
+      // align-items: center;
+      width: calc(100% / 3 - 30px);
+      // padding: 6px 0;
+      // font-size: 14px;
+      // margin: 4px 0;
+      // // color: #999999;
+      // .label {
+      //   width: 90px;
+      //   margin-right: 10px;
+      //   text-align: right;
+      // }
+
+      .el-input,
+      .el-select,.el-cascader {
+        //   width: 300px;
+        width: 100%;
+
+        //   margin-right: 40px;
+        ::v-deep .el-input__inner {
+          height: 32px;
+        }
+        ::v-deep .el-input__icon {
+          line-height: 1;
+        }
+      }
+    }
+    // 参数表格
+    &-table {
+      width: 500px;
+      margin-left: 20px;
+      color: #00023a;
+      padding: 10px 0 30px;
+      .cell {
+        padding: 0;
+      }
+      .el-input__inner {
+        width: 100%;
+        border: 1px solid transparent;
+      }
+    }
+    &-item-radio {
+      flex: 1;
+      .radio-select {
+        width: 160px;
+      }
+      ::v-deep .el-radio__label {
+        color: #00023a;
+      }
+    }
+    .goods-desc,
+    .details-info {
+      display: block;
+      .info-item {
+        width: 100%;
+        text-align: left;
+      }
+    }
+    .addstock-btn {
+      margin-left: 60px;
+    }
+
+    ::v-deep .el-form-item__label {
+      color: #00023a;
+    }
+
+    ::v-deep .el-form-item__content {
+      width: calc(100% - 100px);
+    }
+  }
+
+  .form-table-col {
+    ::v-deep .el-form-item__content {
+      width: 100%;
+    }
+    .el-input {
+      width: 100%;
+    }
+    ::v-deep .el-input__inner {
+      width: 100%;
+      // height: 30px;
+      // line-height: 30px;
+      // margin: 20px 0;
+    }
+  }
+}
+
+// 选择商品表格搜索栏
+.search-bar {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin: 20px 0 30px;
+  font-size: 14px;
+
+  .search-item {
+    display: flex;
+    align-items: center;
+    margin: 4px 10px 4px 0;
+    .label {
+      width: 60px;
+      margin-right: 10px;
+      text-align: right;
+    }
+
+    .selectInput {
+      width: 200px;
+      ::v-deep .el-input__inner {
+        height: 32px;
+      }
+    }
+
+    ::v-deep .el-range-editor.el-input__inner {
+      width: 240px;
+      height: 32px !important;
+    }
+
+    ::v-deep .el-input__icon {
+      line-height: 1;
+    }
+  }
+  .operations {
+    margin-left: auto;
+  }
+}
+
+// 上传
+.image-upload {
+}
+
+.tip {
+  font-size: 12px;
+  color: #999999;
+  line-height: 24px;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: center;
+
+  .footer-btn {
+    width: 120px;
+    // height: 32px;
+    margin: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
+
+
+.cascader-loading {
+  font-size: 12px;
+}
+
+
+
+

@@ -49,8 +49,21 @@
           @handleCurrentChange="handleCurrentChange"
           @handleSelectionChange="handleSelectionChange"
         >
+        <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">订单信息</div>
+            <div class="content">
+              <div class="item"><div class="label">采购单编号:</div><div class="value">{{value.value.purchaseNo}}</div></div>
+              <div class="item"><div class="label">采购金额:</div><div class="value">{{ value.value.budget }}</div></div>
+              <div class="item"><div class="label">审核状态:</div><div class="value">{{ auditStatusList[value.value.auditStatus] }}</div></div>
+              <div class="item"><div class="label">提交时间:</div><div class="value">{{value.value.createTime}}</div></div>
+              <div class="item"><div class="label">商品种类:</div><div class="value">{{value.value.category}}</div></div>
+              <div class="item"><div class="label">采购数量:</div><div class="value">{{ value.value.quantity }}</div></div>
+            </div>
+          </div>
+        </template>
           <template slot="auditStatus" slot-scope="value">
-            {{ auditStatusList[value.value.auditStatus] }}
+            <span class="c_ff480e">{{ auditStatusList[value.value.auditStatus] }}</span>
           </template>
           <template slot="operate" slot-scope="value">
             <a
@@ -153,6 +166,11 @@ export default {
 
       // 表头
       tableHeader: [
+      {
+          slot: "expand",
+          align: "center",
+          width: "40",
+        },
         {
           title: "序号",
           key: "index",
@@ -167,14 +185,14 @@ export default {
           title: "采购金额",
           slot: "budget",
         },
-        {
-          title: "商品种类（种）",
-          key: "category",
-        },
-        {
-          title: "商品数量",
-          key: "quantity",
-        },
+        // {
+        //   title: "商品种类（种）",
+        //   key: "category",
+        // },
+        // {
+        //   title: "商品数量",
+        //   key: "quantity",
+        // },
         {
           title: "审核状态",
           slot: "auditStatus",

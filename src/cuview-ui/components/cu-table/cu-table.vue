@@ -14,12 +14,12 @@
       </el-pagination>
 
       <slot name="tableTop"></slot>
-      <!-- 做一个插槽，方便插入自定义的按钮或文字描述 
+      <!-- 做一个插槽，方便插入自定义的按钮或文字描述
       外部使用：  <template #tableTop>
                   放置内容
                  </template>-->
     </div>
-    <!-- :height="height < 200 ? 200 : height"  -->
+    <!-- :height="height < 200 ? 200 : height"  :rowKey="rowKey" -->
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -28,6 +28,8 @@
       :header-cell-style="headerCellStyle"
       :cell-style="cellStyle"
       v-loading="loading"
+      :default-expand-all="defaultExpandAll"
+      :tree-props="treeProps"
       @selection-change="handleSelectionChange"
     >
       <el-table-column
@@ -52,6 +54,7 @@
           :width="item.width"
           :align="item.align"
           :fixed="item.fixed"
+          :type="item.key || item.slot"
         >
           <!-- 头部 -->
           <template #header>
@@ -158,6 +161,18 @@ export default {
       type: Boolean,
       default: true,
     },
+    defaultExpandAll: {
+      type: Boolean,
+      default: false,
+    },
+    treeProps: {
+      type: Object,
+      default: () =>{},
+    },
+    // rowKey: {
+    //   type: '',
+    //   default: '',
+    // },
   },
   methods: {
     // 表头单元格样式回调
@@ -428,6 +443,19 @@ export default {
           border-right: 1px solid #ffffff;
         }
       }
+      .el-table__expand-colum {
+
+      }
+      .cell {
+          padding-left: 0 !important;
+        }
+      .el-table__expand-icon {
+        height: 42px;
+        font-size: 20px;
+      }
+
+
+
     }
 
     // .el-table__fixed,

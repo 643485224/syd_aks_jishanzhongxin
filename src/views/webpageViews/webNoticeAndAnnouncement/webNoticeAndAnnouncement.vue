@@ -9,10 +9,13 @@
         <div class="content_one12"></div>
       </div>
     </div>
-    <div class="content_body">
+    <div class=" content_body">
       <div class="content_two">药品集散中心简介</div>
-      <div class="content_three">
-        <div class="content_three1">
+      <div class="bg_e0edff content_three">
+        <div class=" content_three1" v-html="aboutMe.summary">
+
+        </div>
+        <!-- <div class="content_three1">
           阿克苏地区药品集散中心为国内独家线下药企集聚基地、线下线上无缝粘合采配管运服平台。
         </div>
         <div class="content_three1">
@@ -41,18 +44,16 @@
         </div>
         <div class="content_three1">
           集散中心商城拥有多元化、开放的平台理念吸引更多相关行业商家入驻，面对商家的多样化，独立的生活个体中心商城积极拓展企业生态链。
-        </div>
+        </div> -->
       </div>
 
       <div class="content_four">联系我们</div>
-      <div class="content_five">
-        <div class="content_five1">
-          公司地址:阿克苏地区温宿县友谊路与金桥街交叉口西北100米
-        </div>
-        <div class="content_five2">公司网址:www.XXXXXXXXXx.com</div>
-        <div class="content_five3">邮政编码:843100</div>
-        <div class="content_five4">客服电话:4008-800-800</div>
-        <div class="content_five5">招商热线:0717-6626666/6582868</div>
+      <div class="bg_fde5e5 content_five">
+        <div class="content_five1">公司地址:{{aboutMe.address}}</div>
+        <div class="content_five2">公司网址:{{aboutMe.webUrl}}</div>
+        <div class="content_five3">邮政编码:{{aboutMe.zipCode}}</div>
+        <div class="content_five4">客服电话:{{aboutMe.servicePhone}}</div>
+        <div class="content_five5">招商热线:{{aboutMe.hotlilne}}</div>
       </div>
       <div class="content_six">
         <cu-gaudMap></cu-gaudMap>
@@ -63,7 +64,38 @@
   </div>
 </template>
 <script>
-export default {};
+import { getAboutMeInfo } from "@/api/aksApi/platformApi/operationPlatformApi.js";
+export default {
+  data(){
+        return {
+            aboutMe:{
+            id:'',
+            address:null,
+            webUrl:null,
+            zipCode:null,
+            servicePhone:null,
+            hotlilne:null,
+            summary:'',
+            }
+        }
+    },
+  created() {
+        this.getList();
+        
+    },
+    methods:{
+    async getList(){
+      getAboutMeInfo().then(res => {
+        console.log(res);
+        if(res.data.code ==200){
+          let data = res.data.data
+         this.aboutMe = data
+         console.log( this.aboutMe,1111);
+        }
+      })
+      },
+    }
+};
 </script>
 <style lang="scss" scoped>
 @import "./webNoticeAndAnnouncement.scss";

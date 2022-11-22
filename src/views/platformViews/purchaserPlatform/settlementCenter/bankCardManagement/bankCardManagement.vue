@@ -7,7 +7,7 @@
       </div>
 
       <el-button type="primary" class="btn_ff480e ml_40 mt_20"
-        >添加银行卡</el-button
+      @click="addButton" >添加银行卡</el-button
       >
     </div>
     <div v-else>
@@ -20,7 +20,7 @@
       <div
         class="content_three mt_20"
         v-for="item in buyerBankCardGetBuyerBankCardList"
-        :key="item"
+        :key="item.bankCardNo"
       >
         <div class="content_three_left">
           <div class="content_three_left1">

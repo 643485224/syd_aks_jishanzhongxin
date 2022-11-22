@@ -169,6 +169,17 @@ export let operationRoute = [{
                 component: () =>
                     import ("@/views/platformViews/operationPlatform/operationAudit/operationProductAudit.vue"),
             },
+            {
+                path: "operationDeliciousFood", // 美食审核
+                name: "operationDeliciousFood",
+                meta: {
+                    hideInMenu: true,
+                    title: '商品审核',
+                    notCache: true,
+                },
+                component: () =>
+                    import ("@/views/platformViews/operationPlatform/operationAudit/operationDeliciousFood.vue"),
+            },
             // 物业管理
             {
                 path: "operationPropertyManage", // 物业管理
@@ -180,6 +191,18 @@ export let operationRoute = [{
                 },
                 component: () =>
                     import ("@/views/platformViews/operationPlatform/operationPropertyManage/operationPropertyManage.vue"),
+            },
+             // 物业管理
+             {
+                path: "operationImportManage", // 物业管理
+                name: "operationImportManage",
+                meta: {
+                    hideInMenu: true,
+                    title: '物业管理',
+                    notCache: true,
+                },
+                component: () =>
+                    import ("@/views/platformViews/operationPlatform/operationPropertyManage/operationImportManage.vue"),
             },
             // 报表管理
             {
@@ -305,6 +328,17 @@ export let operationRoute = [{
                     import ("@/views/platformViews/operationPlatform/operationInfoManage/Classification/Classification.vue")
             },
             {
+                path: "operationAboutus", //关于我们
+                name: "operationAboutus",
+                meta: {
+                    hideInMenu: true,
+                    title: "关于我们",
+                    notCache: true,
+                },
+                component: () =>
+                    import ("@/views/platformViews/operationPlatform/operationInfoManage/operationAboutus/operationAboutus.vue")
+            },
+            {
                 path: "Systemreference", //系统参数
                 name: "Systemreference",
                 meta: {
@@ -393,6 +427,17 @@ export let operationRoute = [{
                 },
                 component: () =>
                     import ("@/views/platformViews/operationPlatform/operationUserManage/operationPurchaserManage/operationPurchaserManage.vue"),
+            },
+            {
+                path: "operationRegulatoryAuthorityManagement", // 监管机构管理
+                name: "operationRegulatoryAuthorityManagement",
+                meta: {
+                    hideInMenu: true,
+                    title: '监管机构管理',
+                    notCache: true,
+                },
+                component: () =>
+                    import ("@/views/platformViews/operationPlatform/operationUserManage/operationRegulatoryAuthorityManagement/operationRegulatoryAuthorityManagement.vue"),
             },
 
         ]

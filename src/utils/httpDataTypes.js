@@ -14,8 +14,23 @@ export const orderStatusTypes = {
     12: '已退货',
 }
 
+// 零售订单状态码
+export const customOrderStatusTypes = {
+  1: '待支付',
+  // 2: '待发货（已支付）',
+  2: '待发货',
+  3: '待收货',
+  // 4: '待评价（已收货）',
+  4: '待评价',
+  5: '已完成',
+  6: '已取消',
+  7: '已退货',
+  8: '取消中',
+  9: '退货中',
+}
 
 
+// 订单类型
 export const  orderTypes = {
   1: '药品订单',
   2: '药械订单'
@@ -28,3 +43,14 @@ export const  auditStatusType = {
   2: '审核通过',
   3: '审核不通过',
 }
+
+
+
+// 供应商企业类型
+export const  supplierTypes = {
+  1: "药品集散中心药企",
+  2: "药品集散中心药械企",
+  3: "药店",
+  4: "个人"
+}
+

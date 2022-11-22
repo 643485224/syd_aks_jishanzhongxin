@@ -8,8 +8,8 @@
       <div class="info">
         <div class="info-title">批量导入商品清单</div>
         <div class="info-content" :class="checkVisible?'noshow':''">
-          <cu-upload-file ref="upload" :files.sync="excelData" :drag="true" accept=".xls,.xlsx,.csv" width="110px"
-            height="110px" :customRequest="true" @customSubmit="customSubmit"></cu-upload-file>
+          <cu-upload-file ref="upload" :files.sync="excelData"  accept=".xls,.xlsx,.csv" width="110px"
+             :customRequest="true" @customSubmit="customSubmit" showIcon :icon="importImg"></cu-upload-file>
           <div class="info-content-right">
             <div class="title">填写导入数据信息</div>
             <div class="desc">请按照数据模板的格式准备导入数据，模板中的表头名称不可更改，表头行不能删除</div>
@@ -88,7 +88,6 @@
 <script>
 import { importDrugSupplierGoods,importApparatusSupplierGoods, saveSupplierGoods, downloadGoods } from "@/api/aksApi/platformApi/supplierPlatformApi.js";
 import * as  XLSX from 'xlsx';
-import { downloadXls } from "@/utils/exportXls.js";
 import { catchAwait } from "../../../../../utils/catchAwait";
 export default {
   data() {
@@ -111,7 +110,8 @@ export default {
       expand: false,
       right: 0,
       wrong: 0,
-      rightList: []// 上传数据
+      rightList: [],// 上传数据
+      importImg:require('./image/download.png')
     }
   },
   created() {
@@ -185,11 +185,12 @@ export default {
       return false
 
     },
+    // 数据上传
     async batchImport() {
       console.log(this.$refs.upload);
-      if (this.checkList.length) {
-        return this.$message.error("请检查异常字段后重新上传")
-      }
+      // if (this.checkList.length) {
+      //   return this.$message.error("请检查异常字段后重新上传")
+      // }
       this.rightList = this.rightList.map(item => {delete item.goodsId; delete item.flag;return item;})
       console.log(this.rightList);
       let [err, res] = await catchAwait(saveSupplierGoods(this.rightList))
@@ -203,6 +204,7 @@ export default {
       this.$message.success("上传成功")
       this.back()
     },
+    // 文件导入进行上传前校验
     async customSubmit(file) {
       console.log(this.ypqxType);
       let FormDatas = new FormData(); //上传文件的需要formdata类型;所以要转

@@ -31,6 +31,7 @@
   color: red;
 }
 
+
 .header {
   position: relative;
   height: 76px;
@@ -84,7 +85,7 @@
       // }
 
       .el-input,
-      .el-select {
+      .el-select,.el-cascader {
         //   width: 300px;
         width: 100%;
 
@@ -97,6 +98,7 @@
         }
       }
     }
+
 
     &-table {
       width: 100%;
@@ -223,3 +225,14 @@
     justify-content: center;
   }
 }
+
+
+
+
+.cascader-loading {
+  font-size: 12px;
+}
+
+
+
+

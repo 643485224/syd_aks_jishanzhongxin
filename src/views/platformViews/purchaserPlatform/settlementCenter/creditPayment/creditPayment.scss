@@ -111,13 +111,15 @@
 
 .content_four {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
 
     ::v-deep .el-input__inner {
         height: 32px;
     }
 
     ::v-deep .el-range-editor.el-input__inner {
-        width: 250px;
+        width: 180px;
         height: 32px !important;
     }
 
@@ -137,6 +139,5 @@
 
     .el_date_picker {
         height: 32px;
-
     }
 }

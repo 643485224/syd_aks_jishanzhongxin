@@ -4,7 +4,7 @@
       <div class="content_one">
         <div class="one_div">
           <div class="one-img">
-            <img src="./image/Slice44.png" alt="" />
+            <img v-lazy src="./image/Slice44.png" alt="" />
           </div>
           <div class="one_title">
             <h3>货付回款 账期无忧</h3>
@@ -22,7 +22,7 @@
               登录
             </div>
             <div class="li-img">
-             <img src="./image/Slice55.png" alt="">
+             <img v-lazy src="./image/Slice55.png" alt="">
             </div>
           </li>
           <li class="li-item2">
@@ -33,7 +33,7 @@
               登录
             </div>
             <div class="li-img">
-              <img src="./image/Slice54.png" alt="">
+              <img v-lazy src="./image/Slice54.png" alt="">
             </div>
           </li>
           <li class="li-item3">
@@ -44,7 +44,7 @@
               登录
             </div>
             <div class="li-img">
-              <img src="./image/Slice53.png" alt="">
+              <img v-lazy src="./image/Slice53.png" alt="">
             </div>
           </li>
         </ul>
@@ -53,95 +53,95 @@
         <div class="two_h2">
           <h2>结算合作银行</h2>
         </div>
-        <div class="two_title">
-          <div class="two_left">
-            <img src="./image/Slice51.png" alt="">
+        <div class="bg_e0edff two_title">
+          <div class="two_left"  @click="selectChange('http://www.ccb.com/cn/home/indexv3.html')">
+            <img v-lazy src="./image/Slice51.png" alt="">
           </div>
           <div class="two_right">
             <ul>
-              <li>
+              <li @click="selectChange('http://creditcard3.ccb.com/cn/creditcard/index.html')">
                 <div class="two_img">
-            <img src="./image/Slice38.png" alt="">
+            <img v-lazy src="./image/Slice38.png" alt="">
 
                 </div>
                 <div class="img_title">信用卡</div>
               </li>
-              <li>
+              <li @click="selectChange('http://www3.ccb.com/cn/personal/credit/mini_set.html')">
                 <div class="two_img">
-                  <img src="./image/Slice39.png" alt="">
+                  <img v-lazy src="./image/Slice39.png" alt="">
                 </div>
                 <div class="img_title">信用货款</div>
               </li>
-              <li>
+              <li  @click="selectChange('https://cloud.life.ccb.com/live/index_portal.jhtml')">
                 <div class="two_img">
-                  <img src="./image/Slice40.png" alt="">
+                  <img v-lazy src="./image/Slice40.png" alt="">
                 </div>
-                <div class="img_title">生活缴费</div>
+                <div class="img_title">悦生活</div>
               </li>
-              <li>
+              <li  @click="selectChange('http://finance3.ccb.com/cn/finance/index.html')">
                 <div class="two_img">
-                  <img src="./image/Slice41.png" alt="">
+                  <img v-lazy src="./image/Slice41.png" alt="">
                 </div>
                 <div class="img_title">投资理财</div>
               </li>
-              <li>
+              <li  @click="selectChange('http://buy.ccb.com/')">
                 <div class="two_img">
-                  <img src="./image/Slice42.png" alt="">
+                  <img v-lazy src="./image/Slice42.png" alt="">
                 </div>
-                <div class="img_title">商城</div>
+                <div class="img_title">善融商务</div>
               </li>
-              <li>
+              <li  @click="selectChange('http://ebank3.ccb.com/cn/ebank/index.html')">
                 <div class="two_img">
-                  <img src="./image/Slice43.png" alt="">
+                  <img v-lazy src="./image/Slice43.png" alt="">
                 </div>
-                <div class="img_title">更多</div>
+                <div class="img_title">电子银行</div>
               </li>
             </ul>
           </div>
         </div>
-        <div class="two_title two_title_one">
-          <div class="two_left">
-            <img src="./image/Slice52.png" alt="">
+        <div class="bg_fde5e5 two_title two_title_one">
+          <div class="two_left" @click="selectChange('https://www.xjrccb.com.cn/')">
+            <img v-lazy src="./image/Slice52.png" alt="">
 
           </div>
           <div class="two_right">
             <ul>
-              <li>
+              <li @click="selectChange('https://www.xjrccb.com.cn/')">
                 <div class="two_img">
-            <img src="./image/Slice38.png" alt="">
+            <img v-lazy src="./image/Slice38.png" alt="">
 
                 </div>
                 <div class="img_title">信用卡</div>
               </li>
-              <li>
+              <li @click="selectChange('https://www.xjrccb.com.cn/')">
                 <div class="two_img">
-                  <img src="./image/Slice39.png" alt="">
+                  <img v-lazy src="./image/Slice39.png" alt="">
                 </div>
                 <div class="img_title">信用货款</div>
               </li>
-              <li>
+              <li @click="selectChange('https://www.xjrccb.com.cn/')">
                 <div class="two_img">
-                  <img src="./image/Slice40.png" alt="">
+                  <img v-lazy src="./image/Slice40.png" alt="">
                 </div>
-                <div class="img_title">生活缴费</div>
+                <div class="img_title">惠生活</div>
               </li>
-              <li>
+              <li @click="selectChange('https://www.xjrccb.com.cn/')">
                 <div class="two_img">
-                  <img src="./image/Slice41.png" alt="">
+                  <img v-lazy src="./image/Slice41.png" alt="">
                 </div>
                 <div class="img_title">投资理财</div>
               </li>
-              <li>
+              <li @click="selectChange('https://www.xjrccb.com.cn/')">
                 <div class="two_img">
-                  <img src="./image/Slice42.png" alt="">
+                  <img v-lazy src="./image/Slice42-2.png" alt="">
                 </div>
-                <div class="img_title">商城</div>
+                <div class="img_title">行政缴费</div>
               </li>
-              <li>
+              <li @click="selectChange('https://www.xjrccb.com.cn/')">
                 <div class="two_img">
-                  <img src="./image/Slice43.png" alt="">
+                  <img v-lazy src="./image/Slice43.png" alt="">
                 </div>
-                <div class="img_title">更多</div>
+                <div class="img_title">个人银行</div>
               </li>
             </ul>
           </div>
@@ -149,14 +149,14 @@
       </div>
       <div class="content-three">
         <div class="three-left">
-          <img src="http://www.yjsds.com/static/web/images/images/js_img01.jpg" alt="">
+          <img v-lazy src="http://www.yjsds.com/static/web/images/images/js_img01.jpg" alt="">
           <div class="three-title">
          <h5>服务对象</h5>
          <p><span>园区线下入驻企业</span> | <span>合作医院</span> | <span> 药店药械配送企</span></p>
           </div>
         </div>
         <div class="three_right">
-          <img src="http://www.yjsds.com/static/web/images/images/js_img02.jpg" alt="">
+          <img v-lazy src="http://www.yjsds.com/static/web/images/images/js_img02.jpg" alt="">
           <div class="three-title">
          <h5>服务内容</h5>
          <p><span>交易货款支付结算</span> | <span>结算数据查询</span> | <span> 货款支付提醒</span> | <span>结算统计分析</span></p>
@@ -167,8 +167,8 @@
         <div class="two_h2">
           <h2>结算动态</h2>
         </div>
-        <div class="four-cont">
-          <div class="four-left">
+        <div class=" four-cont">
+          <div class=" bg_e2ffec four-left">
             <div class="left_item">
               <div class="item-left">
                 <h4>899</h4>
@@ -185,7 +185,7 @@
                 <li :class="e==2?'active':''" @mouseenter="e=2">药械最新开票情况</li>
               </ul>
               <div class="invoicing-content">
-                <div class="invoicing-item">
+                <div class="bg_e2ffec invoicing-item">
                   <span>发票流水号</span>
                   <span>开票单位</span>
                   <span>区域</span>
@@ -204,7 +204,7 @@
               </div>
             </div>
           </div>
-          <div class="four-right">
+          <div class="bg_e0edff four-right">
             <div class="left_item">
               <div class="item-left">
                 <h4>899</h4>
@@ -221,7 +221,7 @@
                 <li :class="n==2?'active':''" @mouseenter ="n=2">药械最新收款情况</li>
               </ul>
               <div class="invoicing-content">
-                <div class="invoicing-item">
+                <div class="bg_e0edff invoicing-item">
                   <span>支付流水号</span>
                   <span>收款单位</span>
                   <span>区域</span>
@@ -328,6 +328,11 @@ export default {
     getapp(val){
       console.log(1111);
    this.$router.push(val);
+    },
+    selectChange(value) {
+      if (value) {
+        window.open(value, "_blank");
+      }
     },
   },
    // 参数配置

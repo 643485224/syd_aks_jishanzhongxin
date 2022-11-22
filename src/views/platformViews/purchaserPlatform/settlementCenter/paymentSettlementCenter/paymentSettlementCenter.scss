@@ -8,7 +8,36 @@
         width: 0px;
     }
 }
+//扩展信息
+.expand-info {
+    padding: 20px;
+    .title {
+        margin-bottom: 20px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        
 
+        .item {
+            display: flex;
+            width: 50%;
+            font-size: 16px;
+            margin: 4px 0;
+            .label {
+                color:#999999;
+
+            }
+            .value {
+                margin-left: 5px;
+            }
+        }
+    }
+
+}
 .content_one {
     display: flex;
     align-items: flex-end;

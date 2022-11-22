@@ -24,7 +24,7 @@ try {
 } catch (e) {}
 
 // 需要永久存储，且下次APP启动需要取出的，在state中的变量名
-let saveStateKeys = ['vuex_user', 'vuex_menu', 'vuex_token', 'vuex_platform', 'vuex_navmenu'];
+let saveStateKeys = ['vuex_user', 'vuex_menu', 'vuex_token', 'vuex_platform', 'vuex_navmenu', 'vuex_retailOrders'];
 
 // 保存变量到本地存储中
 const saveLifeData = function (key, value) {
@@ -73,7 +73,11 @@ const store = new Vuex.Store({
       path: "main/supplierWorkbench"
     }, ],
     vuex_purchaserMenu: purchaser_menu,
-    vuex_purchaserNavMenu: []
+    vuex_purchaserNavMenu: [],
+
+    // 零售平台=>我的订单功能模块数据储存
+    vuex_retailOrders: lifeData.vuex_retailOrders ? lifeData.
+    vuex_retailOrders: {}
   },
   mutations: {
     $uStore(state, payload) {
@@ -97,10 +101,10 @@ const store = new Vuex.Store({
       // 保存变量到本地，见顶部函数定义
       saveLifeData(saveKey, state[saveKey])
     },
-    saveLoginInfo(state,menus){
+    saveLoginInfo(state, menus) {
       state.vuex_menu = menus;
-      state.vuex_navmenu =  state['vuex_' + state.vuex_platform + 'NavMenu'];
-      console.log(state.vuex_platform,state['vuex_' + state.vuex_platform + 'NavMenu'],state.vuex_navmenu);
+      state.vuex_navmenu = state['vuex_' + state.vuex_platform + 'NavMenu'];
+      console.log(state.vuex_platform, state['vuex_' + state.vuex_platform + 'NavMenu'], state.vuex_navmenu);
       saveLifeData('vuex_platform', state.currentPlatform)
       saveLifeData('vuex_menu', state.vuex_menu)
       saveLifeData('vuex_navmenu', state.vuex_navmenu)

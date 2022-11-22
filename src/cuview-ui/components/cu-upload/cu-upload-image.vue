@@ -1,24 +1,56 @@
 <template>
   <!-- :class="{disabled:uploadDisabled}"  用来控制上传后+号是否显示  -->
   <!-- action="https://jsonplaceholder.typicode.com/posts/" @submit="uploadSubmit" :http-request="httpRequest"  :http-request="customRequest?this.httpRequest:null"-->
-  <div>
+  <div :class="size">
     <!-- <el-button size="small" class="upload-btn" @click="submit2">手动上传</el-button> -->
-    <el-upload v-if="type=='image'" ref="uploadRef" class="image-uploader" list-type="picture-card"
-      :class="{disabled:uploadDisabled}" :accept="accept" :multiple="false" :limit="limit" :on-exceed="handleExceed"
-      :file-list="fileList" :action="actionUrl" :auto-upload="autoUpload" :before-upload="beforeUpload"
-      :on-change="uploadChange" :on-success="uploadSuccess" :http-request="httpRequest" :on-preview="handlePreview"
-      :before-remove="beforeRemove" :on-remove="handleRemove" :style="`width:${width};height:${height};`">
-      <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar">
+    <el-upload
+      v-if="type == 'image'"
+      ref="uploadRef"
+      class="image-uploader"
+      list-type="picture-card"
+      :class="{ disabled: uploadDisabled }"
+      :accept="accept"
+      :multiple="false"
+      :limit="limit"
+      :on-exceed="handleExceed"
+      :file-list="fileList"
+      :action="actionUrl"
+      :auto-upload="autoUpload"
+      :before-upload="beforeUpload"
+      :on-change="uploadChange"
+      :on-success="uploadSuccess"
+      :http-request="httpRequest"
+      :on-preview="handlePreview"
+      :before-remove="beforeRemove"
+      :on-remove="handleRemove"
+    >
+      <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar"> // :style="`width:${width};height:${height};`"
           <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
       <i class="el-icon-plus"></i>
       <slot name="tip">
-        <div slot="tip" class="el-upload__tip">{{tip}}</div>
+        <div slot="tip" class="el-upload__tip">{{ tip }}</div>
       </slot>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogPreviewUrl" alt="" v-if="type == 'image'">
-      <iframe :src="dialogPreviewUrl" width="100%" height="100%" border="0" v-else></iframe>
+      <img width="100%" :src="dialogPreviewUrl" alt="" v-if="type == 'image'" />
+      <iframe
+        :src="dialogPreviewUrl"
+        width="100%"
+        height="100%"
+        border="0"
+        v-else
+      ></iframe>
     </el-dialog>
+    <image-viewer
+      v-if="showImgViewer"
+      :url-list="imgPreviewUrl"
+      :on-close="
+        () => {
+          showImgViewer = false;
+        }
+      "
+      :z-index="3000"
+    />
   </div>
 </template>
 <script>
@@ -28,35 +60,42 @@
  * </cu-upload-image>
  */
 /**
-* 自动上传：
-* - 选择文件后自动上传 auto-upload: true
-* - 使用组件默认上传：action:上传地址
-* - 自定义上传： http-request 屏蔽 action ,自定义请求
-* 手动上传：auto-upload: false  不触发  beforeUpload  须在 on-change  做上传前判断
-* - 组件内触发上传事件
-* - 组件外触发上传事件：外部$refs 调用组件内上传方法时，组件内数据获取为data初始值，需要把上传步骤在组件外执行。
-*/
-
+ * 自动上传：
+ * - 选择文件后自动上传 auto-upload: true
+ * - 使用组件默认上传：action:上传地址
+ * - 自定义上传： http-request 屏蔽 action ,自定义请求
+ * 手动上传：auto-upload: false  不触发  beforeUpload  须在 on-change  做上传前判断
+ * - 组件内触发上传事件
+ * - 组件外触发上传事件：外部$refs 调用组件内上传方法时，组件内数据获取为data初始值，需要把上传步骤在组件外执行。
+ */
+import ImageViewer from "element-ui/packages/image/src/image-viewer";
 import { upload, uploadImage } from "@/api/aksApi/platformApi/commonApi.js";
-const formData = new FormData()
+const formData = new FormData();
 export default {
-  name: 'cu-upload-image',
+  name: "cu-upload-image",
+  components: {
+    ImageViewer,
+  },
   props: {
-    width: {
+    size: {
       type: String,
-      default: '110px'
+      default: "",
     },
-    height: {
-      type: String,
-      default: '110px'
-    },
+    // width: {
+    //   type: String,
+    //   default: '110px'
+    // },
+    // height: {
+    //   type: String,
+    //   default: '110px'
+    // },
     type: {
       type: String,
-      default: 'image'
+      default: "image",
     },
     text: {
       type: String,
-      default: '点击上传'
+      default: "点击上传",
     },
     tip: {
       type: String,
@@ -64,15 +103,15 @@ export default {
     },
     accept: {
       type: String,
-      default: '.jpg,.png'
+      default: ".jpg,.png",
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     limit: {
       type: Number,
-      default: 1
+      default: 1,
     },
     // minSize: {
     //     type: Number,
@@ -80,24 +119,25 @@ export default {
     // },
     maxSize: {
       type: Number,
-      default: 2 // MB
+      default: 2, // MB
     },
 
     files: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     imageUrl: {
       type: String,
-      default: ''
+      default: "",
     },
     actionUrl: {
       type: String,
-      default: '/api/upload'
+      default: "/api/upload",
     },
-    autoUpload: {// 是否在选取文件后立即进行上传
+    autoUpload: {
+      // 是否在选取文件后立即进行上传
       type: Boolean,
-      default: true
+      default: true,
     },
     // customRequest: {// 是否使用自定义上传
     //     type: Boolean,
@@ -109,67 +149,62 @@ export default {
     return {
       // {name:'主图',url:'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}
       fileList: [],
-      progressPercent: 0,// 进度条
+      progressPercent: 0, // 进度条
       multipartFile: {},
       headers: {
         // 'Authorization': this.$store.state.vuex_token.tokenHead + store.state.vuex_token.token
       },
-      uploadDisabled: false,// 上传后+号是否显示
-      dialogPreviewUrl: '',
+      uploadDisabled: false, // 上传后+号是否显示
+      dialogPreviewUrl: "",
       dialogVisible: false,
+      showImgViewer: false,
+      imgPreviewUrl: [],
       // fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
     };
   },
   created() {
-    this.fileList = this.files
+    this.fileList = this.files;
     this.headers = {
-      'Authorization': this.$store.state.vuex_token.tokenHead + this.$store.state.vuex_token.token,
-      'Content-Type': 'multipart/form-data',
+      Authorization:
+        this.$store.state.vuex_token.tokenHead +
+        this.$store.state.vuex_token.token,
+      "Content-Type": "multipart/form-data",
       // 'Accept': 'multipart/form-data'
-    }
+    };
   },
   mounted() {
+    // document.getElementsByClassName("el-upload--picture-card")[0].style.width = this.width;
+    // document.getElementsByClassName("el-upload--picture-card")[0].style.height = this.height;
+    // console.log(document.getElementsByClassName("el-upload--picture-card"));
+    // document.getElementsByClassName("el-upload-list__item").map((item) =>{
+    //   item.style.width = this.width;
+    //   item.style.height = this.height;
+    //   return item;
+    // })
     // this.fileList =[{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
-
   },
-  computed: {
-
-  },
+  computed: {},
   watch: {
     immediate: true,
     fileList(val) {
-      console.log(val);
-      this.$emit("update:files", val)
-      val.length ? this.multipartFile['multipartFile'] = val[0] : null
-      console.log(val.length, this.limit);
+      this.$emit("update:files", val);
+      val.length ? (this.multipartFile["multipartFile"] = val[0]) : null;
       // 控制单张图片上传时，不显示多余上传按钮
-      (val.length == this.limit) ? this.uploadDisabled = true : this.uploadDisabled = false
+      val.length == this.limit
+        ? (this.uploadDisabled = true)
+        : (this.uploadDisabled = false);
     },
 
-    files(val){
-      console.log(val);
-      this.fileList = val
-    }
-    // files: {
-    //   get(val) {
-    //     console.log(val);
-    //     return val;
-    //   },
-    //   set(val) {
-    //     console.log(val);
-    //     (val instanceof Array)?this.fileList = val:this.fileList = [val]
-
-    //   }
-
-
-    // }
+    files(val) {
+      this.fileList = val;
+    },
   },
   methods: {
     // 上传前校验
     beforeUpload(file) {
       console.log(file);
-      if (this.type == 'image') {
-        return this.validatorIMG(file)
+      if (this.type == "image") {
+        return this.validatorIMG(file);
       }
       //校验上传文件类型
       // const fileType = file.name.substring(file.name.lastIndexOf("."));
@@ -177,7 +212,6 @@ export default {
       //     this.$message.error(`请选择 ${this.accept} 文件`);
       //     this.fileList = [];
       // }
-
     },
     validatorIMG(file) {
       const isAccept = this.accept.indexOf(file.type) == -1;
@@ -193,14 +227,13 @@ export default {
     },
     // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用
     uploadChange(file, fileList) {
-      this.fileList = fileList
+      this.fileList = fileList;
       // .map(item => item.raw)
 
       // this.file = file.raw;
       // this.fileList.push(file.raw);
       // console.log(this.fileList);
-      if (file.status === 'ready') {
-
+      if (file.status === "ready") {
         // 附件变更
         //this.filelist = filelist  //这种方式无法触发手动上传动作
         // if(filelist.length > 1) {
@@ -220,7 +253,6 @@ export default {
       //         message: '上传附件失败，请重试！'
       //     })
       // }
-
     },
     updateProgress(e) {
       //e为回调回来的参数 通过进行和total的值来进行进度
@@ -228,7 +260,7 @@ export default {
     },
     async httpRequest(params) {
       // 上传新文件时，将进度条值置为零
-      this.progressPercent = 0
+      this.progressPercent = 0;
       let { file } = params;
       console.log(params, this.fileList);
       let res;
@@ -237,41 +269,26 @@ export default {
       //     res = await uploadImage(this.fileList[0])
       //     console.log(res);
       // }else {
-      res = await upload(file, this.updateProgress)
-      this.$emit("submit", res)
+      res = await upload(file, this.updateProgress);
+      this.$emit("submit", res);
       // }
-
-
     },
     uploadSuccess(res, file, fileList) {
-      console.log('uploadSuccess', res, file, fileList);
-      if (this.type == 'image') {
+      console.log("uploadSuccess", res, file, fileList);
+      this.$emit("uploadSuccess", res, file, fileList);
+      if (this.type == "image") {
         // this.imageUrl = URL.createObjectURL(file.raw);
       }
-
-
     },
-    async uploadSubmit() {
-
-
-      //创建FormData对象，调用append方法添加参数
-      // let formData = new FormData();
-      // if (!this.fileList.length) return;
-      // this.fileList.forEach(file => {
-      //     console.log(file);
-      //     formData.append("file", file);
-      // })
-      // console.log(formData);
-      let res = await upload(this.filelist_temp[0])
-      console.log(res);
-      // return res;
+    beforeRemove(file, fileList) {
+      console.log(file, fileList);
+      // return this.$confirm(`确定移除 ${file.name}？`);
     },
-
     // 附件移除
     handleRemove(file, filelist) {
       console.log(file, filelist, this.filelist);
-      this.fileList = filelist.filter(item => item != file) || []
-      this.$emit("remove", file, filelist)
+      this.fileList = filelist.filter((item) => item != file) || [];
+      this.$emit("remove", file, filelist);
       console.log(file, filelist);
 
       // //this.filelist = filelist  //这种方式无法触发手动上传动作
@@ -284,44 +301,42 @@ export default {
       // this.dialogPreviewUrl = file.url;
       // this.dialogVisible = true;
 
-      if (this.type == 'image') {
-        this.dialogPreviewUrl = file.url;
+      if (this.type == "image") {
+        // this.dialogPreviewUrl = file.url;
+        // this.dialogVisible = true;
+
+        this.showImgViewer = true;
+        this.imgPreviewUrl = this.files.map((item) => item.url);
       } else {
-        let docUrl = file.url
-        let url = encodeURIComponent(docUrl)
+        let docUrl = file.url;
+        let url = encodeURIComponent(docUrl);
         console.log(url);
         // pptx、ppt、pps、docx、doc、xlsx、xls
-        let officeUrl = 'http://view.officeapps.live.com/op/view.aspx?src=' + url
-        window.open(officeUrl, '_target');
+        let officeUrl =
+          "http://view.officeapps.live.com/op/view.aspx?src=" + url;
+        window.open(officeUrl, "_target");
       }
     },
     handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 ${this.limit} 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      this.$message.warning(
+        `当前限制选择 ${this.limit} 个文件，本次选择了 ${
+          files.length
+        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+      );
     },
-    beforeRemove(file, fileList) {
-      console.log(file, fileList);
-      return this.$confirm(`确定移除 ${file.name}？`);
-    }
-  }
-}
+  },
+};
 </script>
 <style lang="scss" scoped>
 // 文件上传
 .file-upload {
-
   .upload-btn {
     height: 32px;
   }
-
 }
-
-
-
-
 
 // 图片上传
 .image-uploader {
-
   ::v-deep .el-upload {
     border-radius: 6px;
     cursor: pointer;
@@ -331,46 +346,67 @@ export default {
   }
 
   .el-upload:hover {
-    border-color: #409EFF;
+    border-color: #409eff;
   }
 
-  .avatar-uploader-icon {
+  // .avatar-uploader-icon {
 
-    font-size: 28px;
-    color: #8c939d;
+  //   font-size: 28px;
+  //   color: #8c939d;
+  //   width: 110px;
+  //   height: 110px;
+  //   line-height: 110px;
+  //   text-align: center;
+  //   // border: 1px dashed #d9d9d9;
+
+  // }
+
+  // .avatar {
+  //   width: 110px;
+  //   height: 110px;
+  //   display: block;
+  // }
+
+  ::v-deep .el-upload--picture-card {
     width: 110px;
     height: 110px;
     line-height: 110px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
     text-align: center;
-    // border: 1px dashed #d9d9d9;
-
   }
-
-  .avatar {
-    width: 110px;
-    height: 110px;
-    display: block;
-  }
-
-  ::v-deep .el-upload--picture-card {
-    width: 100%;
-    height: 100%;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-  }
-
 
   ::v-deep.el-upload-list--picture-card .el-upload-list__item {
-    width: 100%;
-    height: 100%;
+    width: 110px;
+    height: 110px;
   }
 }
 
+.large {
+  ::v-deep .el-upload--picture-card {
+    width: 162px;
+    height: 118px;
+    line-height: 118px;
+  }
+  ::v-deep.el-upload-list--picture-card .el-upload-list__item {
+    width: 162px;
+    height: 118px;
+  }
+}
 
+.mini {
+  ::v-deep .el-upload--picture-card {
+    width: 56px;
+    height: 56px;
+    line-height: 56px;
+  }
+
+  ::v-deep.el-upload-list--picture-card .el-upload-list__item {
+    width: 56px;
+    height: 56px;
+  }
+}
 
 .disabled ::v-deep .el-upload--picture-card {
   display: none;

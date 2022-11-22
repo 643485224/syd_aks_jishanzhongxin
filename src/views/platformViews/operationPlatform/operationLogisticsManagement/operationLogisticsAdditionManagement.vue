@@ -41,7 +41,7 @@
                             :limit="6"
                             :on-success="handleAvatarSuccess"
                             :before-upload="beforeAvatarUpload">
-                            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                            <img v-lazy v-if="imageUrl" :src="imageUrl" class="avatar">
                             <i v-else class="el-icon-camera avatar-uploader-icon"></i>
                             <div v-if="falg" class="el-uploadtext" >添加照片</div>
                             </el-upload>
@@ -52,7 +52,7 @@
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess1"
                             :before-upload="beforeAvatarUpload">
-                            <img v-if="imageUrl1" :src="imageUrl1" class="avatar"> 
+                            <img v-lazy v-if="imageUrl1" :src="imageUrl1" class="avatar"> 
                             <i v-else class="el-icon-camera avatar-uploader-icon"></i>
                              <div  v-if="falg1" class="el-uploadtext">添加照片</div>
                             </el-upload>
@@ -62,7 +62,7 @@
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess2"
                             :before-upload="beforeAvatarUpload">
-                            <img v-if="imageUrl2" :src="imageUrl2" class="avatar"> 
+                            <img v-lazy v-if="imageUrl2" :src="imageUrl2" class="avatar"> 
                             <i v-else class="el-icon-camera avatar-uploader-icon"></i>
                              <div  v-if="falg2" class="el-uploadtext">添加照片</div>
                             </el-upload> 
@@ -73,7 +73,7 @@
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess3"
                             :before-upload="beforeAvatarUpload">
-                            <img v-if="imageUrl3" :src="imageUrl3" class="avatar"> 
+                            <img v-lazy v-if="imageUrl3" :src="imageUrl3" class="avatar"> 
                             <i v-else class="el-icon-camera avatar-uploader-icon"></i>
                              <div  v-if="falg3" class="el-uploadtext">添加照片</div>
                             </el-upload> 
@@ -84,7 +84,7 @@
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess4"
                             :before-upload="beforeAvatarUpload">
-                            <img v-if="imageUrl4" :src="imageUrl4" class="avatar"> 
+                            <img v-lazy v-if="imageUrl4" :src="imageUrl4" class="avatar"> 
                             <i v-else class="el-icon-camera avatar-uploader-icon"></i>
                              <div  v-if="falg4" class="el-uploadtext">添加照片</div>
                             </el-upload> 

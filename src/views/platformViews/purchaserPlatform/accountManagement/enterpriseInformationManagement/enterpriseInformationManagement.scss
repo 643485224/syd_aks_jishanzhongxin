@@ -10,6 +10,10 @@
     width: 0px;
 }
 
+.edit-btn {
+    float: right;
+}
+
 .enterprise-info {
     .info {
         padding: 10px 5px;
@@ -29,16 +33,21 @@
 
         &-item {
             display: flex;
+            align-items: center;
             width: calc(100% / 2 - 20px);
             padding: 6px 0;
             font-size: 14px;
             margin: 4px 0;
 
+            .el-input {
+                flex: 1;
+            }
+
             .label {
-                width: 100px;
-                margin-right: 10px;
+                width: 110px;
+                padding: 0 12px 0 0;
                 text-align: right;
-                color: #999999;
+                color: #606266;
             }
 
             .img-item {
@@ -57,6 +66,10 @@
                 span {
                     display: inline-block;
                 }
+
+                .el-input {
+                    flex: 1;
+                }
             }
 
             .info-logo {
@@ -65,5 +78,43 @@
                 object-fit: contain;
             }
         }
+
+        .storelist {
+            margin-bottom: 40px;
+
+            .storeHouse-item {
+                width: 20%;
+            }
+        }
+
+        .form-item {
+            display: block;
+
+            .el-input {
+                flex: 1;
+            }
+        }
+
+        ::v-deep.el-form-item__content {
+            display: flex;
+        }
+
+    }
+}
+
+
+.noEdit {
+    .el-input.is-disabled .el-input__inner {
+        border: none;
+        background-color: none;
+    }
+}
+
+
+.submit-bar {
+    text-align: center;
+
+    .el-button {
+        width: 120px;
     }
 }

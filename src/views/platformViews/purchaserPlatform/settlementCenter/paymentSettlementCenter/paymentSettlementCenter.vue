@@ -60,19 +60,55 @@
     </div>
     <div class="content_three mb_20">待支付发票</div>
     <div>
+      <!--  :selection="true"  
+        @handleSizeChange="handleSizeChange" -->
       <cu-table
         class="sale-table"
-        :selection="true"
         :showTitle="false"
         :height="tableHeight"
         :loading="tableLoading"
         :tableHeader="tableHeader"
         :tableData="tableData"
         :total="pages.total"
-        @handleSizeChange="handleSizeChange"
         @handleCurrentChange="handleCurrentChange"
         @handleSelectionChange="handleSelectionChange"
       >
+        <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">发票信息</div>
+            <div class="content">
+              <div class="item">
+                <div class="label">发票代码:</div>
+                <div class="value">{{ value.value.invoiceCode }}</div>
+              </div>
+              <div class="item">
+                <div class="label">发票号码:</div>
+                <div class="value">{{ value.value.invoiceNo }}</div>
+              </div>
+              <div class="item">
+                <div class="label">最迟付款时间:</div>
+                <div class="value">{{ value.value.payLimitDate }}</div>
+              </div>
+              <div class="item">
+                <div class="label">收票时间:</div>
+                <div class="value">{{ value.value.receiveInvoiceTime }}</div>
+              </div>
+              <div class="item">
+                <div class="label">开票人:</div>
+                <div class="value">{{ value.value.invoiceBy }}</div>
+              </div>
+              <!-- <div class="item"><div class="label">发票备注:</div><div class="value">{{value.value.invoiceRemark}}</div></div>
+              <div class="item"><div class="label">收票时间:</div><div class="value">{{value.value.receiveInvoiceTime }}</div></div> -->
+              <!-- <div class="item"><div class="label">退货状态:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+              <!-- <div class="item"><div class="label">交易时间:</div><div class="value">{{value.value.orderTime}}</div></div> -->
+              <!-- <div class="item"><div class="label">退货类型:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+              <!-- <div class="item"><div class="label">商品类型:</div><div class="value">{{value.value.goodsType == 1?'药品':'器械'}}</div></div> -->
+              <!-- <div class="item"><div class="label">支付方式:</div><div class="value">{{value.value.type}}</div></div> -->
+              <!-- <div class="item"><div class="label">商品数量:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+              <!-- <div class="item"><div class="label">供应商名称:</div><div class="value">{{value.value.supplierName}}</div></div> -->
+            </div>
+          </div>
+        </template>
         <template slot="operate" slot-scope="value">
           <a
             style="color: #ff480e"
@@ -97,6 +133,7 @@
     <onlinePayment
       diyPayType="支付结算中页面支付"
       v-if="onlinePaymentVisible"
+      :fkType="2"
       :onlinePaymentVisible="onlinePaymentVisible"
       :tableItemData="tableItemData"
       @onlinePaymentHandleClose="onlinePaymentHandleClose"
@@ -243,19 +280,23 @@ export default {
       tableLoading: false,
       tableHeader: [
         {
-          title: "序号",
-          key: "index",
-          width: "80",
+          slot: "expand",
           align: "center",
         },
         {
-          title: "发票代码",
-          key: "invoiceCode",
+          title: "序号",
+          key: "index",
+          width: "60",
+          align: "center",
         },
-        {
-          title: "发票号码",
-          key: "invoiceNo",
-        },
+        // {
+        //   title: "发票代码",
+        //   key: "invoiceCode",
+        // },
+        // {
+        //   title: "发票号码",
+        //   key: "invoiceNo",
+        // },
         {
           title: "关联合同编号",
           key: "contractNo",
@@ -264,20 +305,20 @@ export default {
           title: "关联订单编号",
           key: "orderNo",
         },
-        {
-          title: "最迟付款时间",
-          key: "payLimitDate",
-          width: 90,
-        },
-        {
-          title: "收票时间",
-          key: "receiveInvoiceTime",
-          width: 90,
-        },
-        {
-          title: "开票人",
-          key: "invoiceBy",
-        },
+        // {
+        //   title: "最迟付款时间",
+        //   key: "payLimitDate",
+        //   width: 90,
+        // },
+        // {
+        //   title: "收票时间",
+        //   key: "receiveInvoiceTime",
+        //   width: 90,
+        // },
+        // {
+        //   title: "开票人",
+        //   key: "invoiceBy",
+        // },
         {
           title: "发票金额",
           key: "invoiceAmount",
@@ -294,7 +335,7 @@ export default {
           title: "操作",
           slot: "operate",
           fixed: "right",
-          width: "120",
+          width: 120,
         },
       ],
       tableData: [],
@@ -328,6 +369,8 @@ export default {
 
       settlementTopUpVisible: false, //充值弹框
       settlementWithdrawDepositVisible: false, //提现弹框
+
+      fkType: 1, //1开启在线支付弹框，2开启货到付款支付弹框
     };
   },
   mounted() {
@@ -449,6 +492,7 @@ export default {
     // 支付-按钮 (开启在线支付弹框)
     paymentButton(tableItemData) {
       this.tableItemData = tableItemData;
+      this.fkType = tableItemData.fkType;
       this.onlinePaymentVisible = true;
     },
 

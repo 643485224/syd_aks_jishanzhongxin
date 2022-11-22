@@ -34,6 +34,9 @@
         <template slot="basicProperty" slot-scope="value">
           {{ basicProperty[value.value.basicProperty] }}
         </template>
+        <template slot="abroad" slot-scope="value">
+          {{ abroadt[value.value.abroad] }}
+        </template>
         <template slot="operate" slot-scope="value">
           <el-button type="text" @click="editAddDrug('edit', value.value.id)"
             >编辑</el-button
@@ -98,6 +101,14 @@
           >
           </el-input>
         </el-form-item>
+        <el-form-item class="form-item" label="品牌:">
+          <el-input
+            class="selectInput"
+            v-model="editAddDrugForm.brand"
+            placeholder="请输入品牌"
+          >
+          </el-input>
+        </el-form-item>
         <el-form-item label="基药属性:">
           <el-select
             v-model="editAddDrugForm.basicProperty"
@@ -132,6 +143,15 @@
           >
           </el-input>
         </el-form-item>
+        <el-form-item class="form-item" label="国产/进口:">
+          <el-select
+            v-model="abroadt[editAddDrugForm.abroad]"
+            placeholder="请选择国产/进口"
+          >
+            <el-option label="国产" value="1"> </el-option>
+            <el-option label="进口" value="2"> </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item class="form-item" label="药品本位码:">
           <el-input
             class="selectInput"
@@ -148,14 +168,14 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item class="form-item" label="商城价:">
+        <!-- <el-form-item class="form-item" label="商城价:">
           <el-input
             class="selectInput"
             v-model="editAddDrugForm.mallPrice"
             placeholder="请输入商城价"
           >
           </el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item class="form-item" label="排序号:">
           <el-input placeholder="请输入排序号" v-model="editAddDrugForm.sortNo">
           </el-input>
@@ -215,6 +235,14 @@
           >
           </el-input>
         </el-form-item>
+        <el-form-item class="form-item" label="品牌:">
+          <el-input
+            class="selectInput"
+            v-model="editAddDrugForm.brand"
+            placeholder="请输入品牌"
+          >
+          </el-input>
+        </el-form-item>
         <el-form-item label="基药属性:">
           <el-select
             v-model="editAddDrugForm.basicProperty"
@@ -224,7 +252,15 @@
             <el-option label="非基药" value="2"> </el-option>
           </el-select>
         </el-form-item>
-
+        <el-form-item label="国产/进口:">
+          <el-select
+            v-model="abroadt[editAddDrugForm.abroad]"
+            placeholder="请选择基药属性"
+          >
+            <el-option label="国产" value="1"> </el-option>
+            <el-option label="进口" value="2"> </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item class="form-item" label="剂型:">
           <el-input
             class="selectInput"
@@ -303,11 +339,17 @@ export default {
         1: "基药",
         2: "非基药",
       },
+      abroadt:{
+        1:'国产',
+        2:'进口'
+      },
       categoryId: [],
       editAddDrugForm: {
         approvalNumber: "",
         basicProperty: null,
+        brand:null,
         categoryId: 0,
+        abroad:'',
         commonName: "",
         createTime: "",
         deleteFlag: 0,
@@ -354,7 +396,7 @@ export default {
         {
           title: "id",
           slot: "id",
-          width: 100,
+          width: 60,
         },
         {
           title: "分类名称",
@@ -371,6 +413,10 @@ export default {
         {
           title: "商品名",
           slot: "goodsName",
+        },
+        {
+          title:'品牌',
+          key:'brand'
         },
         {
           title: "基药属性",
@@ -393,17 +439,23 @@ export default {
           slot: "ypbwm",
         },
         {
+          title: "国产/进口",
+          slot: "abroad",
+        },
+        {
           title: "批准文号",
           slot: "approvalNumber",
         },
+        // {
+        //   title: "商城价",
+        //   slot: "mallPrice",
+        // },
+        
         {
-          title: "商城价",
-          slot: "mallPrice",
-        },
-        {
+          fixed: 'right',
           title: "操作",
           slot: "operate",
-          width: 250,
+          width: 120,
         },
       ],
     };

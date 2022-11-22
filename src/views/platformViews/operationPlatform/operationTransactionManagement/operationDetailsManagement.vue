@@ -65,7 +65,7 @@
                 </div>
                 <div class="left-item">
                     <span class="inocs1">付款方式：</span>
-                    <span class="inocs2">{{getfktype(datalist.fkType)}}</span>
+                    <span class="inocs2">{{getfktype[datalist.fkType]}}</span>
                 </div>
             </div>
             <div class="box-right">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="left-item">
                     <span class="inocs1">订单类型：</span>
-                    <span class="inocs2">{{getorder(datalist.orderType)}}</span>
+                    <span class="inocs2">{{getorder[datalist.orderType]}}</span>
                 </div>
                 <div class="left-item">
                     <span class="inocs1">订单金额：</span>
@@ -108,7 +108,7 @@
             <div class="box-right">
                 <div class="left-item">
                     <span class="inocs1">配送方式：</span>
-                    <span class="inocs2">{{ getdelive(datalist.deliveryMethod)}}</span>
+                    <span class="inocs2">{{ getdelive[datalist.deliveryMethod]}}</span>
                 </div>
                 <div class="left-item">
                     <span class="inocs1">配送时间：</span>
@@ -164,7 +164,7 @@
             <div class="box-left">
                 <div class="left-item">
                     <span class="inocs1">付款类型：</span>
-                    <span class="inocs2">{{getpay(datalist.payType)}}</span>
+                    <span class="inocs2">{{getpay[datalist.payType]}}</span>
                 </div>
                 <div class="left-item">
                     <span class="inocs1">支付金额：</span>
@@ -186,7 +186,7 @@
                 </div>
                 <div class="left-item">
                     <span class="inocs1">结算状态：</span>
-                    <span class="inocs2">{{getSeet(datalist.settleStatus)}}</span>
+                    <span class="inocs2">{{getSeet[datalist.settleStatus]}}</span>
                 </div>
             </div>
             </div>
@@ -304,6 +304,26 @@ export default {
         //   align: "center",
         // },
       ],
+      getfktype:{
+        1:'在线支付',
+        2:'货到付款'
+      },
+      getorder:{
+        1:'药品',
+        2:'器械'
+      },
+      getpay:{
+        1:'余额',
+        2:'信用卡'
+      },
+      getSeet:{
+        0:'未结算',
+        1:'已结算'
+      },
+      getdelive:{
+        2:'普通快递',
+        1:'阿克苏集散中心物流'
+      }
         }
     },
     created(){
@@ -313,41 +333,6 @@ export default {
         this.tradeorderInfo()
     },
     methods:{
-        getfktype(value){
-            if (value == 1) {
-                return '在线支付'
-            } else if(value == 2){
-                return '货到付款'
-            }
-        },
-        getorder(value){
-            if (value == 1) {
-                return '药品'
-            } else{
-                return '器械'
-            }
-        },
-        getpay(value){
-            if (value == 1) {
-                return '余额'
-            } else{
-                return '信用卡'
-            }
-        },
-        getSeet(value){
-            if (value == 0) {
-                return '未结算'
-            } else{
-                return '已结算'
-            }
-        },
-        getdelive(value){
-            if (value == 1) {
-                return '阿克苏集散中心物流'
-            } else{
-                return '普通快递'
-            }
-        },
         getst(value){
             if (value == 1) {
                 this.status= 1
@@ -455,7 +440,7 @@ export default {
     }
     }
     .box-item{
-        height: 135px;
+        min-height: 156px;
     }
 }
 .search-bar {

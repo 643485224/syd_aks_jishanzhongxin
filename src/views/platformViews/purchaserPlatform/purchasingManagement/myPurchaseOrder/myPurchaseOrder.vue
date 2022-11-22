@@ -42,6 +42,24 @@
         @handleCurrentChange="handleCurrentChange"
         :total="pages.total"
       >
+      <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">订单信息</div>
+            <div class="content">
+              <div class="item"><div class="label">采购单编号:</div><div class="value">{{value.value.purchaseNo}}</div></div>
+              <div class="item"><div class="label">项目名称:</div><div class="value">{{value.value.projectName}}</div></div>
+              <div class="item"><div class="label">采购类型:</div><div class="value"> {{ typeList[value.value.type] }}</div></div>
+              <div class="item"><div class="label">采购数量:</div><div class="value">{{ value.value.quantity }}</div></div>
+              <div class="item"><div class="label">采购预算:</div><div class="value">{{ value.value.budget }}</div></div>
+              <div class="item"><div class="label">创建时间:</div><div class="value">{{value.value.createTime}}</div></div>
+              <div class="item"><div class="label">审核时间:</div><div class="value">{{value.value.auditTime}}</div></div>
+              <div class="item"><div class="label">审核状态:</div><div class="value">{{ auditStatusList[value.value.auditStatus] }}</div></div>
+              <div class="item"><div class="label">关联合同编号:</div><div class="value">{{value.value.contract_no}}</div></div>
+              <div class="item"><div class="label">商品类型:</div><div class="value">{{value.value.goodsType == 1?'药品':'器械'}}</div></div>
+              <div class="item"><div class="label">商品种类:</div><div class="value">{{value.value.category}}</div></div>
+            </div>
+          </div>
+        </template>
         <template slot="type" slot-scope="value">
           {{ typeList[value.value.type] }}
         </template>
@@ -50,7 +68,7 @@
         </template>
 
         <template slot="auditStatus" slot-scope="value">
-          {{ auditStatusList[value.value.auditStatus] }}
+          <span class="c_ff480e">{{ auditStatusList[value.value.auditStatus] }}</span>
         </template>
         <template slot="operate" slot-scope="value">
           <a
@@ -172,11 +190,17 @@ export default {
       },
       tableHeader: [
         {
+          slot: "expand",
+          align: "center",
+          width: "40",
+        },
+        {
           title: "序号",
           key: "index",
           width: "80",
           align: "center",
         },
+
         {
           title: "采购单编号",
           key: "purchaseNo",
@@ -185,22 +209,18 @@ export default {
           title: "项目名称",
           key: "projectName",
         },
-        {
-          title: "采购类型", //类型@ 1  招标需求采购  2  临时需求采购
-          slot: "type",
-        },
-        {
-          title: "商品类型",
-          slot: "goodsType", //商品类型：1 药品 2 器械
-        },
-        {
-          title: "采购商品预算",
-          key: "budget",
-        },
-        {
-          title: "商品种类",
-          key: "category",
-        },
+        // {
+        //   title: "采购类型", //类型@ 1  招标需求采购  2  临时需求采购
+        //   slot: "type",
+        // },
+        // {
+        //   title: "商品类型",
+        //   slot: "goodsType", //商品类型：1 药品 2 器械
+        // },
+        // {
+        //   title: "商品种类",
+        //   key: "category",
+        // },
         {
           title: "采购数量",
           key: "quantity",
@@ -213,11 +233,11 @@ export default {
           title: "审核状态",
           slot: "auditStatus", //审核状态@ 1   待提交  2   待审核  3  审核通过  4  审核不通过
         },
-        {
-          title: "创建时间",
-          slot: "createTime",
-          width: "100",
-        },
+        // {
+        //   title: "创建时间",
+        //   slot: "createTime",
+        //   width: "100",
+        // },
         {
           title: "审核时间",
           slot: "auditTime",

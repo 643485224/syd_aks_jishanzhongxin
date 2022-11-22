@@ -24,8 +24,8 @@
     >
       <!-- 标记 -->
       <el-amap-marker
-        v-for="(marker, index) in markers"
-        :position="marker"
+        v-for="(item, index) in markers"
+        :position="item.path"
         :key="index"
       ></el-amap-marker>
       <!-- 划线-->
@@ -45,19 +45,43 @@ const amapManager = new AMapManager();
 export default {
   name: "cu-gaudMap",
   props: {
+    //地图中心位置
+    center: {
+      type: Array,
+      default: () => [80.250101, 41.241784], //[lng,lat]新疆维吾尔自治区阿克苏地区温宿县温宿镇温宿县人民医院
+    },
+    //地图标点位置 [
+    //              {path:[lng,lat]},
+    //              {path:[lng,lat]},
+    //              {path:[lng,lat]},
+    //            ]
+    markers: {
+      type: Array,
+      default: () => [
+        { path: [80.250101, 41.241784] }, //具体地址坐标
+        { path: [80.231798, 41.238963] }, //具体地址坐标
+        { path: [80.217408, 41.23118] }, //具体地址坐标
+      ],
+    },
+    //地图画线位置 [
+    //              {path:[lng,lat]},
+    //              {path:[lng,lat]},
+    //              {path:[lng,lat]},
+    //            ]
     pathData: {
       type: Array,
       default: () => [
-        { path: [114.057939, 22.543527], keyword: "df" }, //具体地址坐标
-        { path: [113.264499, 23.130061], keyword: "erfe " }, //具体地址坐标
+        { path: [80.250101, 41.241784] }, //具体地址坐标
+        { path: [80.231798, 41.238963] }, //具体地址坐标
+        { path: [80.217408, 41.23118] }, //具体地址坐标
       ],
     },
   },
   watch: {
-    // pathData(v1, v2) {
-    //   console.log(v1, v2);
-    //   // this.events.complete()
-    // }
+    pathData(v1, v2) {
+      console.log("1:", v1, v2);
+      // this.events.complete()
+    },
   },
   data() {
     let self = this;
@@ -66,12 +90,11 @@ export default {
       address: null,
       searchKey: "",
       amapManager,
-      markers: [[80.237678, 41.278014]], //标点
       searchOption: {
         city: "全国",
         citylimit: true,
       },
-      center: [80.237678, 41.278014], //[lng,lat]新疆维吾尔自治区阿克苏地区温宿县温宿镇温宿县人民医院
+
       zoom: 17,
       lng: 0,
       lat: 0,
@@ -83,6 +106,7 @@ export default {
             所以要更改this的指向，即：const that = this
         */
           that.getDriving();
+          that.initSearch();
         },
         init() {
           lazyAMapApiLoaderInstance.load().then(() => {
@@ -91,7 +115,7 @@ export default {
         },
         // 点击获取地址的数据
         click(e) {
-          console.log(e);
+          console.log("2:", e);
           self.markers = [];
           let { lng, lat } = e.lnglat;
           self.lng = lng;
@@ -106,7 +130,7 @@ export default {
           geocoder.getAddress([lng, lat], function (status, result) {
             if (status === "complete" && result.info === "OK") {
               if (result && result.regeocode) {
-                console.log(result.regeocode.formattedAddress);
+                console.log("3:", result.regeocode.formattedAddress);
                 self.address = result.regeocode.formattedAddress;
                 self.searchKey = result.regeocode.formattedAddress;
                 self.$nextTick();
@@ -115,20 +139,21 @@ export default {
           });
         },
       },
+      // 画线
       polyline: {
         path: self.pathData.map((item) => item.path), //具体地址坐标
       },
 
       // 一些工具插件
       plugin: [
-        // {
-        //   pName: 'Geocoder',
-        //   events: {
-        //     init (o) {
-        //       console.log(o.getAddress())
-        //     }
-        //   }
-        // },
+        {
+          pName: "Geocoder",
+          events: {
+            init(o) {
+              console.log("4:", o.getAddress());
+            },
+          },
+        },
         {
           // 定位
           pName: "Geolocation",
@@ -159,7 +184,7 @@ export default {
           pName: "ToolBar",
           events: {
             init(instance) {
-              console.log(instance);
+              console.log("5:", instance);
             },
           },
         },
@@ -168,7 +193,7 @@ export default {
           pName: "OverView",
           events: {
             init(instance) {
-              console.log(instance);
+              console.log("6:", instance);
             },
           },
         },
@@ -178,7 +203,7 @@ export default {
           defaultType: 0,
           events: {
             init(instance) {
-              console.log(instance);
+              console.log("7:", instance);
             },
           },
         },
@@ -187,80 +212,133 @@ export default {
           pName: "PlaceSearch",
           events: {
             init(instance) {
-              console.log(instance);
+              console.log("8:", instance);
             },
           },
         },
       ],
     };
   },
-  mounted() {
-    console.log(this.pathData);
-    // setTimeOut(() => {
-    //   this.pathData = [
-    //     { path: [164.057939, 222.543527], keyword: 'df' },//具体地址坐标
-    //     { path: [203.264499, 223.130061], keyword: 'erfe ' }//具体地址坐标
-    //   ]
-    // }, 3000)
-  },
+  mounted() {},
   methods: {
     getDriving() {
       const map = this.amapManager.getMap();
-      const driving = new AMap.Driving({ map });
+      const driving = new AMap.Driving({ map: map });
+      // 根据起终点经纬度规划驾车导航路线
+      driving.search(
+        new AMap.LngLat(80.250101, 41.241784),
+        new AMap.LngLat(80.217408, 41.23118),
+        {
+          waypoints: [new AMap.LngLat(80.231798, 41.238963)],
+        },
+        function (status, result) {
+          // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+          if (status === "complete") {
+            console.log("绘制驾车路线完成");
+          } else {
+            console.log("获取驾车数据失败：" + result);
+          }
+        }
+      );
       // const path = [{ keyword: "广州" }, { keyword: "深圳" }]; //具体地址名
-      console.log(this.pathData);
-      // const path = [{ keyword: "广州广东省广州市增城区永宁街道广州新塘碧桂园凤凰城别墅碧桂园凤凰城凤雅苑" }, { keyword: "广东省广州市增城区中新镇英花农民专业合作社" }]
+      console.log("10:", this.pathData);
+      // const path = [
+      //   {
+      //     keyword:
+      //       "广州广东省广州市增城区永宁街道广州新塘碧桂园凤凰城别墅碧桂园凤凰城凤雅苑",
+      //   },
+      //   { keyword: "广东省广州市增城区中新镇英花农民专业合作社" },
+      // ];
 
-      let path = [];
+      const path = [];
       this.pathData.forEach((item) => {
-        console.log(item, item.keyword);
+        console.log("11:", item, item.keyword);
         let obj = { keyword: item.keyword };
-        console.log(obj);
+        console.log("12:", obj);
         path.push(obj);
         return obj;
       }); //具体地址名
-      console.log(path);
+      console.log("13:", path);
 
-      driving.search(path, function (status, result) {
-        console.log(status, "---", result);
-      });
+      // driving.search(path, function (status, result) {
+      //   console.log("14:", status, "---", result);
+      // });
+      // 根据起终点经纬度规划驾车导航路线
+      // driving.search(
+      //   [
+      //     new AMap.LngLat(116.379028, 39.865042),
+      //     new AMap.LngLat(116.427281, 39.903719),
+      //   ],
+
+      //   function (status, result) {
+      //     // result 即是对应的驾车导航信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_DrivingResult
+      //     if (status === "complete") {
+      //       console.log("绘制驾车路线完成");
+      //     } else {
+      //       console.log("获取驾车数据失败：" + result);
+      //     }
+      //   }
+      // );
     },
     initSearch() {
-      let vm = this;
-      let map = this.amapManager.getMap();
-      AMapUI.loadUI(["misc/PoiPicker"], function (PoiPicker) {
-        var poiPicker = new PoiPicker({
-          input: "search",
-          placeSearchOptions: {
-            map: map,
-            pageSize: 10,
-          },
-          suggestContainer: "searchTip",
-          searchResultsContainer: "searchTip",
-        });
-        vm.poiPicker = poiPicker;
-        // 监听poi选中信息
-        poiPicker.on("poiPicked", function (poiResult) {
-          console.log(poiResult);
-          let source = poiResult.source;
-          let poi = poiResult.item;
-          if (source !== "search") {
-            poiPicker.searchByKeyword(poi.name);
-          } else {
-            poiPicker.clearSearchResults();
-            vm.markers = [];
-            let lng = poi.location.lng;
-            let lat = poi.location.lat;
-            let address = poi.cityname + poi.adname + poi.name;
-            vm.center = [lng, lat];
-            vm.markers.push([lng, lat]);
-            vm.lng = lng;
-            vm.lat = lat;
-            vm.address = address;
-            vm.searchKey = address;
+      const map = this.amapManager.getMap();
+      AMapUI.load(
+        ["ui/misc/PathSimplifier", "lib/$"],
+        function (PathSimplifier, $) {
+          if (!PathSimplifier.supportCanvas) {
+            alert("当前环境不支持 Canvas！");
+            return;
           }
-        });
-      });
+
+          var pathSimplifierIns = new PathSimplifier({
+            zIndex: 1000,
+            //autoSetFitView:false,
+            map: map, //所属的地图实例
+
+            getPath: function (pathData, pathIndex) {
+              return pathData.path;
+            },
+            getHoverTitle: function (pathData, pathIndex, pointIndex) {
+              if (pointIndex >= 0) {
+                //point
+                return (
+                  pathData.name +
+                  "，点：" +
+                  pointIndex +
+                  "/" +
+                  pathData.path.length
+                );
+              }
+
+              return pathData.name + "，点数量" + pathData.path.length;
+            },
+            renderOptions: {
+              renderAllPointsIfNumberBelow: 100, //绘制路线节点，如不需要可设置为-1
+            },
+          });
+
+          window.pathSimplifierIns = pathSimplifierIns;
+
+          //设置数据
+          pathSimplifierIns.setData([
+            {
+              name: "路线0",
+              path: [
+                [80.250101, 41.241784], //具体地址坐标
+                [80.231798, 41.238963], //具体地址坐标
+                // [80.217408, 41.23118], //具体地址坐标
+              ],
+            },
+          ]);
+          //对第一条线路（即索引 0）创建一个巡航器
+          var navg1 = pathSimplifierIns.createPathNavigator(0, {
+            loop: false, //循环播放
+            speed: 1000, //巡航速度，单位千米/小时
+          });
+
+          navg1.start();
+        }
+      );
     },
     searchByHand() {
       if (this.searchKey !== "") {

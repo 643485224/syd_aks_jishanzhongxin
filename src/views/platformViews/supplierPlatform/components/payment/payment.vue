@@ -1,7 +1,14 @@
 <template>
   <div v-loading.fullscreen.lock="loading">
-    <cu-dialog width="650px" title="在线支付" :center="'center'" :showClose="true" :visible="onlinePaymentVisible"
-      @handleClose="onlinePaymentHandleClose()" @handleOk="onlinePaymentHandleOk()">
+    <cu-dialog
+      width="650px"
+      title="在线支付"
+      :center="'center'"
+      :showClose="true"
+      :visible="onlinePaymentVisible"
+      @handleClose="onlinePaymentHandleClose()"
+      @handleOk="onlinePaymentHandleOk()"
+    >
       <div class="onlinePayment">
         <div class="onlinePayment_one mt_40">
           <div class="flex" style="color: #999999">
@@ -34,15 +41,30 @@
       <div slot="footer">
         <slot name="footer">
           <div class="dialog-footer">
-            <el-button class="elButtonTwo" @click="onlinePaymentHandleClose">取 消</el-button>
-            <el-button class="elButtonOne btn_ff480e" type="primary" @click="onlinePaymentHandleOk">确认支付</el-button>
+            <el-button class="elButtonTwo" @click="onlinePaymentHandleClose"
+              >取 消</el-button
+            >
+            <el-button
+              class="elButtonOne btn_ff480e"
+              type="primary"
+              :disabled="payBalance < payAmount && payCredit < payAmount"
+              @click="onlinePaymentHandleOk"
+              >确认支付</el-button
+            >
           </div>
         </slot>
       </div>
     </cu-dialog>
 
-    <cu-dialog width="40vw" title="输入密码" :center="'center'" :showClose="true" :visible="inputPasswordVisible"
-      @handleClose="inputPasswordHandleClose()" @handleOk="inputPasswordHandleOk()">
+    <cu-dialog
+      width="40vw"
+      title="输入密码"
+      :center="'center'"
+      :showClose="true"
+      :visible="inputPasswordVisible"
+      @handleClose="inputPasswordHandleClose()"
+      @handleOk="inputPasswordHandleOk()"
+    >
       <div class="inputPassword flex_fc_ac">
         <el-row class="el_row">
           <el-col :span="24" class="el_col">
@@ -59,7 +81,13 @@
         <el-row class="el_row">
           <el-col :span="24" class="el_col">
             <div class="title">支付密码:</div>
-            <el-input clearable class="el_input" v-model="payPwd" show-password placeholder="请输入支付密码"></el-input>
+            <el-input
+              clearable
+              class="el_input"
+              v-model="payPwd"
+              show-password
+              placeholder="请输入支付密码"
+            ></el-input>
             <!-- <el-input
               clearable
               class="el_input"
@@ -82,15 +110,29 @@
         <el-row class="el_row">
           <el-col :span="24" class="el_col">
             <div class="title">支付备注:</div>
-            <el-input clearable class="el_input" v-model="payRemark" type="textarea" rows="4" placeholder="请输入支付备注">
+            <el-input
+              clearable
+              class="el_input"
+              v-model="payRemark"
+              type="textarea"
+              rows="4"
+              placeholder="请输入支付备注"
+            >
             </el-input>
           </el-col>
         </el-row>
         <el-row class="el_row">
           <el-col :span="24" class="el_col">
             <div class="title"></div>
-            <el-button class="elButtonTwo" @click="inputPasswordHandleClose">取 消</el-button>
-            <el-button class="elButtonOne" type="primary" @click="inputPasswordHandleOk">确定</el-button>
+            <el-button class="elButtonTwo" @click="inputPasswordHandleClose"
+              >取 消</el-button
+            >
+            <el-button
+              class="elButtonOne"
+              type="primary"
+              @click="inputPasswordHandleOk"
+              >确定</el-button
+            >
           </el-col>
         </el-row>
         <div class="dialog-footer"></div>
@@ -98,8 +140,14 @@
       <div slot="footer"></div>
     </cu-dialog>
 
-    <cu-dialog width="40vw" title="支付收银台" :center="'center'" :showClose="true" :visible="paymentCashierVisible"
-      @handleClose="paymentCashierHandleClose()">
+    <cu-dialog
+      width="40vw"
+      title="支付收银台"
+      :center="'center'"
+      :showClose="true"
+      :visible="paymentCashierVisible"
+      @handleClose="paymentCashierHandleClose()"
+    >
       <div class="paymentCashier flex_fc_ac">
         <div class="paymentCashier_one mt_20"></div>
         <div class="paymentCashier_two">支付操作成功</div>
@@ -107,13 +155,24 @@
           支付金额：<span style="color: #ff480e">￥{{ payAmount }}</span>
           元
         </div>
-        <el-button class="elButtonOne mt_20" type="primary" @click="paymentCashierHandleClose">查看订单详情</el-button>
+        <el-button
+          class="elButtonOne mt_20"
+          type="primary"
+          @click="paymentCashierHandleClose"
+          >查看订单详情</el-button
+        >
       </div>
       <div slot="footer"></div>
     </cu-dialog>
 
-    <cu-dialog width="40vw" title="提示" :showClose="true" :visible="jumpVisible" @handleClose="jumpHandleClose()"
-      @handleOk="jumpHandleOk()">
+    <cu-dialog
+      width="40vw"
+      title="提示"
+      :showClose="true"
+      :visible="jumpVisible"
+      @handleClose="jumpHandleClose()"
+      @handleOk="jumpHandleOk()"
+    >
       <div class="flex mt_20" style="font-size: 20px; color: black">
         {{ jumpTitle }}
       </div>
@@ -122,11 +181,11 @@
 </template>
 <script>
 import {
-  getAmount, propertyCostsPay, getSupplier,
+  getAmount,
+  propertyCostsPay,
+  getSupplier,
 } from "@/api/aksApi/platformApi/supplierPlatformApi.js";
-import {
-  payCaptcha,
-} from "@/api/aksApi/platformApi/loginApi.js";
+import { payCaptcha } from "@/api/aksApi/platformApi/loginApi.js";
 import VerifyBtn from "../verifyBtn/verifyBtn.vue";
 export default {
   components: { VerifyBtn },
@@ -160,12 +219,12 @@ export default {
       payTime: null,
       paycurrentTime: null,
       payAmount: 0,
-      phone: '',
+      phone: "",
       loading: false,
       jumpVisible: false,
       jumpValue: null,
       jumpTitle: "", //跳转弹框标题
-      havePayPassword:false,
+      havePayPassword: false,
     };
   },
   created() {
@@ -173,48 +232,53 @@ export default {
   },
   mounted() {
     this.getAmount();
-    this.getEnterpriseInfo()
+    this.getEnterpriseInfo();
     console.log(this.paylist);
-    this.payAmount = this.paylist.reduce((total, current) => total + current.amount, 0);
+    this.payAmount = this.paylist.reduce(
+      (total, current) => total + current.amount,
+      0
+    );
     console.log(this.payAmount);
     this.phone = this.$store.state.vuex_user.phone;
-
   },
   watch: {
     immediate: true,
     paylist(val) {
       console.log(val);
-    }
+    },
   },
   methods: {
     // 获取企业信息
     getEnterpriseInfo() {
-      getSupplier().then(res => {
-        console.log(res);
-        if (res.code == 200) {
-          this.havePayPassword = res.data.payPassword?true:false;
-        } else {
-          this.$message.warning("企业信息获取失败")
-
-        }
-      }).catch((err) => {
-        console.log(err);
-      });
+      getSupplier()
+        .then((res) => {
+          console.log(res);
+          if (res.code == 200) {
+            this.havePayPassword = res.data.payPassword ? true : false;
+          } else {
+            this.$message.warning("企业信息获取失败");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // 获取可支付余额
     getAmount() {
       this.loading = true;
-      getAmount().then((res) => {
-        console.log(res);
-        if (res.code == 200) {
-          this.payBalance = res.data.amount; //余额
-          this.payCredit = res.data.creditAmount; //信用
-        }
-        else {
-          this.$message.error(res.message);
-        }
-        this.loading = false;
-      })
+      let supplierId = this.$store.state.vuex_user.sysId;
+      console.log(supplierId);
+      getAmount({ supplierId })
+        .then((res) => {
+          console.log(res);
+          if (res.code == 200) {
+            this.payBalance = res.data.amount; //余额
+            this.payCredit = res.data.creditAmount; //信用
+          } else {
+            this.$message.error(res.message);
+          }
+          this.loading = false;
+        })
         .catch((err) => {
           console.log(err);
           this.loading = false;
@@ -230,8 +294,7 @@ export default {
           if (res.code == 200) {
             // this.payCode = res.data;
             this.wait = 60;
-          }
-          else {
+          } else {
             this.$message.error(res.message);
           }
         })
@@ -269,9 +332,7 @@ export default {
           if (res.code == 200) {
             this.$emit("afterSubmit", false);
             this.$message.success(res.message);
-
-          }
-          else {
+          } else {
             this.$message.error(res.message);
           }
         })
@@ -291,7 +352,8 @@ export default {
         return;
       }
       if (!this.havePayPassword) {
-        this.jumpTitle = "您还未设置支付密码，是否自动跳转到账号安全页面进行设置?";
+        this.jumpTitle =
+          "您还未设置支付密码，是否自动跳转到账号安全页面进行设置?";
         this.jumpValue = 1; //jumpValue 1跳转账号管理页面设置支付密码-2跳转收货地址管理页面 设置收货地址
         this.jumpVisible = true;
         return;
@@ -326,11 +388,11 @@ export default {
       }
       // else if (this.jumpValue == 2) {
       //   title = "s后将为您自动跳转到收货地址管理页面，您可以设置收货地址";
-      //   pathName = "/main/receivingAddressManagement";
+      //   pathName = "/webPersonalMain/receivingAddressManagement";
       // }
       // else if (this.jumpValue == 3) {
       //   title = "s后将为您自动跳转到充值页面，您可以进行余额充值";
-      //   pathName = "/main/paymentSettlementCenter";
+      //   pathName = "/webPersonalMain/paymentSettlementCenter";
       // }
       let times = setInterval(() => {
         this.$message.info(`${timesss}${title}`);
@@ -342,8 +404,7 @@ export default {
           });
           window.open(routeData.href, "_blank");
           this.paymentCashierHandleClose();
-        }
-        else {
+        } else {
           timesss--;
         }
       }, 1000);
@@ -358,6 +419,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" src="./payment.scss" scoped>
-
-</style>
+<style lang="scss" src="./payment.scss" scoped></style>

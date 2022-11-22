@@ -32,6 +32,7 @@
           >
             <el-option label="药品" :value="1"></el-option>
             <el-option label="药械" :value="2"></el-option>
+            <el-option label="其他" :value="3"></el-option>
           </el-select>
         </div>
         <el-button

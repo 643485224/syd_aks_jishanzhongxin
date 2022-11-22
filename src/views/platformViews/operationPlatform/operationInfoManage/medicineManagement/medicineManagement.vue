@@ -34,6 +34,9 @@
         <template slot="createTime" slot-scope="value">
           {{ formatDate(value.value.createTime, "yyyy-MM-dd") }}
         </template>
+        <template slot="abroad" slot-scope="value">
+          {{ abroadt[value.value.abroad] }}
+        </template>
         <template slot="operate" slot-scope="value">
           <el-button type="text" @click="editAddMedicina('edit', value.value.id)"
             >编辑</el-button
@@ -123,6 +126,14 @@
           >
           </el-input>
         </el-form-item>
+        <el-form-item class="form-item" label="品牌:">
+          <el-input
+            class="selectInput"
+            v-model="editAddMedicinaForm.brand"
+            placeholder="请输入品牌"
+          >
+          </el-input>
+        </el-form-item>
         <el-form-item class="form-item" label="产地:">
           <el-input
             class="selectInput"
@@ -146,6 +157,15 @@
             placeholder="请输入生产企业"
           >
           </el-input>
+        </el-form-item>
+        <el-form-item label="国产/进口:">
+          <el-select
+            v-model="abroadt[editAddMedicinaForm.abroad]"
+            placeholder="请选择国产/进口"
+          >
+            <el-option label="国产" value="1"> </el-option>
+            <el-option label="进口" value="2"> </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item class="form-item" label="商城价:">
           <el-input
@@ -238,6 +258,14 @@
           >
           </el-input>
         </el-form-item>
+        <el-form-item class="form-item" label="品牌:">
+          <el-input
+            class="selectInput"
+            v-model="editAddMedicinaForm.brand"
+            placeholder="请输入品牌"
+          >
+          </el-input>
+        </el-form-item>
         <el-form-item class="form-item" label="产地:">
           <el-input
             class="selectInput"
@@ -262,14 +290,23 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item class="form-item" label="商城价:">
+        <el-form-item label="国产/进口:">
+          <el-select
+            v-model="abroadt[editAddMedicinaForm.abroad]"
+            placeholder="请选择国产/进口"
+          >
+            <el-option label="国产" value="1"> </el-option>
+            <el-option label="进口" value="2"> </el-option>
+          </el-select>
+        </el-form-item>
+        <!-- <el-form-item class="form-item" label="商城价:">
           <el-input
             class="selectInput"
             v-model="editAddMedicinaForm.mallPrice"
             placeholder="请输入商城价"
           >
           </el-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item class="form-item" label="排序号:">
           <el-input placeholder="请输入排序号" v-model="editAddMedicinaForm.sortNo">
           </el-input>
@@ -299,11 +336,15 @@ export default {
       detailsMedicinaVisible:false,
       tableData: [],
       apparatus_category: [],
+      abroadt:{
+        1:'国产',
+        2:'进口'
+      },
       tableHeader: [
         {
           title: "id",
           slot: "id",
-          width: 100,
+          width: 60,
         },
         {
           title: "分类名称",
@@ -326,8 +367,16 @@ export default {
           slot: "material",
         },
         {
+          title: "国产/进口",
+          slot: "abroad",
+        },
+        {
           title: "规格型号",
           slot: "specification",
+        },
+        {
+          title:'品牌',
+          key:'brand',
         },
         {
           title: "批准文号",
@@ -345,14 +394,15 @@ export default {
           title: "生产企业",
           slot: "manufacturer",
         },
+        // {
+        //   title: " 商城价",
+        //   slot: "mallPrice",
+        // },
         {
-          title: " 商城价",
-          slot: "mallPrice",
-        },
-        {
+          fixed: 'right',
           title: "操作",
           slot: "operate",
-          width: 250,
+          width: 120,
         },
       ],
       editAddMedicinaForm: {
@@ -361,6 +411,8 @@ export default {
         commonName: "",
         createTime: "",
         deleteFlag: 0,
+        abroad:null,
+        brand:'',
         id: 0,
         manufacturer: "",
         material: "",

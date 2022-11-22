@@ -1,3 +1,15 @@
+.bg_e2ffec {
+    background: #e2ffec !important;
+}
+
+.bg_e0edff {
+    background: #e0edff !important;
+}
+
+.bg_fde5e5 {
+    background: #fde5e5 !important;
+}
+
 .content-body {
     display: flex;
     flex-direction: column;
@@ -184,19 +196,19 @@
         .xianl {
             width: 150px;
             height: 1px;
-            background: #156CC2;
+            background: #83C1FF;
         }
 
         .xianz {
             width: 70px;
             height: 4px;
-            background: #156CC2;
+            background: #83C1FF;
         }
 
         .xianr {
             width: 150px;
             height: 1px;
-            background: #156CC2;
+            background: #83C1FF;
         }
     }
 
@@ -316,15 +328,15 @@
 
         .moveHover1 {
             width: 796px;
-            background: #156CC2;
-            color: #FFFFFF;
+            background: #83C1FF;
+            color: #020552;
             transition: all .3s;
 
             .content_five_11 {
                 .content_five_113 {
                     .content_five_113_btn {
-                        border: 1px solid #FFFFFF;
-                        color: #FFFFFF;
+                        border: 1px solid #020552;
+                        color: #020552;
                     }
                 }
             }
@@ -332,8 +344,8 @@
             .content_five_21 {
                 .content_five_213 {
                     .content_five_213_btn {
-                        border: 1px solid #FFFFFF;
-                        color: #FFFFFF;
+                        border: 1px solid #020552;
+                        color: #020552;
                     }
                 }
             }
@@ -416,21 +428,21 @@
 
         .moveHover1 {
             width: 796px;
-            background: #156CC2;
-            color: #FFFFFF;
+            background: #83C1FF;
+            color: #020552;
             transition: all .3s;
 
             .content_six_11 {
                 width: 60%;
 
                 .content_six_111 {
-                    color: #FFFFFF;
+                    color: #020552;
                 }
 
                 .content_six_113 {
                     .content_six_113_btn {
-                        border: 1px solid #FFFFFF;
-                        color: #FFFFFF;
+                        border: 1px solid #020552;
+                        color: #020552;
                     }
                 }
             }
@@ -440,8 +452,8 @@
 
                 .content_six_213 {
                     .content_six_213_btn {
-                        border: 1px solid #FFFFFF;
-                        color: #FFFFFF;
+                        border: 1px solid #020552;
+                        color: #020552;
                     }
                 }
             }
@@ -451,8 +463,8 @@
 
                 .content_six_313 {
                     .content_six_313_btn {
-                        border: 1px solid #FFFFFF;
-                        color: #FFFFFF;
+                        border: 1px solid #020552;
+                        color: #020552;
                     }
                 }
             }
@@ -463,7 +475,7 @@
         margin-top: 80px;
         height: 972px;
         width: 100%;
-        background: #156CC2;
+        background: #83C1FF;
 
         display: flex;
         justify-content: center;
@@ -752,12 +764,14 @@
 }
 
 .logo__box {
-    width: 1464px;
+    // width: 1464px;
+    width: 1200px;
     height: 100%;
     margin: 0 auto;
     background: url(https://p4.ssl.qhimg.com/t01a5426bd229e981c8.png) no-repeat 0 0;
     background-size: 100% 100%;
     position: relative;
+    font-size: 12px;
 }
 
 .logo__box__nav {
@@ -777,7 +791,7 @@
     width: 74px;
     height: 74px;
     top: 50px;
-    left: 247px;
+    left: 115px;
 
 }
 
@@ -790,7 +804,7 @@
     width: 74px;
     height: 74px;
     top: 47px;
-    left: 558px;
+    left: 426px;
 }
 
 .logo__box__add2 img {
@@ -802,7 +816,7 @@
     width: 134px;
     height: 134px;
     top: 14px;
-    left: 780px;
+    left: 648px;
 }
 
 .logo__box__add3 img {
@@ -814,7 +828,7 @@
     width: 104px;
     height: 104px;
     top: 66px;
-    left: 1017px;
+    left: 885px;
 }
 
 .logo__box__add4 img {
@@ -826,7 +840,7 @@
     width: 134px;
     height: 134px;
     top: 536px;
-    left: 1159px;
+    left: 1027px;
 }
 
 .logo__box__add5 img {
@@ -838,7 +852,7 @@
     width: 74px;
     height: 74px;
     top: 148px;
-    left: 410px;
+    left: 278px;
 }
 
 .logo__box__add6 img {
@@ -850,7 +864,7 @@
     width: 74px;
     height: 74px;
     top: 181px;
-    left: 548px;
+    left: 416px;
 }
 
 .logo__box__nav2 img {
@@ -862,7 +876,7 @@
     width: 104px;
     height: 104px;
     top: 111px;
-    left: 670px;
+    left: 538px;
 }
 
 .logo__box__nav3 img {
@@ -874,7 +888,7 @@
     width: 94px;
     height: 94px;
     top: 176px;
-    left: 835px;
+    left: 703px;
 }
 
 .logo__box__nav4 img {
@@ -886,7 +900,7 @@
     width: 74px;
     height: 74px;
     top: 227px;
-    left: 1000px;
+    left: 868px;
 }
 
 .logo__box__nav5 img {
@@ -898,7 +912,7 @@
     width: 134px;
     height: 134px;
     top: 211px;
-    left: 1196px;
+    left: 1064px;
 }
 
 .logo__box__nav6 img {
@@ -910,7 +924,7 @@
     width: 84px;
     height: 84px;
     top: 262px;
-    left: 256px;
+    left: 124px;
 }
 
 .logo__box__nav7 img {
@@ -922,7 +936,7 @@
     width: 134px;
     height: 134px;
     top: 282px;
-    left: 445px;
+    left: 313px;
 }
 
 .logo__box__nav8 img {
@@ -934,7 +948,7 @@
     width: 248px;
     height: 248px;
     top: 254px;
-    left: 608px;
+    left: 476px;
     background: url(https://p4.ssl.qhimg.com/t017e42fa7da853feb6.png);
     background-size: 100% 100%;
     display: flex;
@@ -962,7 +976,7 @@
     width: 134px;
     height: 134px;
     top: 335px;
-    left: 884px;
+    left: 752px;
 }
 
 .logo__box__nav10 img {
@@ -974,7 +988,7 @@
     width: 104px;
     height: 104px;
     top: 394px;
-    left: 1105px;
+    left: 973px;
 }
 
 .logo__box__nav11 img {
@@ -986,7 +1000,7 @@
     width: 134px;
     height: 134px;
     top: 391px;
-    left: 132px;
+    left: 0px;
 }
 
 .logo__box__nav12 img {
@@ -998,7 +1012,7 @@
     width: 104px;
     height: 104px;
     top: 431px;
-    left: 354px;
+    left: 222px;
 }
 
 .logo__box__nav13 img {
@@ -1010,7 +1024,7 @@
     width: 84px;
     height: 84px;
     top: 465px;
-    left: 516px;
+    left: 384px;
 }
 
 .logo__box__nav14 img {
@@ -1022,7 +1036,7 @@
     width: 104px;
     height: 104px;
     top: 525px;
-    left: 643px;
+    left: 511px;
 }
 
 .logo__box__nav15 img {
@@ -1034,7 +1048,7 @@
     width: 74px;
     height: 74px;
     top: 507px;
-    left: 819px;
+    left: 687px;
 }
 
 .logo__box__nav16 img {
@@ -1046,7 +1060,7 @@
     width: 74px;
     height: 74px;
     top: 515px;
-    left: 947px;
+    left: 815px;
 }
 
 .logo__box__nav17 img {
@@ -1058,7 +1072,7 @@
     width: 74px;
     height: 74px;
     top: 588px;
-    left: 343px;
+    left: 211px;
 }
 
 .logo__box__nav18 img {
@@ -1070,7 +1084,7 @@
     width: 74px;
     height: 74px;
     top: 609px;
-    left: 510px;
+    left: 378px;
 }
 
 .logo__box__nav19 img {
@@ -1082,7 +1096,7 @@
     width: 104px;
     height: 104px;
     top: 618px;
-    left: 760px;
+    left: 628px;
 }
 
 .logo__box__nav20 img {

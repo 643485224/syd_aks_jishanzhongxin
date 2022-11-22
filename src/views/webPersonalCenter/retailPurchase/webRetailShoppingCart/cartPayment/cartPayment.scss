@@ -1,0 +1,142 @@
+.page-container {
+  width: 100%;
+  min-width: calc(1200px - 220px - 40px);
+  height: calc(100% - 40px);
+  overflow: auto;
+  padding: 20px 30px;
+  border-radius: 0;
+  color: #020552;
+  background: #fff;
+  font-family: Source Han Sans CN-Medium, Source Han Sans CN;
+  .steps {
+    margin: 20px 0;
+    ::v-deep .el-step__head.is-success {
+      color: #00B712;
+    //   opacity: .5;
+      border-color: #00B712;
+    }
+    ::v-deep .el-step__title.is-success {
+      color: #00B712;
+    //   opacity: .5;
+      font-weight: unset;
+    }
+    ::v-deep .el-step__head.is-process {
+      color: #c0c4cc;
+      border-color: #c0c4cc;
+    }
+    ::v-deep .el-step__title.is-process {
+      color: #c0c4cc;
+      font-weight: unset;
+    }
+
+    ::v-deep .el-step.is-center .el-step__line {
+      left: 0 !important;
+      right: -50%;
+      width: 200%;
+    }
+    ::v-deep .is-success .el-step__line-inner {
+      width: 50% !important;
+      height: 2px;
+      background-color: #00b712;
+    }
+  }
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .check-order {
+    padding: 16px;
+    border: 1px solid #eee;
+    .consignee-info {
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      .info-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .info-content {
+        display: flex;
+        align-items: center;
+        .consignee {
+          margin-right: 20px;
+          padding: 4px 10px;
+          min-width: 100px;
+          text-align: center;
+          border: 1px solid orange;
+        }
+        .address {
+          padding: 20px 0;
+        }
+      }
+    }
+    .order-list {
+      padding-top: 20px;
+
+      .list {
+        .list-item {
+          display: flex;
+          align-items: flex-start;
+          padding: 26px 13px;
+          background-color: #eeeeee;
+          font-size: 16px;
+          color: #020552;
+        }
+        .cover {
+          width: 80px;
+          height: 80px;
+        }
+        .cover,
+        .price,
+        .count,
+        .amount {
+          flex: 1;
+        }
+        .name {
+          flex: 5;
+          padding-right: 40px;
+        }
+      }
+    }
+    .price-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+      padding: 30px 0;
+      .info-top {
+      }
+      .count,
+      .amount,
+      .transportfee {
+        text-align: left;
+        padding-right: 20px;
+        .label {
+          display: inline-block;
+          width: 100px;
+          text-align: right;
+        }
+      }
+      .pay-consignee {
+        width: 100%;
+        margin-top: 20px;
+        background: #eee;
+        padding: 20px;
+        .payprice-num {
+          margin-right: 4px;
+          font-size: 24px;
+          font-weight: bold;
+        }
+      }
+      .submit-btn {
+        width: 140px;
+        height: 40px;
+        margin-top: 20px;
+        background: #ff480e !important;
+        color: #ffffff !important;
+        border-color: #ff480e !important;
+      }
+    }
+  }
+}

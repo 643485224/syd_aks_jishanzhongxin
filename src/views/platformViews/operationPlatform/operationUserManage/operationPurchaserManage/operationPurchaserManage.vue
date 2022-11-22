@@ -36,7 +36,6 @@
     <script>
 import { getbuyerQuery,  getbuyerQueryExportXls } from "@/api/aksApi/platformApi/operationPlatformApi.js";
 import { downloadXls } from "@/utils/exportXls.js";
-import dayjs from 'dayjs';
 export default {
     data() {
         return {

@@ -2,7 +2,7 @@
   <div v-loading.fullscreen.lock="loading">
     <cu-dialog
       width="60vw"
-      title="在线支付"
+      :title="fkType == 1 ? '在线支付' : '货到付款'"
       :center="'center'"
       :showClose="true"
       :visible="onlinePaymentVisible"
@@ -14,7 +14,9 @@
           <div class="flex">
             请在
             {{ day ? day + "天" : null }} {{ hr }}小时 {{ min }}分钟
-            {{ sec }}秒内完成支付，否则订单自动取消
+            {{ sec }}秒内完成支付,{{
+              fkType == 1 ? "否则订单自动取消" : "否则将影响信誉"
+            }}
           </div>
           <div class="flex" style="color: #999999">
             支付金额：
@@ -209,6 +211,10 @@ export default {
     diyPayType: {
       type: String,
       default: "在线支付",
+    },
+    fkType: {
+      type: Number,
+      default: 1,
     },
   },
   data() {
@@ -492,13 +498,13 @@ export default {
       let timesss = 3;
       if (this.jumpValue == 1) {
         title = "s后将为您自动跳转到账号安全页面，您可以设置支付密码";
-        pathName = "/main/accountSecurity";
+        pathName = "/webPersonalMain/accountSecurity";
       } else if (this.jumpValue == 2) {
         title = "s后将为您自动跳转到收货地址管理页面，您可以设置收货地址";
-        pathName = "/main/receivingAddressManagement";
+        pathName = "/webPersonalMain/receivingAddressManagement";
       } else if (this.jumpValue == 3) {
         title = "s后将为您自动跳转到充值页面，您可以进行余额充值";
-        pathName = "/main/paymentSettlementCenter";
+        pathName = "/webPersonalMain/paymentSettlementCenter";
       }
       let times = setInterval(() => {
         this.$message.info(`${timesss}${title}`);

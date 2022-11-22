@@ -29,7 +29,7 @@
         >查询</el-button
       >
     </div>
-    <cu-table
+    <!-- <cu-table
       class="sale-table"
       :loading="tableLoading"
       :height="height"
@@ -60,24 +60,12 @@
         }}
       </template>
       <template slot="operate" slot-scope="value">
-        <!-- 付款：（订单状态为（待付款）才能进行付款） -->
         <a
           v-if="value.value.status == 5"
           @click="orderPaymentButton(value.value)"
           >付款</a
         >
-        <!-- <el-tooltip
-          v-else
-          effect="dark"
-          content="订单状态为（待付款）才能进行付款"
-          placement="left"
-        >
-          <a class="aDisabled"> 付款 </a>
-        </el-tooltip> -->
-
         <a class="ml_20 mr_20" @click="detailsButton(value.value)">详情</a>
-
-        <!-- 取消订单：（订单状态为1（待响应）或者2（待发货）才能进行取消） -->
         <a
           v-if="value.value.status == 1 || value.value.status == 2"
           style="color: #ff480e"
@@ -86,16 +74,8 @@
           "
           >取消</a
         >
-        <!-- <el-tooltip
-          v-else
-          effect="dark"
-          content="订单状态为（待响应）或者（待发货）才能进行取消订单"
-          placement="left"
-        >
-          <a style="color: #ff480e" class="aDisabled"> 取消 </a>
-        </el-tooltip> -->
       </template>
-    </cu-table>
+    </cu-table> -->
     <cu-dialog
       :title="cancellationOfOrderTitle"
       :showClose="true"
@@ -121,8 +101,149 @@
       </div>
     </cu-dialog>
 
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :page-sizes="[5, 10, 15, 20]"
+      :page-size="pages.size"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pages.total"
+    >
+    </el-pagination>
+    <div class="tab-list">
+      <div class="tab-head">
+        <div class="tab-head-item">
+          <div class="item-left">
+            <!-- <el-checkbox  v-model="checkedAll" @change="handleCheckAllChange">商品</el-checkbox> -->
+            <input
+              type="checkbox"
+              class="chebox"
+              name="check"
+              v-model="checkedAll"
+              @change="handleCheckAllChange"
+            />
+            <span>商品</span>
+          </div>
+          <div class="item-right">
+            <ul>
+              <li>订单金额</li>
+              <li>数量</li>
+              <!-- <li></li> -->
+              <li>实付款</li>
+              <li>交易状态</li>
+              <li>操作</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="tab-conter">
+        <div class="tab-cont" v-for="(val, i) in tableData" :key="i">
+          <div class="cont-list">
+            <input
+              class="chebox"
+              type="checkbox"
+              name="check"
+              v-model="checkModel"
+              :value="val.id"
+            />
+            <!-- <el-checkbox :value="val.id" @change="handleCheck"  v-model="checkModel"></el-checkbox> -->
+            <div class="list-right">
+              <p>{{ val.orderTime }}</p>
+              <p>订单号: {{ val.orderNo }}</p>
+              <!-- <p>{{ val.buyerName }}</p> -->
+            </div>
+          </div>
+          <div class="cont-bod">
+            <div class="cont-left">
+              <div class="cont-item">
+                <!-- 关于公布2022年第九批议价药品（自费药）挂网采购清单 -->
+                {{ val.supplierName }}
+              </div>
+              <div class="cont-rmb">￥{{ val.amount }}</div>
+              <div class="cont-rmb">{{ val.goodsCategoryCount }}</div>
+              <!-- <div class="cont-rmb cont-rm1">
+                {{ backTypeList[val.backType] }}
+              </div> -->
+            </div>
+            <div class="cont-right">
+              <div class="right-item">
+                <span class="rmb"
+                  >￥{{ val.amount * val.goodsCategoryCount }}</span
+                ><br /><span>（{{ fkTypeList[val.fkType] }}）</span>
+              </div>
+              <div class="right-item">
+                <span>{{ statusTypeList[val.status] }} </span><br />
+              </div>
+              <div class="right-item">
+                <div
+                  class="chui"
+                  v-if="val.status == 5"
+                  @click="orderPaymentButton(val)"
+                >
+                  付款
+                </div>
+                <div
+                  v-if="val.status == 1 || val.status == 2"
+                  class="chui"
+                  @click="cancellationOfOrderButton(val.id, val.orderNo)"
+                >
+                  取消
+                </div>
+                <!-- 订单状态为待收货才能进行收货 -->
+                <!-- 订单状态status   1  待响应  2  待发货  3  待收货  4  已收货  5  待付款  6  已完成  7  已取消 8 已拒绝   9 已评价-->
+                <div
+                  v-if="val.status == 3"
+                  class="chui"
+                  @click="listConfirmReceiptButton(val)"
+                >
+                  确认收货
+                </div>
+
+                <!-- 订单状态 已收货 或者 已完成 才能进行评价 -->
+                <!-- 订单状态status   1  待响应  2  待发货  3  待收货  4  已收货  5  待付款  6  已完成  7  已取消 8 已拒绝   9 已评价-->
+                <div
+                  v-if="val.status == 4 || val.status == 6"
+                  class="chui"
+                  @click="evaluateHandleButton(val)"
+                >
+                  评价
+                </div>
+
+                <!-- 退货：（在线支付（退货申请）订单状态在未完成之前都可以进行退货（除待审核外））
+                     （货到付款（退货申请）订单的发票状态在待开票、拒绝收票都可以进行退货） -->
+                <!-- 支付方式fkType   1 在线支付  2 货到付款-->
+                <!-- 发票状态fpStatus 1  待开票  2  待收票  3 待付款（已收票）  4    待结算（采购商已付款）   5  完成收款   6  拒绝收票 -->
+                <!-- 订单状态status   1  待响应  2  待发货  3  待收货  4  已收货  5  待付款  6  已完成  7  已取消 8 已拒绝   9 已评价-->
+                <div
+                  v-if="val.fkType == 1 && val.status < 6 && val.status != 1"
+                  class="chui"
+                  @click="listReturnGoodsButtonOut(val)"
+                >
+                  申请退货
+                </div>
+                <div
+                  v-if="
+                    val.fkType == 2 &&
+                    (val.fpStatus == 1 || val.fpStatus == 6) &&
+                    val.status < 6 &&
+                    val.status != 1
+                  "
+                  class="chui"
+                  @click="listReturnGoodsButtonOut(val)"
+                >
+                  申请退货
+                </div>
+                <div class="ck" @click="detailsButton(val)">查看详情</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <onlinePayment
       v-if="onlinePaymentVisible"
+      :fkType="fkType"
       :onlinePaymentVisible="onlinePaymentVisible"
       :tableItemData="tableItemData"
       @onlinePaymentHandleClose="onlinePaymentHandleClose"
@@ -156,6 +277,16 @@ export default {
   },
   data() {
     return {
+      backStateList: {
+        1: "无退货",
+        2: "退货中",
+        3: "退货成功",
+        3: "退货失败",
+      },
+      backTypeList: {
+        1: "全部退",
+        2: "部分退",
+      },
       statusTypeList: {
         1: "待响应",
         2: "待发货",
@@ -268,14 +399,64 @@ export default {
       date: [],
 
       onlinePaymentVisible: false, //在线支付弹框
+
+      checkedAll: false, //是否是全选
+      tableList: [], //所有数据
+      checkModel: [], //批量选择id
+
+      fkType: 1, //1开启在线支付弹框，2开启货到付款支付弹框
     };
   },
   created() {
     this.buyerTranManagerFindTradeInfoApi();
   },
   mounted() {},
-
+  watch: {
+    checkModel: {
+      handler() {
+        if (this.checkModel.length == this.tableList.length) {
+          this.checkedAll = true;
+        } else {
+          this.checkedAll = false;
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
+    // 列表确认收货按钮
+    listConfirmReceiptButton(valueData) {
+      this.$emit("listConfirmReceiptButton", valueData);
+    },
+    // 列表申请退货按钮
+    listReturnGoodsButtonOut(valueData) {
+      this.$emit("listReturnGoodsButtonOut", valueData);
+    },
+    // 评价按钮
+    evaluateHandleButton(valueData) {
+      this.$emit("evaluateHandleButton", valueData);
+    },
+
+    handleCheckAllChange(val) {
+      this.tableList = this.tableData;
+      this.checkModel = [];
+      if (this.checkedAll) {
+        for (var i in this.tableList) {
+          this.checkModel.push(this.tableList[i].id);
+        }
+      }
+      console.log(this.checkModel);
+    },
+    handleCheck(value) {
+      console.log(value);
+      this.checkModel.push(value);
+      if (this.checkModel.length == this.tableData.length) {
+        this.checkedAll = true;
+      }
+      // let checkedCount = value.length;
+      // this.checkAll = checkedCount === this.cities.length;
+      // this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+    },
     // 交易订单明细(查询)-接口
     buyerTranManagerFindTradeInfoApi() {
       this.$emit("chosetableLoading", true);
@@ -376,6 +557,7 @@ export default {
     // 订单付款-按钮 (开启在线支付弹框)
     orderPaymentButton(tableItemData) {
       this.tableItemData = tableItemData;
+      this.fkType = tableItemData.fkType;
       this.onlinePaymentVisible = true;
     },
 
@@ -387,6 +569,155 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.tab-list {
+  width: 100%;
+  .tab-head-item {
+    display: flex;
+    justify-content: space-between;
+    line-height: 40px;
+    height: 40px;
+    padding: 0 0px 0 24px;
+
+    background: #e8f0f8;
+    font-size: 14px;
+    color: #00023a;
+    .item-left {
+      display: flex;
+      align-items: center;
+      width: 30%;
+      line-height: 40px;
+      height: 40px;
+      input {
+        margin: 0;
+        margin-right: 12px;
+      }
+    }
+    .item-right {
+      width: 64%;
+      ul {
+        display: flex;
+        list-style: none;
+        li {
+          width: 120px;
+          text-align: center;
+          font-size: 14px;
+          color: #00023a;
+        }
+      }
+    }
+  }
+  .tab-conter {
+    width: 100%;
+    .tab-cont {
+      margin-top: 14px;
+      width: 100%;
+      border: 1px solid #999999;
+      box-sizing: border-box;
+      .cont-list {
+        line-height: 40px;
+        height: 40px;
+        padding: 0 30px 0 24px;
+        background: #e8f0f8;
+        font-size: 14px;
+        color: #00023a;
+        display: flex;
+        .list-right {
+          margin-left: 12px;
+          display: flex;
+          p {
+            font-size: 16px;
+            color: #020552;
+            font-family: Source Han Sans CN-Bold, Source Han Sans CN;
+            &:nth-child(1) {
+              font-weight: 600;
+              margin-right: 20px;
+            }
+            &:nth-child(2) {
+              margin-right: 110px;
+            }
+            &:nth-child(3) {
+              // display: flex;
+              width: 230px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+      .cont-bod {
+        height: 124px;
+        width: 100%;
+        display: flex;
+        .cont-left {
+          padding: 19px 0 0 47px;
+          display: flex;
+          .cont-item {
+            width: 262px;
+            height: 70px;
+            font-size: 16px;
+            font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+            font-weight: 400;
+            color: #020552;
+            line-height: 19px;
+            margin-right: 50px;
+          }
+          .cont-rmb {
+            width: 120px;
+            text-align: center;
+            // width: 69px;
+            height: 24px;
+            font-size: 16px;
+            font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+            font-weight: 400;
+            color: #020552;
+            line-height: 19px;
+          }
+          .cont-rm1 {
+            margin-right: 0;
+            width: 120px;
+          }
+        }
+        .cont-right {
+          height: 100%;
+          display: flex;
+          .right-item {
+            padding-top: 17px;
+            box-sizing: border-box;
+            width: 120px;
+            text-align: center;
+            height: 100%;
+            border-left: 1px solid #eeeeee;
+            span {
+              color: #020552;
+              font-size: 16px;
+            }
+            .rmb {
+              display: inline-block;
+              font-weight: 600;
+              font-size: 16px;
+            }
+            .ck {
+              font-size: 16px;
+              font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+              font-weight: 400;
+              color: #0e78f3;
+              cursor: pointer;
+            }
+            .chui {
+              font-size: 16px;
+              font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+              font-weight: 400;
+              color: #ff480e;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .search-bar {
   display: flex;
   align-items: center;

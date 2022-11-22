@@ -119,7 +119,6 @@
 
     .content-two {
         width: 1200px;
-        background: #FFFFFF;
         border-radius: 0px 0px 0px 0px;
         opacity: 1;
         margin-top: 50px;
@@ -301,12 +300,11 @@
         margin-top: 50px;
 
         .four-table {
-            min-height: 350px;
+            min-height: 340px;
             background: #FFFFFF;
             border-radius: 0px 0px 0px 0px;
             opacity: 1;
             border: 1px solid #CBCBCB;
-            min-height: 350px;
 
             .four_table_title {
                 width: 1195px;
@@ -325,11 +323,11 @@
                     overflow: hidden; //超出部分隐藏
                     text-align: left;
                     text-overflow: ellipsis; //文字超出部分以省略号显示
-                    font-size: 14px;
+                    font-size: 18px;
                     font-family: Source Han Sans CN-Normal, Source Han Sans CN;
                     font-weight: 400;
                     color: #000000;
-                    line-height: 16px;
+                    line-height: 18px;
                 }
 
                 .four_table_Item:nth-child(1) {
@@ -347,9 +345,18 @@
         }
     }
 }
-
+.bg_e0edff {
+    background: #e0edff !important;
+  }
+  
+  .bg_fde5e5 {
+    background: #fde5e5 !important;
+  }
+  .bg_e2ffec {
+    background: #e2ffec !important;
+  }
 .warp {
-    height: 332px;
+    height: 300px; 
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
@@ -366,8 +373,8 @@
             height: 30px;
             line-height: 30px;
             display: flex;
-            font-size: 15px;
-
+            font-size: 18px;
+            overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
             .title {
                 width: 227px;
                 margin-left: 28px;
@@ -395,7 +402,7 @@
             border-top: 1px solid #EEEEEE;
             box-sizing: border-box;
             height: 66px;
-            line-height: 32px;
+            line-height: 36px;
 
             .item-tilet {
                 span:nth-child(1) {
@@ -416,25 +423,19 @@
             }
 
             .datamar,
-            .date {
-                font-size: 14px;
+            .data {
+                font-size: 18px;
                 font-family: Source Han Sans CN-Normal, Source Han Sans CN;
                 font-weight: 400;
                 color: #000000;
-                line-height: 32px;
+                line-height: 66px;
+                overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
             }
         }
     }
 }
 
-.datamar,
-.data {
-    font-size: 14px;
-    font-family: Source Han Sans CN-Normal, Source Han Sans CN;
-    font-weight: 400;
-    color: #000000;
-    line-height: 32px;
-}
+
 
 .item {
     font-size: 14px;
@@ -442,6 +443,15 @@
     font-weight: 400;
     color: #000000;
     line-height: 32px;
+    .datamar,
+    .data {
+        font-size: 18px;
+        font-family: Source Han Sans CN-Normal, Source Han Sans CN;
+        font-weight: 400;
+        color: #000000;
+        line-height: 32px;
+        overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
 }
 
 .three_right_tabsListHeight {

@@ -78,8 +78,12 @@
               "
             >
               <div class="section-icon">
-                <img src="./image/userAction.svg" v-if="select.username" />
-                <img src="./image/user.svg" v-else />
+                <img
+                  v-lazy
+                  src="./image/userAction.svg"
+                  v-if="select.username"
+                />
+                <img v-lazy src="./image/user.svg" v-else />
               </div>
               <div class="section-input">
                 <input
@@ -102,8 +106,8 @@
               "
             >
               <div class="section-icon">
-                <img src="./image/password.svg" v-if="select.password" />
-                <img src="./image/passwordAction.svg" v-else />
+                <img v-lazy src="./image/password.svg" v-if="select.password" />
+                <img v-lazy src="./image/passwordAction.svg" v-else />
               </div>
 
               <div class="section-input">
@@ -117,8 +121,8 @@
                 />
               </div>
               <div class="section-right" @click="select.eyes = !select.eyes">
-                <img src="./image/eyeAction.svg" v-if="select.eyes" />
-                <img src="./image/eye.svg" v-else />
+                <img v-lazy src="./image/eyeAction.svg" v-if="select.eyes" />
+                <img v-lazy src="./image/eye.svg" v-else />
               </div>
             </div>
             <!-- 验证码 -->
@@ -132,7 +136,11 @@
               "
             >
               <div class="section-icon" @click="captchaApi">
-                <img :src="imageUrl" style="width: 100px; height: 40px" />
+                <img
+                  v-lazy
+                  :src="imageUrl"
+                  style="width: 100px; height: 40px"
+                />
               </div>
               <div class="section-input">
                 <input
@@ -355,8 +363,11 @@ export default {
       await this.getMenuList();
       this.isLogin = false;
       this.$router.push("/main/operationStatistics");
-      this.$store.commit("resetTagItem");
-      this.$message.success(res.message);
+      this.$message({
+        message: res.message,
+        type: "success",
+        duration: 2000,
+      });
     },
     // 供应商登录
     async supplierLogin() {
@@ -381,7 +392,6 @@ export default {
       await this.getMenuList();
       this.isLogin = false;
       this.$router.push("/main/supplierWorkbench");
-      this.$store.commit("resetTagItem");
       this.$message.success(res.message);
     },
     // 采购商登录
@@ -407,7 +417,6 @@ export default {
       await this.getMenuList();
       this.isLogin = false;
       this.$router.push("/main/purchaserHome");
-      this.$store.commit("resetTagItem");
       this.$message.success(res.message);
     },
     // 获取当前用户绑定角色下 权限菜单列表

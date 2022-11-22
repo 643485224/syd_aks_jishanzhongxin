@@ -58,7 +58,7 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item class="form-item" label="信息类型:" prop="infoType" >
-                    <el-select v-model="logisticsDriver.infoType" placeholder="请选择信息类型" @change="getaddflag" >
+                    <el-select v-model="getinfo[logisticsDriver.infoType]" placeholder="请选择信息类型" @change="getaddflag" >
                         <el-option label="通知公告" value="1"></el-option>
                         <el-option label="政策法规" value="2"></el-option>
                         <el-option label="友情链接" value="3"></el-option>
@@ -66,7 +66,7 @@
                 </el-form-item>
                 
                 <el-form-item class="form-item" label="信息标记:" >
-                       <el-select v-model="logisticsDriver.infoTag" placeholder="请输入信息标记">
+                       <el-select v-model=" getinfos[logisticsDriver.infoTag]" placeholder="请输入信息标记">
                         <el-option label="通知公告" value="1"></el-option>
                         <el-option label="中标公告" value="2"></el-option>
                         <el-option label="招标公告" value="3"></el-option>
@@ -96,7 +96,7 @@
                     :show-file-list="false"
                     :on-success="handleAvatarSuccess"
                     :before-upload="beforeAvatarUpload">
-                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                    <img v-lazy v-if="imageUrl" :src="imageUrl" class="avatar">
                     <i v-else class="el-icon-camera avatar-uploader-icon"> </i>
                     <div class="el-upload__text">添加照片</div>
                     </el-upload>
@@ -152,6 +152,22 @@ export default {
       return callback();
     };
     return {
+      getinfo:{
+        1:'通知公告',
+        2:'政策法规',
+        3:'友情链接'
+      },
+      getinfos:{
+        1:'通知公告',
+        2:'中标公告',
+        3:'招标公告',
+        4:'国家政策',
+        5:'地方政策',
+        6:'交易规则',
+        7:'国家部委',
+        8:'本地网站',
+        9:'县政府',
+      },
       tableHeader: [
         {
           title: "信息类型",

@@ -117,7 +117,9 @@
 
     <cu-dialog
       width="60vw"
-      title="在线支付"
+      :title="
+        buyerTranManagerAddOrderObject.fkType == 1 ? '在线支付' : '货到付款'
+      "
       :center="'center'"
       :showClose="true"
       :visible="onlinePaymentVisible"
@@ -127,8 +129,12 @@
       <div class="onlinePayment">
         <div class="onlinePayment_one mt_40">
           <div class="flex">
-            请在 {{ hr }}小时 {{ min }}分钟
-            {{ sec }}秒内完成支付，否则订单自动取消
+            请在 {{ hr }}小时 {{ min }}分钟 {{ sec }}秒内完成支付,
+            {{
+              buyerTranManagerAddOrderObject.fkType == 1
+                ? "否则订单自动取消"
+                : "否则将影响信誉"
+            }}
           </div>
           <div class="flex" style="color: #999999">
             支付金额：
@@ -454,6 +460,7 @@ export default {
           //父级必须传入包含以下三个参数才能正常使用该组件
           id: null, // 业务id  采购单id/购物车id,
           goodsType: null, ////判断订单类型 药品/器械
+          goodsIdList: [], // 商品id数组
         };
       },
     },
@@ -501,6 +508,7 @@ export default {
       let valueData = {
         cartId: this.listItem.id,
         goodsType: this.listItem.goodsType,
+        goodsIds: this.listItem.goodsIdList,
       };
       cartOneKeyBuy(valueData)
         .then((res) => {
@@ -528,6 +536,17 @@ export default {
         this.AllgenerateOrderData[i].cartGoodsList.forEach((element) => {
           element.price = element.buyPrice;
         });
+        let orderJcGoodsList = [];
+        this.AllgenerateOrderData[i].cartGoodsList.forEach((element) => {
+          let objects = {
+            goodsId: element.goodsId, //  货品id
+            goodsName: element.goodsName, //  货品名称
+            price: element.price, //  单价
+            unit: element.unit, //  单位
+            quantity: element.quantity, //  数量
+          };
+          orderJcGoodsList.push(objects);
+        });
         let objRequest = {
           goodsCategoryCount: this.AllgenerateOrderData[i].goodsCategoryCount, //商品种类
           goodsCount: this.AllgenerateOrderData[i].goodsCount, //商品数量
@@ -537,7 +556,7 @@ export default {
           amount: this.AllgenerateOrderData[i].amount, //金额
           orderType: this.AllgenerateOrderData[i].orderType, //判断订单类型
           //商品明细列表
-          orderJcGoodsList: this.AllgenerateOrderData[i].cartGoodsList,
+          orderJcGoodsList: orderJcGoodsList,
         };
         this.buyerTranManagerAddOrderObject.supplierInfoList.push(objRequest);
       }
@@ -708,7 +727,7 @@ export default {
         fkType: this.buyerTranManagerAddOrderObject.fkType,
         payRemark: this.payRemark,
         payType: this.payType,
-        transportFee: this.orderTotalSum.transportFee,
+        // transportFee: this.orderTotalSum.transportFee,
       };
       buyerTranManagerPayment(valueData)
         .then((res) => {
@@ -823,13 +842,13 @@ export default {
       let timesss = 3;
       if (this.jumpValue == 1) {
         title = "s后将为您自动跳转到账号安全页面，您可以设置支付密码";
-        pathName = "/main/accountSecurity";
+        pathName = "/webPersonalMain/accountSecurity";
       } else if (this.jumpValue == 2) {
         title = "s后将为您自动跳转到收货地址管理页面，您可以设置收货地址";
-        pathName = "/main/receivingAddressManagement";
+        pathName = "/webPersonalMain/receivingAddressManagement";
       } else if (this.jumpValue == 3) {
         title = "s后将为您自动跳转到充值页面，您可以进行余额充值";
-        pathName = "/main/paymentSettlementCenter";
+        pathName = "/webPersonalMain/paymentSettlementCenter";
       }
       let times = setInterval(() => {
         this.$message.info(`${timesss}${title}`);

@@ -158,20 +158,21 @@
         this.pageNum = val;
         this.getRoleList();
       },
+    
       getRoleList() {
         this.tableLoading = true;
-        if (this.date && this.date.length) {
+         /*if (this.date && this.date.length) {
           this.date[0] = dayjs(this.date[0]).format("YYYY-MM-DD 00:00:00");
           this.date[1] = dayjs(this.date[1]).format("YYYY-MM-DD 23:59:59");
-        }
+        } */ 
         let params = {
           currPageNo: this.pageNum,
           pageSize: this.pageSize,
           query: this.queryName,
           sysId: this.sysId,
           sysType: this.sysType,
-          startTime: this.date[0],
-          endTime: this.date[1]
+          startTime: this.date && this.date[0],
+          endTime: this.date && this.date[1]
   
         };
         console.log(params);

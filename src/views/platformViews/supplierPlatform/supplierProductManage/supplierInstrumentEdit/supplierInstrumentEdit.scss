@@ -84,7 +84,7 @@
         // }
   
         .el-input,
-        .el-select {
+        .el-select,.el-cascader {
           //   width: 300px;
           width: 100%;
   
@@ -224,3 +224,7 @@
     }
   }
   
+
+  .cascader-loading {
+    font-size: 12px;
+  }

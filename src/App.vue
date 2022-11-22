@@ -9,7 +9,18 @@
     <router-view></router-view>
   </div>
 </template>
-<script></script>
+<script>
+export default {
+  // mounted() {
+  //   this.global.localSocket(this.$store.state.vuex_user.username);
+  //   //连上之后要接收服务器发来的消息
+  //   this.global.ws.onmessage = (msg) => {
+  //     console.log("WebSocket:", msg);
+  //     // console.log(JSON.parse(msg.data));
+  //   };
+  // },
+};
+</script>
 <style lang="less">
 html,
 body {

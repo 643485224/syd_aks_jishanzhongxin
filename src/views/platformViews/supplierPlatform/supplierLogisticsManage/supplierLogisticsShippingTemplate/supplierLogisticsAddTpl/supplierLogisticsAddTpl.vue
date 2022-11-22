@@ -8,7 +8,7 @@
             <cu-form ref="form" :formData.sync="tpl" :formRule="rules" class="form" @submitForm="submitForm"
                 @sendAreaCodeChange="areaChange" labelWidth="130px" @closeForm="closeForm"
                 @sendAreaCodeInitData="sendAreaCodeInitData" :disabledIgnoreValidate="true">
-            </cu-form> 
+            </cu-form>
         </div>
 
 
@@ -114,14 +114,22 @@ export default {
             console.log(item,callback);
             getArea().then(res => {
                 console.log(res);
-                // if (res.code == 200) {
+                if (res.code == 200) {
+                  let areas = res.data;
+                  areas.unshift({
+                    areaCode: "-1",
+                    areaName: "全国"
+                  });
+                  console.log(areas);
                     setTimeout(() => {
-                        callback(res.data, {
+                        callback(areas, {
                         label: "areaName",
                         value: "areaCode",
                     })
                     }, 200);
-                // }
+                }else {
+                  this.$message.error(res.message)
+                }
             }).catch((err) => {
                 console.log(err);
             });
@@ -154,7 +162,7 @@ export default {
                     console.log(err);
                 });
             } else {
-                params.id = 0;// 接口问题 新增时必须传一个id 
+                params.id = 0;// 接口问题 新增时必须传一个id
                 console.log(this.vuex_user);
                 params.createBy = this.vuex_user.id + '';
                 params.supplierId = this.vuex_user.sysId;
@@ -233,4 +241,3 @@ export default {
     margin: 40px auto;
 }
 </style>
-  

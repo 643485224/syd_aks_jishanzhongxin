@@ -22,6 +22,7 @@
     v-model="selectdrus"
     :options="options"
     ref="cascaderArr"
+    :props="{ checkStrictly: true }"
     @change="handleChan"
     ></el-cascader>
         <!-- <el-select
@@ -105,14 +106,23 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="父级分类:" prop="pid">
-          <el-select
-            v-model="editAddCategoryForm.pid"
+        <el-form-item label="父级分类:" 
+    prop="pid">
+          <el-cascader
+        class="tzhigg"
+    v-model="editAddCategoryForm.pid"
+    :options="options"
+    ref="cascaderArr"
+    :props="{ checkStrictly: true }"
+    @change="handleChan"
+    ></el-cascader>
+          <!-- <el-select
+            v-model="editAddCategoryForm.pid" prop="pid"
             placeholder="请选择父级分类"
           >
             <el-option label="区域一" value="1"></el-option>
             <el-option label="区域二" value="2"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
         <el-form-item class="form-item" label="描述:">
           <el-input
@@ -123,7 +133,7 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item class="form-item" label="图标:">
+        <!-- <el-form-item class="form-item" label="图标:">
           <div class="images">
             <el-upload
               class="avatar-uploader"
@@ -132,13 +142,13 @@
               :on-success="handleAvatarSuccess1"
               :before-upload="beforeAvatarUpload"
             >
-              <img v-if="iconUrl" :src="iconUrl" class="avatar" />
+              <img v-lazy v-if="iconUrl" :src="iconUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <!-- <div class="el-upload__text">添加图标</div> -->
+              <div class="el-upload__text">添加图标</div> 
             </el-upload>
           </div>
-        </el-form-item>
-        <el-form-item class="form-item" label="图片:">
+        </el-form-item> 
+         <el-form-item class="form-item" label="图片:">
           <div class="images">
             <el-upload
               class="avatar-uploader"
@@ -147,12 +157,12 @@
               :on-success="handleAvatarSuccess2"
               :before-upload="beforeAvatarUpload"
             >
-              <img v-if="picUrl" :src="picUrl" class="avatar" />
+              <img v-lazy v-if="picUrl" :src="picUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-              <!-- <div class="el-upload__text">添加图片</div> -->
+               <div class="el-upload__text">添加图片</div> 
             </el-upload>
           </div>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item class="form-item" label="序列号:">
           <el-input placeholder="序列号" v-model="editAddCategoryForm.sortOrder">
           </el-input>
@@ -177,15 +187,24 @@
         label-width="110px"
         disabled
       >
-        <el-form-item class="form-item" label="分类名称:">
+        <el-form-item class="form-item" label="分类名称:" prop="name">
           <el-input class="selectInput" v-model="editAddCategoryForm.name">
           </el-input>
         </el-form-item>
-        <el-form-item label="父级分类:">
-          <el-select v-model="editAddCategoryForm.pd">
+        <el-form-item label="父级分类:" >
+          
+    <el-input v-model="lsttb"> </el-input>
+          <!-- <el-cascader
+        class="tzhigg"
+    v-model="editAddCategoryForm.pid"
+    :options="options"
+    ref="cascaderArr"
+    @change="handleChan"
+    ></el-cascader> -->
+          <!-- <el-select v-model="editAddCategoryForm.pd">
             <el-option label="区域一" value="1"></el-option>
             <el-option label="区域二" value="2"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
         <el-form-item class="form-item" label="描述:">
           <el-input
@@ -195,17 +214,17 @@
           >
           </el-input>
         </el-form-item>
-        <el-form-item label="图标:">
+        <!-- <el-form-item label="图标:">
           <div
             class="images"
 
-          ><img :src="editAddCategoryForm.iconUrl" alt="" style="width: 200px; height: 100px; "></div>
+          ><img v-lazy :src="editAddCategoryForm.iconUrl" alt="" style="width: 200px; height: 100px; "></div>
         </el-form-item>
         <el-form-item label="照片:">
           <div
             class="images"
-          ><img :src="editAddCategoryForm.picUrl" alt="" style="width: 200px; height: 100px;"></div>
-        </el-form-item>
+          ><img v-lazy :src="editAddCategoryForm.picUrl" alt="" style="width: 200px; height: 100px;"></div> -->
+        <!-- </el-form-item> -->
         <el-form-item class="form-item" label="序列号:">
           <el-input v-model="editAddCategoryForm.sortOrder"> </el-input>
         </el-form-item>
@@ -283,6 +302,7 @@ export default {
           slot: "operate",
         },
       ],
+      lsttb:null,
       dats:[],
       datss:[],
       datsse:[],
@@ -388,24 +408,29 @@ export default {
       console.log(this.options);
         }
     },
-    // getpids(value){
-      
-    //   this.datss= this.dats.filter(val => val.id==value)
-    //   console.log(this.datss);
-    //   if(this.datss[0].childList==0){
-    //     this.flag= true
-    //   }else{
-    //     this.flag= false
-    //   this.datsse=this.datss[0].childList;
-    //   this.pid1 = this.datsse[0].id
-    //   }
-    // },
    getpid(id){
-      for(let k in this.dats){
-        if(this.dats[k].id == id){
-          return this.dats[k].name
-        }
-      } 
+    console.log(id,1212);
+    let arr =this.options.filter(val => val.value ==id)
+    console.log(arr,456);
+    console.log(this.dats);
+    for(var i =0;i<arr.length;i++){
+      return arr[i].label
+    }
+      // for(let k in this.dats){
+      //   if(this.dats[k].id == id){
+      //     return this.dats[k].name
+      //   }
+      // } 
+    },
+    getpid(id){
+      console.log(id);
+    let arr =this.options.filter(val => val.value ==id)
+    console.log(arr,456);
+    for(var i =0;i<arr.length;i++){
+      console.log(arr[i].label);
+      this.lsttb =arr[i].label
+      return arr[i].label
+    }
     },
     //关键字搜索
     search() {
@@ -471,6 +496,7 @@ export default {
         this.picUrl = this.editAddCategoryForm.picUrl
       }
       this.editAddCategoryVisible = true;
+      
     },
     handleCloseCategory() {
       this.editAddCategoryVisible = false;
@@ -522,6 +548,7 @@ export default {
           return false;
         }
       });
+      this.selectCategoryClass()
     },
         //删除药械分类列表
       deleteCategory(id) {
@@ -588,6 +615,7 @@ export default {
   line-height: 31px;
       }
 }
+
 .page-container {
   width: 100%;
   height: 100%;
@@ -640,7 +668,9 @@ export default {
   .el-form-item__content {
     flex: 1;
   }
-
+  .tzhigg{
+    width:100%;
+}
   .el-input,
   .el-select,
   .el-input__inner {

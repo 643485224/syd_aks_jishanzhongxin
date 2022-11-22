@@ -3,31 +3,61 @@
   <div class="nav">
     <div class="nav-left">
       <div class="nav-title-wrapper">
-        <div class="nav-title">阿克苏药品集散中心{{platformName}}服务平台</div>
+        <div class="nav-title">
+          阿克苏药品集散中心{{ platformName }}服务平台
+        </div>
       </div>
       <div class="nav-menu">
-        <router-link :to="'/' + item.path" v-for="(item, index) in vuex_navmenu" :key="index" active-class="active-link"
-          @click="routerAction('')">{{ item.name }}</router-link>
+        <router-link
+          :to="'/' + item.path"
+          v-for="(item, index) in vuex_navmenu"
+          :key="index"
+          active-class="active-link"
+          @click="routerAction('')"
+          >{{ item.name }}</router-link
+        >
       </div>
     </div>
     <div class="nav-right">
       <div class="nav-right-item">
         <div class="avatar">
-          <img :src="vuex_user.operation.logoUrl" v-if="vuex_user.operation" alt="" srcset="" />
-          <img :src="vuex_user.supplier.logoUrl" v-else-if="vuex_user.supplier" alt="" srcset="" />
-          <img :src="vuex_user.purchaser.logoUrl" v-else-if="vuex_user.purchaser" alt="" srcset="" />
+          <img
+            :src="vuex_user.operation.logoUrl"
+            v-if="vuex_user.operation"
+            alt=""
+            srcset=""
+          />
+          <img
+            :src="vuex_user.supplier.logoUrl"
+            v-else-if="vuex_user.supplier"
+            alt=""
+            srcset=""
+          />
+          <img
+            :src="vuex_user.purchaser.logoUrl"
+            v-else-if="vuex_user.purchaser"
+            alt=""
+            srcset=""
+          />
         </div>
         <span>{{ vuex_user.username }} </span>
       </div>
       <div class="nav-right-item cursor_p" @click="LoginOutApi">
-        <img src="@/components/image/Offline.png" class="setting-icon" alt="" srcset="" /><span>退出</span>
+        <img
+          src="@/components/image/Offline.png"
+          class="setting-icon"
+          alt=""
+          srcset=""
+        /><span>退出</span>
       </div>
       <div class="nav-right-item">
         <cuFullScreen :value="true" />
       </div>
       <div class="nav-right-item date">
-        <span>{{ dateSource.date }}&nbsp; 星期{{ dateSource.week }}<br />
-          {{ dateSource.time }}</span>
+        <span
+          >{{ dateSource.date }}&nbsp; 星期{{ dateSource.week }}<br />
+          {{ dateSource.time }}</span
+        >
       </div>
     </div>
   </div>
@@ -47,11 +77,11 @@ export default {
       timer: null,
       currentPlatform: "",
       platforms: {
-        'operation': '运营',
-        'supplier': '供应',
-        'purchaser': '采购',
+        operation: "运营",
+        supplier: "供应",
+        purchaser: "采购",
       },
-      platformName: ''
+      platformName: "",
     };
   },
   methods: {
@@ -81,38 +111,38 @@ export default {
           break;
       }
     },
-    goLogin() { },
+    goLogin() {},
     LoginOutApi() {
-      this.$confirm(`确定退出登录？`).then(() => {
-        logout()
-          .then((res) => {
-            console.log(res);
-            if (res.code == 200) {
-              let message = res.message + ",清除登录数据...";
-              this.$message.success(message);
-              this.$store.commit("$uStore", {
-                name: "vuex_token.tokenHead",
-                value: "",
-              });
-              this.$store.commit("$uStore", {
-                name: "vuex_user",
-                value: {},
-              });
-              // 清楚本地存储,重置路由
-              setTimeout(() => {
-                window.location.href = `${location.origin}/`;
-                localStorage.clear();
-              }, 800);
-            } else {
-              this.$message.error(res.message);
-            }
-          })
-          .catch((err) => { });
-
-      }).catch((err) => {
-        console.log(err);
-      });
-
+      this.$confirm(`确定退出登录？`)
+        .then(() => {
+          logout()
+            .then((res) => {
+              console.log(res);
+              if (res.code == 200) {
+                let message = res.message + ",清除登录数据...";
+                this.$message.success(message);
+                this.$store.commit("$uStore", {
+                  name: "vuex_token.tokenHead",
+                  value: "",
+                });
+                this.$store.commit("$uStore", {
+                  name: "vuex_user",
+                  value: {},
+                });
+                // 清楚本地存储,重置路由
+                setTimeout(() => {
+                  window.location.href = `${location.origin}/`;
+                  localStorage.clear();
+                }, 800);
+              } else {
+                this.$message.error(res.message);
+              }
+            })
+            .catch((err) => {});
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     // 点击路由跳转
     routerAction(router) {
@@ -127,22 +157,19 @@ export default {
     console.log(this.vuex_user.sysType);
     switch (this.vuex_user.sysType) {
       case 3:
-        this.platformName = '供应'
+        this.platformName = "供应";
         break;
       case 2:
-        this.platformName = '采购'
+        this.platformName = "采购";
         break;
       case 1:
-        this.platformName = '运营'
+        this.platformName = "运营";
         break;
       default:
         break;
     }
-
   },
-  watch: {
-
-  },
+  watch: {},
   beforeDestroy() {
     if (this.timer) {
       // 清除定时器
@@ -151,7 +178,13 @@ export default {
   },
 
   computed: {
-    ...mapState(["vuex_user", "vuex_token", "vuex_platform", "vuex_navmenu", "vuex_menu"]),
+    ...mapState([
+      "vuex_user",
+      "vuex_token",
+      "vuex_platform",
+      "vuex_navmenu",
+      "vuex_menu",
+    ]),
   },
 };
 </script>

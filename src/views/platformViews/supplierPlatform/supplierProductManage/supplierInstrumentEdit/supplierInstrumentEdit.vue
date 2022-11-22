@@ -19,10 +19,14 @@
             </el-select>
           </el-form-item>
           <el-form-item class="info-item" label="商城分类:" prop="saleCategoryId">
-            <el-select class="selectInput" placeholder="请选择商城分类" v-model="product.saleCategoryId" clearable>
+            <!-- <el-select class="selectInput" placeholder="请选择商城分类" v-model="product.saleCategoryId" clearable>
               <el-option v-for="cate in mallCateList" :key="cate.id" :label="cate.name" :value="cate.id">
               </el-option>
-            </el-select>
+            </el-select> -->
+            <el-cascader class="selectInput" :value="product.saleCategoryId" v-loading="cateLoading"
+              element-loading-customClass="cascader-loading" :options="mallCateList" ref="cascaderArr"
+              @change="handleChangeCate" :props="{ checkStrictly: true ,value:'id',label:'name',children:'childList'}"
+              filterable></el-cascader>
           </el-form-item>
           <el-form-item class="info-item" label="通用名:" prop="commonName">
             <template slot="label"> <span class="required">*</span> 通用名:</template>
@@ -32,7 +36,7 @@
           <el-form-item class="info-item" label="药械名称:" prop="goodsName">
             <template slot="label"> <span class="required">*</span> 药械名称:</template>
             <el-input class="selectInput" v-model="product.goodsName" @focus="selectInfo" placeholder=""
-              :disabled="productId?true:false"></el-input>
+              :disabled="productId?true:false" suffix-icon="el-icon-search"></el-input>
           </el-form-item>
           <el-form-item class="info-item" label="耗材材质:" prop="material">
             <template slot="label"> <span class="required">*</span> 耗材材质:</template>
@@ -56,6 +60,10 @@
             <template slot="label"> <span class="required">*</span> 生产厂家:</template>
             <el-input class="selectInput" v-model="product.manufacturer" placeholder="" disabled></el-input>
           </el-form-item>
+          <el-form-item class="info-item" label="品牌:" prop="brand">
+            <template slot="label"> <span class="required">*</span> 品牌:</template>
+            <el-input class="selectInput" v-model="product.brand" placeholder="" disabled></el-input>
+          </el-form-item>
           <el-form-item class="info-item" label="批准文号:" prop="approvalNumber">
             <template slot="label"> <span class="required">*</span> 批准文号:</template>
             <el-input class="selectInput" v-model="product.approvalNumber" placeholder="" disabled>
@@ -69,28 +77,53 @@
             <template slot="label"> <span class="required">*</span> 商城价:</template>
             <el-input class="selectInput" v-model="product.mallPrice" placeholder="" disabled></el-input>
           </el-form-item>
+          <el-form-item class="info-item" label="商城名称:" prop="mallName"  style="width:93%;">
+            <template slot="label">商城名称:</template>
+            <el-input class="selectInput" v-model="product.mallName" placeholder="" type="textarea"></el-input>
+          </el-form-item>
+          <el-form-item class="info-item" label="商城索引图:" prop="mallPictureTemp">
+            <template slot="label">商城索引图:</template>
+            <UploadImage v-model="product.mallPictureTemp" :customRequest="true" size="small" :maxSize="1" :limit="1">
+            </UploadImage>
+          </el-form-item>
         </div>
       </div>
+      <!-- 运费 -->
+      <div class="info ">
+        <div class="info-title">运费</div>
+        <div class="info-content">
+          <el-form-item class="info-item" label="运费金额:" prop="freightFee">
+            <el-input class="selectInput" v-model="product.freightFee" placeholder=""></el-input>
+          </el-form-item>
+          <el-form-item class="info-item" label="免邮金额:" prop="decreaseAmount">
+            <el-input class="selectInput" v-model="product.decreaseAmount" placeholder=""></el-input>
+          </el-form-item>
+        </div>
+      </div>
+
+
+
+      <!-- 销售属性 -->
       <div class="info ">
         <div class="info-title">销售属性</div>
         <div class="info-content" v-for="(item,index) in product.supplierStockList" :key="index">
           <el-form-item class="info-item" label="单位:" :prop="`supplierStockList.${index}.unit`">
             <!-- :prop="`supplierStockList.${index}.unit`" :rules="rules.supplierStockList.unit" -->
-            <el-select class="selectInput" placeholder="" v-model="product.supplierStockList[index].unit" >
+            <el-select class="selectInput" placeholder="" v-model="product.supplierStockList[index].unit">
               <el-option v-for="unit in units" :key="unit" :label="unit" :value="unit">
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="info-item info-item-radio" label="范围:" :prop="`supplierStockList.${index}.rangGroup`">
             <el-radio-group v-model="radioVal[index]" @change="rangeChange(radioVal[index],index)">
-              <el-radio :label="1">全平台</el-radio>
+              <el-radio label="全平台">全平台</el-radio>
               <el-radio :label="radioPlaceHolder[index]">
-                <!-- radioPlaceHolder -->
+                <!-- radioPlaceHolder  空字符串用来占位  去掉会显示id 勿删 -->
                 <!-- {{getRadioActiveName()}} --> {{' '}}
               </el-radio>
             </el-radio-group>
             <el-select class="selectInput radio-select" placeholder="选择分组"
-              @change="rangeChange(selectRangeVal[index],index)" v-model="selectRangeVal[index]" >
+              @change="rangeChange(selectRangeVal[index],index)" v-model="selectRangeVal[index]">
               <!-- v-model="product.supplierStockList[index].rangeGroup" -->
               <el-option v-for="(item,index) in groupList" :key="index" no-data-text=" " :value="item.id"
                 :label="item.groupName">
@@ -139,9 +172,6 @@
           <el-form-item class="info-item" label="功能说明:" prop="functions">
             <el-input class="selectInput" placeholder="" v-model="product.functions"></el-input>
           </el-form-item>
-          <!-- <el-form-item class="info-item" label="其它:" prop="period">
-            <el-input class="selectInput" placeholder="" v-model="product.period"></el-input>
-          </el-form-item> -->
         </div>
       </div>
       <!-- 附件上传 -->
@@ -150,19 +180,19 @@
         <div class="info-content ">
           <el-form-item class="info-item" label="药品标准:">
             <cu-upload-file type="file" ref="uploadStandrand" :files.sync="standrandFileList" text="添加附件" tip=""
-              @submit="submitFile(arguments,'drugStandardsUrl')" :limit="1" accept=""
-              @remove="removeFile(arguments,'drugStandardsUrl')" >
+              @submit="submitFile(arguments,'drugStandardsUrl')" :limit="1" accept="" width="200px"
+              @remove="removeFile(arguments,'drugStandardsUrl')">
             </cu-upload-file>
           </el-form-item>
           <el-form-item class="info-item" label="注册附件:">
             <cu-upload-file type="file" ref="uploadStandrand" :files.sync="registerFileList" text="添加附件" tip=""
-              @submit="submitFile(arguments,'regEnclosureUrl')" :limit="1" accept=""
+              @submit="submitFile(arguments,'regEnclosureUrl')" :limit="1" accept="" width="200px"
               @remove="removeFile(arguments,'drugStandardsUrl')">
             </cu-upload-file>
           </el-form-item>
           <el-form-item class="info-item" label="说明书扫描件:">
             <cu-upload-file type="file" ref="uploadStandrand" :files.sync="descFileList" text="添加附件" tip=""
-              @submit="submitFile(arguments,'instructionBookUrl')" :limit="1" accept=""
+              @submit="submitFile(arguments,'instructionBookUrl')" :limit="1" accept="" width="200px"
               @remove="removeFile(arguments,'drugStandardsUrl')">
             </cu-upload-file>
           </el-form-item>
@@ -173,15 +203,16 @@
         <div class="info-title">图文描述:</div>
         <div class="info-content details-info">
           <el-form-item class="info-item" label="主图:">
-            <cu-upload-file :files.sync="images" class="image-upload" text="添加主图" tip="" :limit="5" :maxSize="1"
-              @submit="submitFile(arguments,'mainPicture')" :multiple="true" accept=".png,.jpg,.jpeg">
-            </cu-upload-file>
+            <!-- <cu-upload-image :files.sync="images" class="image-upload" text="添加主图" tip="" :limit="5" :maxSize="1"
+              @submit="submitFile(arguments,'mainPicture')" :multiple="true" accept=".png,.jpg,.jpeg" >
+            </cu-upload-image> -->
+            <UploadImage v-model="product.mainPictureTemp" :customRequest="true" size="small" :maxSize="1" :limit="5">
+            </UploadImage>
             <div class="tip">1. 请上传至少1张主图，主图应包含商品正反面外包装图；若涉及活动，请在图片上清晰显示活动时间和活动方式。 </div>
             <div class="tip">2. 图片支持png、jpg、jpeg格式；建议图片尺寸为600*600px，或更大的尺寸；图片大小请小于1M。</div>
-
           </el-form-item>
           <el-form-item class="info-item" label="商品详情:" prop="detail">
-            <cu-editor v-model="product.detail" ></cu-editor>
+            <cu-editor v-model="product.detail"></cu-editor>
           </el-form-item>
         </div>
       </div>
@@ -192,8 +223,6 @@
           提交审核
         </el-button>
       </div>
-
-
 
     </el-form>
     <cu-dialog title="药械通用信息" width="70vw" :visible="dialogVisible" :showClose="true" @handleClose="handleClose"
@@ -218,7 +247,7 @@
           <div class="search-item">
             <div class="label">审核状态:</div>
             <el-select class="selectInput" placeholder="请选择药械审核状态" v-model="searchObj.auditStatus" clearable>
-              <el-option v-for="label,value in auditStatusType" :key="value" :label="label" :value="value">
+              <el-option v-for="(label,value) in auditStatusType" :key="value" :label="label" :value="value">
               </el-option>
             </el-select>
           </div>
@@ -246,18 +275,16 @@
         <div></div>
       </template>
     </cu-dialog>
-
-
   </div>
 </template>
 <script>
-import { editEcho, getApparatus, getBuyerGroupList, getMallClassificationList, addSupplierGoods, edit } from "@/api/aksApi/platformApi/supplierPlatformApi.js";
-import CuUploadFile from '../components/cu-upload-file.vue'
+import { editEcho, getApparatus, getBuyerGroupList, getApparatusMallClassificationList, addSupplierGoods, edit, getSupplierFreightTemplate } from "@/api/aksApi/platformApi/supplierPlatformApi.js";
 import { catchAwait } from "@/utils/catchAwait.js";
+import UploadImage from "../components/upload-image.vue";
 
 export default {
   components: {
-    CuUploadFile
+    UploadImage
   },
   data() {
     return {
@@ -303,7 +330,7 @@ export default {
       },
       // 1: '全平台',
       selectRangeVal: [''],
-      radioVal: [1],
+      radioVal: ["全平台"],
       rangeTypeObj: { 2: '大客户采购组', 3: "小批发采购组", 4: "其他" },
       rangeTypes: [{ value: 2, label: "大客户采购组" }, { value: 3, label: "小批发采购组" }, { value: 4, label: "其他" }],
       radioPlaceHolder: [2],// 默认全平台
@@ -326,7 +353,7 @@ export default {
         // "createTime": "",// 创建时间
         // "declareTime": "",// 申报时间
         // "deleteFlag": 0,// 删除标记
-        detail: "ddddddddd",// 商品详情
+        detail: "",// 商品详情
         // "dosage": "",// 用法用量
         // "downloadTime": "",// 下架时间
         // "drugStandardsUrl": "",// 药品标准
@@ -360,15 +387,15 @@ export default {
       dialogVisible: false,
       searchObj: {
         product_name: '',
-        // material: '',
-        // specification: '',
-        audit_status: null
+        audit_status: null,
+        currPageNo: 1,
+        pageSize: 10,
       },
       selectTableData: [],
       selectTableHeader: [
         {
           title: "商品编号",
-          key: "sgId",
+          key: "ybCode",
         },
         {
           title: "通用名",
@@ -377,7 +404,7 @@ export default {
         },
         {
           title: "商品名称",
-          key: "goodsName",
+          key: "productName",
           width: 120,
         },
 
@@ -409,14 +436,17 @@ export default {
           key: "manufacturer",
         },
         {
+          title: "品牌",
+          key: "brand",
+        },
+        {
           title: "选择",
           slot: "operate",
           // width: 140,
           fixed: 'right'
         },
       ],
-      pageNum: 1,
-      pageSize: 10,
+
       pageCount: 1,
       total: 0,
       tableLoading: false,
@@ -460,6 +490,21 @@ export default {
         // mallPrice: [
         //     { required: true, message: '请补全药品基本信息', trigger: 'blur' },
         // ],
+        mallName: [
+          { required: true, message: '请添加商城名称', trigger: 'blur' },
+        ],
+        mallPictureTemp: [
+          { required: true, message: '请添加商城索引图', trigger: 'blur' },
+        ],
+        // templateId: [
+        //   { required: true, message: '请选择运费模板', trigger: 'blur' },
+        // ],
+        freightFee: [
+          { required: true, message: '请输入运费金额', trigger: 'blur' },
+        ],
+        decreaseAmount: [
+          { required: true, message: '请输入满减金额', trigger: 'blur' },
+        ],
         supplierStockList: {
           type: 'array',
           min: 1,
@@ -482,10 +527,10 @@ export default {
                   message: '请选择库存销售范围',
                 },
                 quantity: [
-                    { required: true, message: '请输入库存量', trigger: 'blur',min:1 },
+                  { required: true, message: '请输入库存量', trigger: 'blur', min: 1 },
                 ],
                 buyPrice: [
-                    { required: true, message: '请输入库存单位采购价', trigger: 'blur',min:1 },
+                  { required: true, message: '请输入库存单位采购价', trigger: 'blur', min: 1 },
                 ],
               }
             }
@@ -504,7 +549,6 @@ export default {
       uploadUrl: '',
       submitLoading1: false,
       submitLoading2: false,
-      images: [],// 上传主图
       // 编辑回显接口返回的数据全部传回编辑接口 无法成功编辑  此处保存编辑接口需要的数据
       productEditField: {
         "commonName": "",
@@ -542,7 +586,13 @@ export default {
             // "warnQuantity": 0
           }
         ],
-        "ypqxType": 0// 药品器械分类@ 1 药品 2 器械
+        "ypqxType": 0,// 药品器械分类@ 1 药品 2 器械
+        "mallName": '',
+        "mallPicture": '',
+        "templateId": undefined,
+        "freightFee": '',
+        "decreaseAmount": '',
+        "brand":undefined
       },
       // 商品基本信息传入编辑接口 无法成功编辑  此处保存商品基本信息字段 作为 编辑传参判断
       noEdit: {
@@ -551,12 +601,17 @@ export default {
         jx: true,
         specification: true,
         packMaterial: true,
+        material:true,
         manufacturer: true,
         approvalNumber: true,
         regNo: true,
         mallPrice: true,
+        brand:true
       },
-      groupList: []
+      groupList: [],// 采购商分组数据
+      propertyTpls: [],// 运费模板数据
+      propertyAmount: 0,// 运费
+      cateLoading: false,// 商城分类加载
     }
   },
   created() {
@@ -601,6 +656,7 @@ export default {
           }
           this.product = product
           console.log(this.product);
+          // 由于上传组件只接收 数组 这里做数组转换处理
           if (data.drugStandardsUrl) {
             this.standrandFileList = [{ name: decodeURI(data.drugStandardsName), url: data.drugStandardsUrl }]
           }
@@ -610,9 +666,17 @@ export default {
           if (data.instructionBookUrl) {
             this.descFileList = [{ name: decodeURI(data.regEnclosureName), url: data.instructionBookUrl }]
           }
+          //  主图数据处理
           if (data.mainPicture) {
             let images = data.mainPicture.split(';')
-            this.images = images.map((image, index) => { return { name: decodeURI(data.mainPictureMame), url: image } })
+            product.mainPictureTemp = images.map((image, index) => { return { name: decodeURI(data.mainPictureMame), url: image } })
+          } else {
+            product.mainPictureTemp = []
+          }
+          if (data.mallPicture) {
+            product.mallPictureTemp = [{ name: '', url: data.mallPicture }]
+          } else {
+            product.mallPictureTemp = []
           }
           console.log(this.product);
         } else {
@@ -623,11 +687,26 @@ export default {
         console.log(err);
       });
     },
+    // 获取商城分类
     getMallCateList() {
-      getMallClassificationList().then(res => {
+      this.cateLoading = true;
+      getApparatusMallClassificationList().then(res => {
         console.log(res);
         if (res.code == 200) {
-          this.mallCateList = res.data;
+          let list = res.data;
+          const deep = (data) => {
+            return data.map(item => {
+              if (item.childList && item.childList.length) {
+                return deep(item.childList)
+              } else {
+                item.childList = undefined
+                return item;
+              }
+            })
+          }
+          this.mallCateList = deep(list);
+          this.cateLoading = false;
+
         } else {
           this.$message.warning(res.message)
 
@@ -635,6 +714,13 @@ export default {
       }).catch((err) => {
         console.log(err);
       });
+    },
+    handleChangeCate(row) {
+      console.log(row);
+      if (row) {
+        this.product.saleCategoryId = row[row.length - 1]
+      }
+      console.log(this.product.saleCategoryId);
     },
     selectInfo() {
       console.log('ddd');
@@ -658,22 +744,23 @@ export default {
     },
     handleSizeChange(val) {
       console.log(val);
-      this.pageSize = val;
+      this.searchObj.pageSize = val;
       this.search();
     },
     handleCurrentChange(val) {
       console.log(val);
-      this.pageNum = val;
+      this.searchObj.currPageNo = val;
       this.search();
     },
     // 选择商品
     selectProduct(info) {
       this.product.commonName = info.commonName;
-      this.product.goodsName = info.goodsName;
+      this.product.goodsName = info.productName;
       this.product.material = info.material;
       this.product.specification = info.specification;
       this.product.packMaterial = info.packMaterial;
       this.product.manufacturer = info.manufacturer;
+      this.product.brand = info.brand;
       this.product.approvalNumber = info.approvalNumber;
       this.product.originPlace = info.originPlace;
       this.product.regNo = info.regNo;
@@ -690,21 +777,19 @@ export default {
     },
     addSupplierStockItem() {
       this.product.supplierStockList.push({ rangeGroup: 1, unit: '箱', buyPrice: 0, quantity: 0, })
-      this.radioVal.push(1)
+      this.radioVal.push("全平台")
       this.radioPlaceHolder.push(2)
       console.log();
     },
-
-    // getRadioActiveName(index) {
-    //     return this.rangeTypeObj[this.radioPlaceHolder[index]];
-    // },
     // 选择范围下拉框 触发
     rangeChange(event, index) {
       console.log(event);
-      if (event == 1) {
-        return this.product.supplierStockList[index].rangeGroup = event;
+      if (event == "全平台") {
+        this.product.supplierStockList[index].buyerGroupId = undefined;
+        this.product.supplierStockList[index].rangeGroup = 1;
+        return;
       }
-      this.product.supplierStockList[index].rangeGroup = event;
+      this.product.supplierStockList[index].rangeGroup = 2;
       this.product.supplierStockList[index].buyerGroupId = event;
       this.radioPlaceHolder[index] = event;
       this.radioVal[index] = event
@@ -723,6 +808,15 @@ export default {
         console.log(valid, validOut);
         if (valid && validOut) {
           this['submitLoading' + type] = true;
+          // 图片数据处理
+          this.product.mallPicture = this.product.mallPictureTemp[0] ? this.product.mallPictureTemp[0].url : "";
+          if (this.product.mainPictureTemp && this.product.mainPictureTemp.length) {
+            this.product.mainPicture = this.product.mainPictureTemp.reduce((total, currentValue, currentIndex, arr) => {
+              return !total ? currentValue.url : total + ';' + currentValue.url
+            }, '')
+          }
+          delete this.product.mallPictureTemp;
+          delete this.product.mainPictureTemp;
           if (this.productId) {
             this.editGoods(type)
           } else {
@@ -730,10 +824,6 @@ export default {
           }
         } else {
           console.log(this.product, invalidObj);
-          // for (let key in invalidObj) {
-          //     let mess = invalidObj[key];
-          //     this.$message.error(mess[0].message)
-          // }
           console.log('error submit!!');
           return false;
         }
@@ -744,11 +834,14 @@ export default {
     async addGoods(type) {
       let product = this.product;
       console.log(product);
+      for (const key in product) {
+        if (this.noEdit[key]) {
+          delete product[key]
+        }
+      }
       product.type = type;
       product.ypqxType = this.ypqxType;
-      // product.drugStandardsUrl = this.standrandFileList[0];
-      // product.regEnclosureUrl = this.registerFileList[0];
-      // product.instructionBookUrl = this.descFileList[0];
+      delete product.brand;
       try {
         let res = await addSupplierGoods(product);
         if (res.code == 200) {
@@ -775,9 +868,6 @@ export default {
           delete product[key]
         }
       }
-      // product.drugStandardsUrl = this.standrandFileList[0];
-      // product.regEnclosureUrl = this.registerFileList[0];
-      // product.instructionBookUrl = this.descFileList[0];
       console.log(product);
       let [err, res] = await catchAwait(edit(product))
       console.log(err, res);
@@ -821,7 +911,7 @@ export default {
       if (res.code == 200) {
         let url = res.data;
         if (type == 'mainPicture') {
-          if(!this.product[type]) {this.product[type] = '';}
+          if (!this.product[type]) { this.product[type] = ''; }
           this.product[type] += ';' + url;
           this.$message.success('上传图片成功！')
         } else {
@@ -837,11 +927,11 @@ export default {
       let fileList = args[1];
       if (!fileList.length) {
         this.product[type] = '';
-      }else {
-        if(type == 'mainPicture'){
+      } else {
+        if (type == 'mainPicture') {
           this.product[type] = this.product[type].split(';').filter(item => item != removeFile.url);
-          this.product[type] = this.product[type].reduce((total, currentValue, currentIndex, arr)=>{
-            return total == ''? currentValue:total + ';' +currentValue
+          this.product[type] = this.product[type].reduce((total, currentValue, currentIndex, arr) => {
+            return total == '' ? currentValue : total + ';' + currentValue
           }, '')
           console.log(this.product[type]);
         }

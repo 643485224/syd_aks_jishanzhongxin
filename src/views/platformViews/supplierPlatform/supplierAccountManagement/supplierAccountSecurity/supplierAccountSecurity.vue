@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <cu-dialog :title="'修改手机号'" width="600px" :visible="phoneVisible" :showClose="true"
+    <cu-dialog :title="'修改手机号'" width="600px" :visible="phoneVisible" :showClose="true" :destroyOnClose="true"
       @handleClose="phoneVisible = false">
       <!-- :destroyOnClose="true" @menuListInitData="menuListInitData"-->
       <cu-form ref="form" :formData.sync="phoneForm" :formRule="phoneFormRule" class="form" :labelWidth="'100px'"
@@ -301,18 +301,31 @@ export default {
       this.$message.info("该功能尚未开放")
     },
     showPhoneDialog() {
+      this.phoneForm.newPhone = '';
       this.phoneVisible = true;
+      this.phoneForm.newPhone = '';
+      setTimeout(() =>{
+      this.phoneForm.newPhone = '';
+      },0)
     },
-    changePhoneOK() {
-      let { oldPhone, newPhone } = this.phoneForm;
+    changePhoneOK(phoneForm) {
+      console.log(phoneForm);
+      let { oldPhone, newPhone } = phoneForm;
       let params = { oldPhone, newPhone }
+
+      console.log(params);
       updatePhone(params).then(res => {
         console.log(res);
         if (res.code == 200) {
-          this.phoneForm.oldPhone = this.phoneForm.newPhone;
+          phoneForm.oldPhone = newPhone;
+          phoneForm.newPhone = '';
+          this.phoneForm.oldPhone = newPhone;
+          this.phoneForm.newPhone = '';
+          this.$forceUpdate();
           this.$message.success("手机号码修改成功")
           this.getUserInfo()
           this.phoneVisible = false;
+
 
         } else {
           this.$message.warning(res.message)

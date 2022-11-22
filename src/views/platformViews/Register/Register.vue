@@ -1,43 +1,44 @@
 <template>
-  <div class="login">
+  <div class="register">
     <!--如果有轮播的话: 轮播位置-->
     <cu-animation ref="cu_animation" :type="'flipInY'" :time="0.5">
-      <div class="registerLeft">
-        <div class="registerLeft_img"></div>
-        <div class="registerLeft_body">
-          <div class="registerLeft_title">
-            阿克苏药品集散中心
-            <div class="registerLeft_title_wight">
-              网数融综管运服平台
-              <span v-if="sfType == '采购商'">采购商注册</span>
-              <span v-if="sfType == '供应商'">供应商注册</span>
-            </div>
-          </div>
-          <div class="registerLeft_titleX">欢迎您的加盟！</div>
-        </div>
-      </div>
-    </cu-animation>
-    <cu-animation ref="cu_animation" :type="'flipInY'" :time="0.5">
-      <div class="registerRight">
-        <div class="formTopTitle">
-          <div class="formTopTitle_one" @click="clickRuterButton('/login')">
-            已有账号，前往登录
-          </div>
+      <div class="register_one">
+        <div class="register_one_img"></div>
+        <div class="register_one_text">
           <div
-            class="formTopTitle_two"
+            class="register_one_text1"
             @click="clickRuterButton('/webHomePage')"
           >
             网站首页
           </div>
+          <div class="register_one_text1" @click="clickRuterButton('/login')">
+            已有账号，前往登录
+          </div>
         </div>
-        <div class="login_form" id="login-form">
+      </div>
+    </cu-animation>
+    <cu-animation ref="cu_animation" :type="'flipInY'" :time="0.5">
+      <div class="register_two">
+        <!-- 供应商  紫色 #F5E8FF -->
+        <!-- 采购商   绿色 #E2FFEC -->
+        <div
+          class="login_form"
+          :style="
+            sfType == '采购商' ? 'background:#E2FFEC' : 'background:#F5E8FF'
+          "
+          id="login-form"
+        >
           <div class="login-form-body">
             <div
               v-loading="isLogin"
               element-loading-text="加载中，请稍后"
               element-loading-spinner="el-icon-loading"
             >
-              <div class="flex formTitle1">注册账户</div>
+              <div class="flex formTitle1">
+                注册账户
+                <span v-if="sfType == '采购商'">（采购商）</span>
+                <span v-if="sfType == '供应商'">（供应商）</span>
+              </div>
               <div class="flex formTitle2 mb_20">SOURCEHANSANSCNREGULAR</div>
               <div class="flex_ac mb_20">
                 <div class="form_lable">身份选择</div>
@@ -49,22 +50,23 @@
               <div class="flex_ac mb_20">
                 <div class="form_lable">类型选择</div>
                 <el-radio-group v-if="sfType == '采购商'" v-model="qyType">
-                  <el-radio :label="1" class="el_radio">医院</el-radio>
-                  <el-radio :label="2" class="el_radio">药店</el-radio>
-                  <el-radio :label="3" class="el_radio">个人</el-radio>
+                  <el-radio :label="1" class="el_radio">公立医院</el-radio>
+                  <el-radio :label="2" class="el_radio">私立医院</el-radio>
+                  <el-radio :label="3" class="el_radio">药店</el-radio>
+                  <el-radio :label="4" class="el_radio">个体</el-radio>
                 </el-radio-group>
                 <el-radio-group v-if="sfType == '供应商'" v-model="qyType">
-                  <el-radio :label="1" class="el_radio">药品企业</el-radio>
-                  <el-radio :label="2" class="el_radio">药械企业</el-radio>
+                  <el-radio :label="+value" class="el_radio" v-for="label,value in supplierTypes" :key="value">{{label}} </el-radio>
                 </el-radio-group>
               </div>
-              <div v-if="sfType == '采购商'">
+              <div v-show="sfType == '采购商'">
                 <el-form
+                  status-icon
                   :label-position="'right'"
                   :model="formCaiGouRenValue"
                   :rules="rulesformCaiGouRenValue"
                   ref="ruleFormCaiGouRen"
-                  label-width="120px"
+                  label-width="180px"
                   class="demo-ruleForm"
                 >
                   <el-form-item label="企业/单位名称" prop="unitName">
@@ -73,67 +75,103 @@
                       placeholder="请输入企业/单位名称"
                     ></el-input>
                   </el-form-item>
+                  <el-form-item label="企业统一编码" prop="unifiedCode">
+                    <el-input
+                      v-model="formCaiGouRenValue.unifiedCode"
+                      placeholder="请输入企业统一编码"
+                    ></el-input>
+                  </el-form-item>
                   <el-form-item label="登录账户" prop="username">
                     <el-input
                       v-model="formCaiGouRenValue.username"
                       placeholder="可使用数字、字母，请谨记账号"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="密码" prop="password1">
+                  <el-row class="el_row">
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="密码" prop="password1">
+                        <el-input
+                          show-password
+                          v-model="formCaiGouRenValue.password1"
+                          placeholder="请输入密码"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="确认密码" prop="password2">
+                        <el-input
+                          show-password
+                          v-model="formCaiGouRenValue.password2"
+                          placeholder="请输入确认密码"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row class="el_row">
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="手机号" prop="phone">
+                        <el-input
+                          v-model="formCaiGouRenValue.phone"
+                          placeholder="请输入手机号"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="验证码" prop="captcha">
+                        <div class="flex">
+                          <el-input
+                            v-model="formCaiGouRenValue.captcha"
+                            placeholder="请输入验证码"
+                          ></el-input>
+                          <el-button
+                            type="primary"
+                            class="size"
+                            @click="useVerify"
+                            :disabled="diflag"
+                            >{{ titels
+                            }}<span v-if="diflag"
+                              >({{ times }})</span
+                            ></el-button
+                          >
+                        </div>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row class="el_row">
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="联系人" prop="contactUser">
+                        <el-input
+                          v-model="formCaiGouRenValue.contactUser"
+                          placeholder="请输入联系人"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="职务" prop="post">
+                        <el-input
+                          v-model="formCaiGouRenValue.post"
+                          placeholder="请输入职务"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-form-item label="即时通" prop="msn">
                     <el-input
-                      v-model="formCaiGouRenValue.password1"
-                      placeholder="请输入密码"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="确认密码" prop="password2">
-                    <el-input
-                      v-model="formCaiGouRenValue.password2"
-                      placeholder="请输入确认密码"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="联系人" prop="contactUser">
-                    <el-input
-                      v-model="formCaiGouRenValue.contactUser"
-                      placeholder="请输入联系人"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="手机号" prop="phone">
-                    <el-input
-                      v-model="formCaiGouRenValue.phone"
-                      placeholder="请输入手机号"
-                    ></el-input>
-                  </el-form-item>
-                  <el-form-item label="验证码" prop="captcha">
-                    <div class="flex">
-                      <el-input
-                        v-model="formCaiGouRenValue.captcha"
-                        placeholder="请输入验证码"
-                      ></el-input>
-                      <el-button
-                        type="primary"
-                        class="size"
-                        @click="useVerify"
-                        :disabled="diflag"
-                        >{{ titels
-                        }}<span v-if="diflag">({{ times }})</span></el-button
-                      >
-                    </div>
-                  </el-form-item>
-                  <el-form-item label="职务" prop="post">
-                    <el-input
-                      v-model="formCaiGouRenValue.post"
-                      placeholder="请输入职务"
+                      v-model="formCaiGouRenValue.msn"
+                      placeholder="请输入即时通（qq或微信）"
                     ></el-input>
                   </el-form-item>
                 </el-form>
               </div>
               <div v-if="sfType == '供应商'">
                 <el-form
+                  status-icon
                   :label-position="'right'"
                   :model="formGongYingShangValue"
                   :rules="rulesformGongYingShangValue"
                   ref="ruleFormGongYingShang"
-                  label-width="120px"
+                  label-width="180px"
                   class="demo-ruleForm"
                 >
                   <el-form-item label="企业/单位名称" prop="unitName">
@@ -142,51 +180,93 @@
                       placeholder="请输入企业/单位名称"
                     ></el-input>
                   </el-form-item>
+                  <el-form-item label="企业统一编码" prop="unifiedCode">
+                    <el-input
+                      v-model="formGongYingShangValue.unifiedCode"
+                      placeholder="请输入企业统一编码"
+                    ></el-input>
+                  </el-form-item>
                   <el-form-item label="登录账户" prop="username">
                     <el-input
                       v-model="formGongYingShangValue.username"
                       placeholder="可使用数字、字母，请谨记账号"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="手机号" prop="phone">
+                  <el-row class="el_row">
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="密码" prop="password1">
+                        <el-input
+                          show-password
+                          v-model="formGongYingShangValue.password1"
+                          placeholder="请输入密码"
+                        >
+                        </el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="确认密码" prop="password2">
+                        <el-input
+                          show-password
+                          v-model="formGongYingShangValue.password2"
+                          placeholder="请输入密码"
+                        >
+                        </el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row class="el_row">
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="手机号" prop="phone">
+                        <el-input
+                          v-model="formGongYingShangValue.phone"
+                          placeholder="请输入手机号"
+                        ></el-input>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12" class="el_col">
+                      <el-form-item label="验证码" prop="captcha">
+                        <div class="flex">
+                          <el-input
+                            v-model="formGongYingShangValue.captcha"
+                            placeholder="请输入验证码"
+                          ></el-input>
+                          <el-button
+                            type="primary"
+                            class="size"
+                            @click="useVerify"
+                            :disabled="diflag"
+                            >{{ titels
+                            }}<span v-if="diflag"
+                              >({{ times }})</span
+                            ></el-button
+                          >
+                        </div>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+
+                  <el-form-item label="联系人" prop="contactUser">
                     <el-input
-                      v-model="formGongYingShangValue.phone"
-                      placeholder="请输入手机号"
+                      v-model="formGongYingShangValue.contactUser"
+                      placeholder="请输入联系人"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="验证码" prop="captcha">
-                    <div class="flex_ac">
-                      <el-input
-                        v-model="formGongYingShangValue.captcha"
-                        placeholder="请输入验证码"
-                      ></el-input>
-                      <el-button
-                        type="primary"
-                        class="size"
-                        @click="useVerify"
-                        :disabled="diflag"
-                        >{{ titels
-                        }}<span v-if="diflag">({{ times }})</span></el-button
-                      >
-                    </div>
-                  </el-form-item>
-                  <!-- <el-form-item label="手机验证码" prop="value_9">
-                  <el-input
-                    v-model="formGongYingShangValue.value_9"
-                    placeholder="请输入手机验证码"
-                  ></el-input>
-                </el-form-item> -->
-                  <el-form-item label="设置密码" prop="password1">
+                  <el-form-item label="即时通" prop="msn">
                     <el-input
-                      v-model="formGongYingShangValue.password1"
-                      placeholder="请输入密码"
+                      v-model="formGongYingShangValue.msn"
+                      placeholder="请输入即时通（qq或微信）"
                     ></el-input>
                   </el-form-item>
-                  <el-form-item label="确认密码" prop="password2">
-                    <el-input
-                      v-model="formGongYingShangValue.password2"
-                      placeholder="请输入密码"
-                    ></el-input>
+                  <el-form-item label="上传资格证书" prop="settleAnnexList">
+                    <el-upload
+                      action
+                      :http-request="httpRequestFunction"
+                      list-type="picture-card"
+                      :on-preview="handlePictureCardPreview"
+                      :on-remove="handleRemove"
+                    >
+                      <i class="el-icon-plus"></i>
+                    </el-upload>
                   </el-form-item>
                 </el-form>
               </div>
@@ -216,6 +296,10 @@
         ref="verify"
       ></Verify>
     </div>
+
+    <el-dialog :visible.sync="dialogVisible">
+      <img width="100%" :src="dialogImageUrl" alt="" />
+    </el-dialog>
   </div>
 </template>
 
@@ -283,7 +367,11 @@ import {
   buyerRegister,
   verify,
 } from "../../../api/aksApi/platformApi/loginApi";
+import { upload, fileDelete } from "@/api/aksApi/platformApi/commonApi.js";
 import Verify from "./components/verifition/Verify.vue";
+import test from "../../../cuview-ui/function/test";
+import { supplierTypes } from "@/utils/httpDataTypes.js";
+
 export default {
   components: {
     Verify,
@@ -293,10 +381,46 @@ export default {
       if (value === "") {
         return callback(new Error("请输入登录账户"));
       }
-      if (!this.$cu.test.enOrNum(value)) {
+      if (!test.enOrNum(value)) {
         return callback(new Error("使用数字、字母组合，请谨记账号"));
       }
       return callback();
+    };
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else if (!test.password(value)) {
+        return callback(new Error("密码需6-12位数字、字母组合"));
+      } else {
+        if (this.formCaiGouRenValue.password2 !== "") {
+          this.$refs.ruleFormCaiGouRen.validateField("password2");
+        }
+        if (this.formGongYingShangValue.password2 !== "") {
+          this.$refs.ruleFormGongYingShang.validateField("password2");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (
+        value !== this.formCaiGouRenValue.password1 &&
+        value !== this.formGongYingShangValue.password1
+      ) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+    var validatePhone = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入手机号"));
+      } else if (!test.mobile(value)) {
+        return callback(new Error("手机格式不正确"));
+      } else {
+        callback();
+      }
     };
     return {
       imageUrl: "", //验证码图片
@@ -312,7 +436,7 @@ export default {
         password: "", //密码
         code: "", //验证码
       },
-
+      supplierTypes,// 供应商企业类型
       sfType: "采购商", //采购商 或 供应商
       qyType: 1, //药品企业 或 药械企业
       isYuedu: false, // 我已阅读《会员须知》并同意《《入市协议》
@@ -326,6 +450,8 @@ export default {
         phone: "", // 手机号
         post: "", // 职务
         captcha: "", // 验证码
+        unifiedCode: "", //企业统一编码
+        msn: "", //即时通
       },
       rulesformCaiGouRenValue: {
         unitName: [
@@ -338,16 +464,28 @@ export default {
             validator: validateUserName,
           },
         ],
-        password1: [{ required: true, message: "请输入密码", trigger: "blur" }],
+        password1: [
+          { required: true, trigger: "blur", validator: validatePass },
+        ],
         password2: [
-          { required: true, message: "请输入确认密码", trigger: "blur" },
+          { required: true, trigger: "blur", validator: validatePass2 },
         ],
         contactUser: [
           { required: true, message: "请输入联系人", trigger: "blur" },
         ],
-        phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
+        phone: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePhone,
+          },
+        ],
         post: [{ required: true, message: "请输入职务", trigger: "blur" }],
         captcha: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+        unifiedCode: [
+          { required: true, message: "请输入企业统一编码", trigger: "blur" },
+        ], //企业统一编码
+        msn: [{ required: false, message: "请输入即时通", trigger: "blur" }], //即时通
       },
 
       //   供应商注册
@@ -356,10 +494,15 @@ export default {
         username: "", // 登录账户
         phone: "", // 手机号
         captcha: "", // 验证码
-        // value_9: "", // 手机验证码
         password1: "", // 设置密码
         password2: "", // 确认密码
+        contactUser: "", //联系人
+        unifiedCode: "", //企业统一编码
+        msn: "", //即时通
+        settleAnnexList: [], //上传附件
       },
+      dialogVisible: false,
+      dialogImageUrl: "",
       rulesformGongYingShangValue: {
         unitName: [
           { required: true, message: "请输入企业/单位名称", trigger: "blur" },
@@ -371,13 +514,35 @@ export default {
             validator: validateUserName,
           },
         ],
-        phone: [{ required: true, message: "请输入手机号", trigger: "blur" }],
+        phone: [
+          {
+            required: true,
+            trigger: "blur",
+            validator: validatePhone,
+          },
+        ],
+        password1: [
+          { required: true, trigger: "blur", validator: validatePass },
+        ],
+        password2: [
+          { required: true, trigger: "blur", validator: validatePass2 },
+        ],
         captcha: [{ required: true, message: "请输入验证码", trigger: "blur" }],
-        // value_9: [
-        //   { required: true, message: "请输入手机验证码", trigger: "blur" },
-        // ],
-        password1: [{ required: true, message: "请设置密码", trigger: "blur" }],
-        password2: [{ required: true, message: "请确认密码", trigger: "blur" }],
+        contactUser: [
+          { required: true, message: "请输入联系人", trigger: "blur" },
+        ],
+        unifiedCode: [
+          { required: true, message: "请输入企业统一编码", trigger: "blur" },
+        ],
+        msn: [{ required: false, message: "请输入即时通", trigger: "blur" }],
+        settleAnnexList: [
+          {
+            type: "array",
+            required: true,
+            message: "最少上传一张资格证书",
+            trigger: "change",
+          },
+        ], //上传资格证书
       },
 
       blockPuzzle: "blockPuzzle",
@@ -391,18 +556,15 @@ export default {
     };
   },
   mounted() {
-    this.setRemUnit(); //自适应
-
-    this.captchaApi(); // 获取验证码
-  },
-  created() {
     console.log(this.$route.query.sysType); //判断是否是3供应2采购商
     if (this.$route.query.sysType == 3) {
       this.sfType = "供应商";
     } else if (this.$route.query.sysType == 2) {
       this.sfType = "采购商";
     }
+    this.setRemUnit(); //自适应
   },
+
   methods: {
     //自适应
     setRemUnit() {
@@ -420,16 +582,7 @@ export default {
       }
       docEl.style.fontSize = (rem > 180 ? 180 : rem) + "px";
     },
-    // 获取验证码-接口
-    captchaApi() {
-      captcha()
-        .then((res) => {
-          this.imageUrl = URL.createObjectURL(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+
     // 通用-用户注册-接口
     buyerRegisterApi() {
       if (this.sfType == "采购商") {
@@ -449,6 +602,8 @@ export default {
           unitName: this.formCaiGouRenValue.unitName, //单位名称
           username: this.formCaiGouRenValue.username, //登录账号
           captcha: this.formCaiGouRenValue.captcha, //验证码
+          unifiedCode: this.formCaiGouRenValue.unifiedCode, //企业统一编码
+          msn: this.formCaiGouRenValue.msn, //即时通
         };
         console.log("valueData:", valueData);
         buyerRegister(valueData)
@@ -479,11 +634,15 @@ export default {
         let valueData = {
           password: this.formGongYingShangValue.password2, //密码
           phone: this.formGongYingShangValue.phone, //手机号
+          contactUser: this.formGongYingShangValue.contactUser, //联系人
           qyType: this.qyType, //类型@ 1 药品企业 2 器械企业
           sfType: this.sfType == "供应商" ? 1 : 2, //身份@ 1 供应商 2 采购商
           unitName: this.formGongYingShangValue.unitName, //单位名称
           username: this.formGongYingShangValue.username, //登录账号
           captcha: this.formGongYingShangValue.captcha,
+          unifiedCode: this.formGongYingShangValue.unifiedCode, //企业统一编码
+          msn: this.formGongYingShangValue.msn, //即时通
+          settleAnnexList: this.formGongYingShangValue.settleAnnexList, //上传资格证书
         };
         console.log("valueData:", valueData);
         buyerRegister(valueData)
@@ -547,15 +706,19 @@ export default {
       this.formCaiGouRenValue.post = ""; // 职务
       this.formCaiGouRenValue.captcha = ""; // 验证码
       this.formCaiGouRenValue.value9 = false; // 我已阅读《会员须知》并同意《《入市协议》
-
+      this.formCaiGouRenValue.unifiedCode = ""; //企业统一编码
+      this.formCaiGouRenValue.msn = ""; //即时通
       //   供应商注册-重置
       this.formGongYingShangValue.unitName = ""; // 单位名称
       this.formGongYingShangValue.username = ""; // 登录账户
       this.formGongYingShangValue.phone = ""; // 手机号
       this.formGongYingShangValue.captcha = ""; // 验证码
-      //   this.formGongYingShangValue.value_9 = ""; // 手机验证码
       this.formGongYingShangValue.password1 = ""; // 设置密码
       this.formGongYingShangValue.password2 = ""; // 确认密码
+      this.formGongYingShangValue.contactUser = ""; // 联系人
+      this.formGongYingShangValue.unifiedCode = ""; //企业统一编码
+      this.formGongYingShangValue.msn = ""; //即时通
+      this.formGongYingShangValue.settleAnnexList = []; //上传资格证书
     },
     // 登录按钮
     onSubmit() {
@@ -642,6 +805,58 @@ export default {
       });
       // params 返回的二次验证参数, 和登录参数一起回传给登录接口，方便后台进行二次验证
     },
+    fileDeleteApi(value) {
+      let valueData = new FormData();
+      valueData.append("objectKey", value);
+      fileDelete(valueData)
+        .then((res) => {
+          if (res.code == 200) {
+            this.$message.success(res.message);
+          } else {
+            this.$message.error(res.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    handleRemove(file, fileList) {
+      this.formGongYingShangValue.settleAnnexList.forEach(
+        (value, index, array) => {
+          //value为遍历的当前元素，index为当前索引，array为正在操作的数组
+          if (value.annexName == file.name) {
+            let s = value.annexUrl;
+            this.fileDeleteApi(s.substring(s.indexOf(".cn") + 3));
+            array.splice(index, 1);
+          }
+        }
+      );
+      this.onSubmit(); //表单验证
+    },
+
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    async httpRequestFunction(itemData) {
+      console.log("itemData:", itemData);
+      let objectsss = {
+        annexName: "",
+        annexUrl: "",
+      };
+      objectsss.annexName = itemData.file.name;
+      await upload(itemData.file).then((res) => {
+        console.log(res);
+        if (res.code == 200) {
+          objectsss.annexUrl = res.data;
+          this.formGongYingShangValue.settleAnnexList.push(objectsss);
+          this.$message.success("上传图片成功!");
+        } else {
+          this.$message.error("上传图片失败!");
+        }
+      });
+      await this.onSubmit(); //表单验证
+    },
   },
 };
 </script>
@@ -655,124 +870,111 @@ $baseRem: 75;
   @return calc($args/$baseRem) * 1rem;
 }
 
-.login::-webkit-scrollbar {
-  display: none;
-}
+//隐藏滚动条
+// .login::-webkit-scrollbar {
+//   display: none;
+// }
 
-.login {
-  background: url("./image/LoginBg.png") no-repeat;
+.register {
+  background: url("~@/assets/images/LoginBg.png") no-repeat;
   background-size: cover;
   width: 100vw;
   height: 100vh;
   overflow: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
-.registerLeft {
-  display: flex;
-  margin-right: rpxToRem(40);
-  .registerLeft_img {
-    width: rpxToRem(56.64);
-    height: rpxToRem(56.64);
-    background: url("./image/LoginLogo.png");
-    margin-right: rpxToRem(10);
-    background-size: 100% 100%;
-  }
-  .registerLeft_body {
-    .registerLeft_title {
-      font-size: rpxToRem(14.32);
-      margin-bottom: rpxToRem(10);
-      .registerLeft_title_wight {
-        font-size: rpxToRem(22.3502);
-        font-weight: 600;
-      }
-    }
-
-    .registerLeft_titleX {
-      font-size: rpxToRem(10.32);
-    }
-
-    color: #ffffff;
-
-    img {
-      width: rpxToRem(421.88);
-      height: rpxToRem(307.81);
-    }
-  }
-}
-
-.registerRight {
-  height: 100vh;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  // align-items: center;
+  align-items: center;
+  margin: auto;
 }
-/* （宽度为 414px） 或者更大尺寸的屏幕 */
-@media only screen and (max-height: 840px) {
-  .registerRight {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    // align-items: center;
-  }
-}
-.formTopTitle {
+
+.register_one {
+  margin-top: 40px;
+  width: 1200px;
   display: flex;
   justify-content: space-between;
-  color: #ffffff;
-  margin-bottom: rpxToRem(8);
-  .formTopTitle_one {
-    font-size: rpxToRem(6);
-    margin-right: rpxToRem(8);
+
+  .register_one_img {
+    width: 278px;
+    height: 46px;
+    background: url("~@/assets/images/textLogo.png");
+    background-size: 100% 100%;
   }
 
-  .formTopTitle_one:hover {
-    text-decoration: underline;
-  }
+  .register_one_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #ffffff;
 
-  .formTopTitle_two {
-    font-size: rpxToRem(6);
-  }
+    .register_one_text1 {
+      text-align: right;
+      font-size: 20px;
+    }
 
-  .formTopTitle_two:hover {
-    text-decoration: underline;
+    .register_one_text1:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 }
+
+.register_two {
+  margin-top: 20px;
+  width: 1200px;
+}
+
 .login_form {
   // width: rpxToRem(200);
   // height: rpxToRem(340);
-  background: #ffffff;
+  // background: #e2ffec;
   box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.25);
   // border-radius: rpxToRem(10.75);
-  padding: rpxToRem(8) rpxToRem(30) rpxToRem(16) rpxToRem(30);
+  padding: 10px 50px 30px 50px;
+  background-color: #fff;
+
+    .login-form-body {
+    //   background-image: url("~@/assets/images/watermark.png");
+    // background-size: 100% 100%;
+    }
   .formTitle1 {
     font-size: 36px;
     font-family: Source Han Sans CN-Bold, Source Han Sans CN;
     font-weight: bold;
     color: #00023a;
   }
+
   .formTitle2 {
-    font-size: 12px;
+    font-size: 16px;
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
-    color: #999999;
+    color: #02076F;
+  }
+
+  ::v-deep .el-input__inner {
+    height: 42px;
   }
 }
+
 .form_lable {
   color: #00023a;
-  width: 120px;
-  font-size: rpxToRem(6);
+  width: 180px;
+  font-size: rpxToRem(10);
   text-align: right;
   padding-right: 10px;
   margin-right: 20px;
 }
-.el_radio {
-  width: 80px;
+
+::v-deep .el-form-item__label,
+::v-deep .el-form-item__content,
+.el-input,
+::v-deep .el-radio__label,
+::v-deep .el-checkbox__label {
+  font-size: rpxToRem(10);
 }
+
+// .el_radio {
+//   width: 160px;
+// }
 
 .login_form_button {
   width: 100%;
@@ -785,14 +987,15 @@ $baseRem: 75;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: rpxToRem(15.47);
+  width: 50%;
+  height: rpxToRem(22.47);
   background: #00c1de;
+
   .login_form_submit_label {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: rpxToRem(7);
+    font-size: rpxToRem(10);
     font-family: PingFangSC-Medium, PingFang SC;
     font-weight: 500;
     color: #ffffff;

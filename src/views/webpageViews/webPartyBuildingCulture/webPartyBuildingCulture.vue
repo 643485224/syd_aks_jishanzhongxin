@@ -3,43 +3,43 @@
     <div class="content_body">
       <div class="content_one">
         <div class="one_div">
-          <img src="./image/webPartyBuildingCulture-1.png" alt="" />
+          <img v-lazy src="./image/webPartyBuildingCulture-1.png" alt="" />
         </div>
       </div>
       <div class="content_two">
-        <div class="two_div">
-          <div class="two_div_image">
+        <div class="bg_e0edff two_div">
+          <div class=" two_div_image">
             <el-carousel :interval="4000" height="334px">
               <el-carousel-item>
-                <img
+                <img v-lazy
                   class="two_div_imageItem"
                   src="./image/webPartyBuildingCulture-2.png"
                   alt=""
                 />
               </el-carousel-item>
               <el-carousel-item>
-                <img
+                <img v-lazy 
                   class="two_div_imageItem"
                   src="./image/webPartyBuildingCulture-3.png"
                   alt=""
                 />
               </el-carousel-item>
               <el-carousel-item>
-                <img
+                <img v-lazy
                   class="two_div_imageItem"
                   src="./image/webPartyBuildingCulture-4.png"
                   alt=""
                 />
               </el-carousel-item>
               <el-carousel-item>
-                <img
+                <img v-lazy
                   class="two_div_imageItem"
                   src="./image/webPartyBuildingCulture-5.png"
                   alt=""
                 />
               </el-carousel-item>
               <el-carousel-item>
-                <img
+                <img v-lazy
                   class="two_div_imageItem"
                   src="./image/webPartyBuildingCulture-6.png"
                   alt=""
@@ -47,7 +47,7 @@
               </el-carousel-item>
             </el-carousel>
           </div>
-          <div class="two_div_txt">
+          <div class=" two_div_txt">
             <div class="two_div_txt_title">
               习近平出席全球健康峰会并发表重要讲话
             </div>
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="content_three">
-        <div class="three_div">
+        <div class="bg_fde5e5 three_div">
           <div class="three_right_title">学习专栏</div>
           <div class="three_right_FG"></div>
           <div class="three_right_tabsListHeight">

@@ -2,12 +2,12 @@
   <div ref="contentBox" class="page-container table-page">
     <div ref="search_box" class="search_box">
       <div class="search_item mr_20 mb_20">
-        <span class="mr_10">采购项目名称:</span>
+        <span class="mr_10">项目名称:</span>
         <el-input
           clearable
           class="el_input"
           v-model="query.projectName"
-          placeholder="请输入订单编号"
+          placeholder="请输入项目名称"
         >
         </el-input>
       </div>
@@ -76,6 +76,58 @@
         @handleCurrentChange="handleCurrentChange"
         :total="pages.total"
       >
+        <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">采购信息</div>
+            <div class="content">
+              <div class="item">
+                <div class="label">采购单编号:</div>
+                <div class="value">{{ value.value.purchaseNo }}</div>
+              </div>
+              <div class="item">
+                <div class="label">项目名称:</div>
+                <div class="value">{{ value.value.projectName }}</div>
+              </div>
+              <div class="item">
+                <div class="label">采购类型:</div>
+                <div class="value">{{ typeList[value.value.type] }}</div>
+              </div>
+              <div class="item">
+                <div class="label">采购预算:</div>
+                <div class="value">{{ value.value.budget }}</div>
+              </div>
+              <div class="item">
+                <div class="label">创建时间:</div>
+                <div class="value">{{ value.value.createTime }}</div>
+              </div>
+              <div class="item">
+                <div class="label">审核时间:</div>
+                <div class="value">{{ value.value.auditTime }}</div>
+              </div>
+              <div class="item">
+                <div class="label">审核状态:</div>
+                <div class="value">
+                  {{ auditStatusList[value.value.auditStatus] }}
+                </div>
+              </div>
+              <!-- <div class="item"><div class="label">退货状态:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+              <div class="item">
+                <div class="label">关联合同编号:</div>
+                <div class="value">{{ value.value.contract_no }}</div>
+              </div>
+              <!-- <div class="item"><div class="label">退货类型:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+              <div class="item">
+                <div class="label">商品类型:</div>
+                <div class="value">
+                  {{ value.value.goodsType == 1 ? "药品" : "器械" }}
+                </div>
+              </div>
+              <!-- <div class="item"><div class="label">支付方式:</div><div class="value">{{value.value.type}}</div></div> -->
+              <!-- <div class="item"><div class="label">商品数量:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+              <!-- <div class="item"><div class="label">供应商名称:</div><div class="value">{{value.value.supplierName}}</div></div> -->
+            </div>
+          </div>
+        </template>
         <template slot="type" slot-scope="value">
           {{ typeList[value.value.type] }}
         </template>
@@ -671,20 +723,24 @@ export default {
       tableHeight: 0, //表格高度
       tableHeader: [
         {
-          title: "序号",
-          key: "index",
-          width: "80",
+          slot: "expand",
           align: "center",
         },
-
+        // {
+        //   title: "序号",
+        //   key: "index",
+        //   width: "80",
+        //   align: "center",
+        // },
         {
-          title: "采购编号",
+          title: "采购单编号",
           key: "purchaseNo",
+          width: "140",
         },
-        {
-          title: "项目编号",
-          key: "projectNo",
-        },
+        // {
+        //   title: "项目编号",
+        //   key: "projectNo",
+        // },
         {
           title: "项目名称",
           key: "projectName",
@@ -697,19 +753,19 @@ export default {
           title: "采购预算",
           key: "budget",
         },
-        {
-          title: "关联供应商",
-          key: "refSupplier",
-        },
-        {
-          title: "中标供应商",
-          key: "zbSupplier",
-        },
-        {
-          title: "创建时间",
-          slot: "createTime",
-          width: "100",
-        },
+        // {
+        //   title: "关联供应商",
+        //   key: "refSupplier",
+        // },
+        // {
+        //   title: "中标供应商",
+        //   key: "zbSupplier",
+        // },
+        // {
+        //   title: "创建时间",
+        //   slot: "createTime",
+        //   width: "100",
+        // },
         {
           title: "审核时间",
           slot: "auditTime",
@@ -724,7 +780,7 @@ export default {
           title: "操作",
           slot: "operate",
           fixed: "right",
-          width: "280",
+          width: "200",
         },
       ],
       tableData: [],
@@ -909,12 +965,24 @@ export default {
         contractNo: this.addPurchaseForm.contractNo, //合同编号
         projectName: this.addPurchaseForm.projectName, //采购商项目名称
         projectNo: this.addPurchaseForm.projectNo, //项目编号
-        purchaseGoodsList: this.addPurchasetableData, //具体商品列表
+        // purchaseGoodsList: this.addPurchasetableData, //具体商品列表
         refSupplier: this.addPurchaseForm.refSupplier, //关联供应商
         requirement: this.addPurchaseForm.requirement, //采购需求描述
         type: this.addPurchaseForm.type, //采购类型@ 1  招标需求采购  2  临时需求采购
         zbSupplier: this.addPurchaseForm.zbSupplier, //中标供应商
       };
+      //具体商品列表 部分数据处理
+      var newData = [];
+      this.addPurchasetableData.map((item, index) => {
+        newData.push({
+          goodsId: item.goodsId,
+          goodsType: item.goodsType,
+          supplierId: item.supplierId,
+          quantity: item.quantity,
+          unit: item.unit,
+        });
+      });
+      valueData.purchaseGoodsList = newData;
       purchaseAddBuyerRegister(valueData)
         .then((res) => {
           if (res.code == 200) {

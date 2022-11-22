@@ -132,7 +132,7 @@
                     <div class="details-section description">
                         <div class="details-item">
                             <span class="label">主图:</span>
-                            <img :src="item" alt="" v-for="item in productDetails.mainPicture" :key="item">
+                            <img v-lazy :src="item" alt="" v-for="item in productDetails.mainPicture" :key="item">
                         </div>
                         <div class="details-item">
                             <span class="label">商品详情:</span>
@@ -140,12 +140,16 @@
                         </div>
                     </div>
                     <div class="title">
-                        基本信息
+                        运费
                     </div>
                     <div class="details-section">
                         <div class="details-item">
-                            <span class="label">运费模板:</span>
-                            <span class="info">{{ productDetails.templateId }}</span>
+                            <span class="label">运费金额:</span>
+                            <span class="info">{{ productDetails.freightFee }}</span>
+                        </div>
+                        <div class="details-item">
+                            <span class="label">免邮金额:</span>
+                            <span class="info">{{ productDetails.decreaseAmount }}</span>
                         </div>
                     </div>
                     <div class="data-botton">
@@ -257,6 +261,14 @@ export default {
         },
         pltg(){   
          let idList = this.idList
+         if (this.idList.length ==0) {
+            this.$message({
+            type: 'info',
+            message: '请选择多个或者一个'
+          });   
+          return
+         }
+
          this.$confirm('确认批量审核通过, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -285,6 +297,13 @@ export default {
             // batchAuditRefuse(idList).then(res => {
             //     console.log(res);
             // })
+            if (this.idList.length ==0) {
+            this.$message({
+            type: 'info',
+            message: '请选择多个或者一个'
+          });   
+          return
+         }
             this.$confirm('确认批量拒绝, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -333,10 +352,10 @@ export default {
         getSettledList() {
             this.tableLoading = true;
 
-            if (this.date.length) {
-                this.date[0] = dayjs(this.date[0]).format("YYYY-MM-DD 00:00:00");
-                this.date[1] = dayjs(this.date[1]).format("YYYY-MM-DD 23:59:59");
-            }
+            // if (this.date.length) {
+            //     this.date[0] = dayjs(this.date[0]).format("YYYY-MM-DD 00:00:00");
+            //     this.date[1] = dayjs(this.date[1]).format("YYYY-MM-DD 23:59:59");
+            // }
             let params = {
                 currPageNo: this.pageNum,
                 pageSize: this.pageSize,

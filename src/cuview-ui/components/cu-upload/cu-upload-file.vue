@@ -2,25 +2,39 @@
   <!-- action="https://jsonplaceholder.typicode.com/posts/" @submit="uploadSubmit" :http-request="httpRequest"  :http-request="customRequest?this.httpRequest:null"-->
   <div>
     <template v-if="type == 'file'">
-      <el-upload ref="uploadRef" class="file-upload" :class="drug?'drug-upload':''" :accept="accept"
+      <el-upload ref="uploadRef" class="file-upload" :class="drag?'drug-upload':''" :accept="accept"
         :multiple="multiple" :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :action="actionUrl"
         :auto-upload="autoUpload" :before-upload="beforeUpload" :on-change="uploadChange" :on-success="uploadSuccess"
-        :drug="drug" :on-preview="handlePreview" :before-remove="beforeRemove" :http-request="httpRequest" :drag="drag"
+        :on-preview="handlePreview" :before-remove="beforeRemove" :http-request="httpRequest" :drag="drag"
         :on-remove="handleRemove" :data="multipartFile" :headers="headers" :style="`width:${width};height:${height};`">
-        <div class="drug-wrapper" v-if="drug">
+        <div class="drug-wrapper" v-if="drag">
+          <template v-if="icon.indexOf('el-icon') != -1">
+            <i :class="icon"></i>
+          </template>
+          <template v-else>
+            <img class="upload-icon" :src="icon" alt="" srcset="">
+          </template>
 
-          <i class="el-icon-upload"></i>
+
           <div class="el-upload__text">点击或拖拽上传</div>
         </div>
         <template v-else>
-          <el-button size="small" class="upload-btn">{{text}}</el-button>
+          <template v-if="showIcon">
+            <template v-if="icon.indexOf('el-icon') != -1">
+              <i :class="icon"></i>
+            </template>
+            <template v-else>
+              <img class="upload-icon" :src="icon" alt="" srcset="">
+            </template>
+          </template>
+          <template v-else>
+            <el-button size="small" class="upload-btn">{{text}}</el-button>
+          </template>
         </template>
         <slot name="tip">
           <div slot="tip" class="el-upload__tip">{{tip}}</div>
         </slot>
       </el-upload>
-      <!-- <el-progress style=" width:160px;margin-top: 0px" :text-inside="false" :stroke-width="12"
-              :percentage="progressPercent" /> -->
     </template>
     <!-- <el-button size="small" class="upload-btn" @click="submit2">手动上传</el-button> -->
     <el-dialog :visible.sync="dialogVisible">
@@ -103,23 +117,26 @@ export default {
       type: Boolean,
       default: true
     },
-    drug: {// 是否可拖拽上传
-      type: Boolean,
-      default: true
-    },
     drag: {// 是否启用拖拽上传
       type: Boolean,
       default: false
     },
     customRequest: {// 是否使用自定义上传
-        type: Boolean,
-        default: false
-    }
+      type: Boolean,
+      default: false
+    },
+    icon: {
+      type: String,
+      default: 'el-icon-upload'
+    },
+    showIcon: {
+      type: Boolean,
+      default: false
+    },
   },
 
   data() {
     return {
-      // {name:'主图',url:'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}
       fileList: [],
       progressPercent: 0,// 进度条
       multipartFile: {},
@@ -133,7 +150,6 @@ export default {
     };
   },
   created() {
-    // this.fileList = this.files
     this.headers = {
       'Authorization': this.$store.state.vuex_token.tokenHead + this.$store.state.vuex_token.token,
       'Content-Type': 'multipart/form-data',
@@ -141,8 +157,6 @@ export default {
     }
   },
   mounted() {
-    // this.fileList =[{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
-
   },
   computed: {
 
@@ -162,19 +176,6 @@ export default {
       console.log(val);
       this.fileList = val
     }
-    // files: {
-    //   get(val) {
-    //     console.log(val);
-    //     return val;
-    //   },
-    //   set(val) {
-    //     console.log(val);
-    //     (val instanceof Array)?this.fileList = val:this.fileList = [val]
-
-    //   }
-
-
-    // }
   },
   methods: {
     // 上传前校验
@@ -189,7 +190,6 @@ export default {
       //     this.$message.error(`请选择 ${this.accept} 文件`);
       //     this.fileList = [];
       // }
-
     },
     validatorIMG(file) {
       const isAccept = this.accept.indexOf(file.type) == -1;
@@ -238,11 +238,11 @@ export default {
       //e为回调回来的参数 通过进行和total的值来进行进度
       this.progressPercent = parseInt((e.loaded / e.total) * 100);
     },
+    // 自定义上传方法
     async httpRequest(params) {
       let { file } = params;
       if (this.customRequest) {
         this.$emit("customSubmit", file)
-
       } else {
         // 上传新文件时，将进度条值置为零
         this.progressPercent = 0
@@ -253,13 +253,20 @@ export default {
         //     res = await uploadImage(this.fileList[0])
         //     console.log(res);
         // }else {
+        //创建FormData对象，调用append方法添加参数
+        // let formData = new FormData();
+        // if (!this.fileList.length) return;
+        // this.fileList.forEach(file => {
+        //     console.log(file);
+        //     formData.append("file", file);
+        // })
+        // console.log(formData);
         res = await upload(file, this.updateProgress)
         this.$emit("submit", res)
         // }
       }
-
-
     },
+    // 使用 action 上传 成功回调
     uploadSuccess(res, file, fileList) {
       console.log('uploadSuccess', res, file, fileList);
       if (this.type == 'image') {
@@ -268,22 +275,10 @@ export default {
 
 
     },
-    async uploadSubmit() {
-
-
-      //创建FormData对象，调用append方法添加参数
-      // let formData = new FormData();
-      // if (!this.fileList.length) return;
-      // this.fileList.forEach(file => {
-      //     console.log(file);
-      //     formData.append("file", file);
-      // })
-      // console.log(formData);
-      let res = await upload(this.filelist_temp[0])
-      console.log(res);
-      // return res;
+    beforeRemove(file, fileList) {
+      console.log(file, fileList);
+      return this.$confirm(`确定移除 ${file.name}？`);
     },
-
     // 附件移除
     handleRemove(file, filelist) {
       console.log(file, filelist, this.filelist);
@@ -296,6 +291,7 @@ export default {
       // this.file_list_temp = filelist
       // this.$forceUpdate()
     },
+    // 文件预览
     handlePreview(file) {
       console.log(file);
       // this.dialogPreviewUrl = file.url;
@@ -312,12 +308,9 @@ export default {
         window.open(officeUrl, '_target');
       }
     },
+    // 上传数量超出
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 ${this.limit} 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-    },
-    beforeRemove(file, fileList) {
-      console.log(file, fileList);
-      return this.$confirm(`确定移除 ${file.name}？`);
     }
   }
 }
@@ -367,9 +360,13 @@ export default {
     font-size: 60px;
   }
 
+
 }
-
-
+// 自定义上传图标
+.upload-icon {
+  width: 110px;
+  height: 110px;
+}
 
 
 

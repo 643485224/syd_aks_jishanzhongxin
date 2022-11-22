@@ -33,24 +33,24 @@
           <el-form-item class="info-item form-item" label="营业执照:" :prop="'businessLicenseUrl'">
             <div class="img-item mb_20">
               <template v-if="isEdit">
-                <cu-upload-image :files.sync="uploadArrObj.businessLicenseUrl"
-                  @submit="submitFile(arguments,'businessLicenseUrl')" width="162px" height="118px">
+                <cu-upload-image :files.sync="uploadArrObj.businessLicenseUrl"  size="large"
+                  @submit="submitFile(arguments,'businessLicenseUrl')">
                 </cu-upload-image>
                 <span>上传公司营业执照</span>
               </template>
               <template v-else>
-                <img :src="info.businessLicenseUrl" alt="">
+                <img v-lazy :src="info.businessLicenseUrl" alt="">
                 <span>营业执照图片</span>
               </template>
             </div>
             <div class="img-item mb_20">
               <template v-if="isEdit">
-                <cu-upload-image :files.sync="uploadArrObj.licenceUrl" @submit="submitFile(arguments,'licenceUrl')"
-                  width="162px" height="118px"></cu-upload-image>
+                <cu-upload-image :files.sync="uploadArrObj.licenceUrl" @submit="submitFile(arguments,'licenceUrl')"  size="large"
+                 ></cu-upload-image>
                 <span>经营许可证</span>
               </template>
               <template v-else>
-                <img :src="info.licenceUrl" alt="">
+                <img v-lazy :src="info.licenceUrl" alt="">
                 <span>经营许可证</span>
               </template>
             </div>
@@ -61,19 +61,19 @@
                 width="163px" height="163px"></cu-upload-image>
             </template>
             <template v-else>
-              <img class="info-logo" :src="info.logoUrl" alt="">
+              <img v-lazy class="info-logo" :src="info.logoUrl" alt="">
             </template>
           </el-form-item> -->
           <el-form-item class="info-item form-item" label="法人身份证:" :prop="'legalIdFrontUrl'">
             <div class="img-item">
               <template v-if="isEdit">
-                <cu-upload-image :files.sync="uploadArrObj.legalIdFrontUrl"
-                  @submit="submitFile(arguments,'legalIdFrontUrl')" width="162px" height="118px">
+                <cu-upload-image :files.sync="uploadArrObj.legalIdFrontUrl" size="large"
+                  @submit="submitFile(arguments,'legalIdFrontUrl')">
                 </cu-upload-image>
                 <span>身份证正面图片</span>
               </template>
               <template v-else>
-                <img :src="info.legalIdFrontUrl" alt="">
+                <img v-lazy :src="info.legalIdFrontUrl" alt="">
                 <span>身份证正面图片</span>
               </template>
 
@@ -81,12 +81,12 @@
             <div class="img-item ">
               <template v-if="isEdit">
                 <cu-upload-image :files.sync="uploadArrObj.legalIdBackUrl"
-                  @submit="submitFile(arguments,'legalIdBackUrl')" width="162px" height="118px">
+                  @submit="submitFile(arguments,'legalIdBackUrl')" size="large">
                 </cu-upload-image>
                 <span>身份证反面图片</span>
               </template>
               <template v-else>
-                <img :src="info.legalIdBackUrl" alt="">
+                <img v-lazy :src="info.legalIdBackUrl" alt="">
                 <span>身份证反面图片</span>
               </template>
 
@@ -399,6 +399,8 @@ export default {
       console.log(this.info, this.uploadArrObj);
       delete this.info.ckId;
       this.info['ckid'] = this.info.list?this.info.list.map(item => item && item.id):[];
+      delete this.info.list;
+      delete this.info.payPassword;
       updateSupplier(this.info).then(res => {
         console.log(res);
         if (res.code == 200) {
@@ -495,15 +497,14 @@ export default {
       }
 
       .img-item {
-        width: 162px;
-        height: 118px;
+
         margin-right: 20px;
         color: #999999;
         text-align: center;
 
         img {
-          width: 100%;
-          height: 100%;
+          width: 110px;
+        height: 110px;
           object-fit: contain;
         }
 

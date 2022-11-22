@@ -52,7 +52,7 @@
             <div class="content_four111">药械质量公告</div>
             <div class="content_four112">查看更多></div>
           </div>
-          <div class="content_four12">
+          <div class="bg_e0edff content_four12">
             <div class="content_four121">
               国家药监局关于注销7个医疗器械注册证书的公告（2020年第91号）
             </div>
@@ -81,7 +81,7 @@
             <div class="content_four211">不良记录转载</div>
             <div class="content_four212">查看更多></div>
           </div>
-          <div class="content_four22">
+          <div class="bg_fde5e5 content_four22">
             <div class="content_four221">
               国家药监局关于注销7个医疗器械注册证书的公告（2020年第91号）
             </div>

@@ -32,7 +32,7 @@
         </el-input>
       </div>
       <div class="search-item">
-        收票人：
+        收票用户：
         <el-input
           clearable
           class="selectInput"
@@ -88,6 +88,51 @@
       @handleCurrentChange="handleCurrentChange"
       :total="pages.total"
     >
+      <template slot="expand" slot-scope="value">
+        <div class="expand-info">
+          <div class="title">发票信息</div>
+          <div class="content">
+            <div class="item">
+              <div class="label">发票代码:</div>
+              <div class="value">{{ value.value.invoiceCode }}</div>
+            </div>
+            <div class="item">
+              <div class="label">发票号码:</div>
+              <div class="value">{{ value.value.invoiceNo }}</div>
+            </div>
+            <div class="item">
+              <div class="label">开票人:</div>
+              <div class="value">{{ value.value.invoiceBy }}</div>
+            </div>
+            <div class="item">
+              <div class="label">收票人:</div>
+              <div class="value">{{ value.value.receiveInvoiceBy }}</div>
+            </div>
+            <div class="item">
+              <div class="label">支付方式:</div>
+              <div class="value">{{ fkTypeList[value.value.fkType] }}</div>
+            </div>
+            <div class="item">
+              <div class="label">发票备注:</div>
+              <div class="value">{{ value.value.invoiceRemark }}</div>
+            </div>
+            <div class="item">
+              <div class="label">收票时间:</div>
+              <div class="value">{{ value.value.receiveInvoiceTime }}</div>
+            </div>
+            <!-- <div class="item"><div class="label">退货状态:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+            <div class="item">
+              <div class="label">交易时间:</div>
+              <div class="value">{{ value.value.orderTime }}</div>
+            </div>
+            <!-- <div class="item"><div class="label">退货类型:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+            <!-- <div class="item"><div class="label">商品类型:</div><div class="value">{{value.value.goodsType == 1?'药品':'器械'}}</div></div> -->
+            <!-- <div class="item"><div class="label">支付方式:</div><div class="value">{{value.value.type}}</div></div> -->
+            <!-- <div class="item"><div class="label">商品数量:</div><div class="value">{{value.value.auditStatus}}</div></div> -->
+            <!-- <div class="item"><div class="label">供应商名称:</div><div class="value">{{value.value.supplierName}}</div></div> -->
+          </div>
+        </div>
+      </template>
       <template slot="invoiceCode" slot-scope="value">
         {{ value.value.orderJcInvoice.invoiceCode }}
       </template>
@@ -121,9 +166,9 @@
       <template slot="fpStatus" slot-scope="value">
         {{ fpStatusList[value.value.fpStatus] }}
       </template>
-      <template slot="fkType" slot-scope="value">
+      <!-- <template slot="fkType" slot-scope="value">
         {{ fkTypeList[value.value.fkType] }}
-      </template>
+      </template> 支付方式-->
       <template slot="operate" slot-scope="value">
         <a
           v-if="value.value.fpStatus == 2"
@@ -202,6 +247,7 @@
     </cu-dialog>
 
     <onlinePayment
+      :fkType="2"
       v-if="onlinePaymentVisible"
       :onlinePaymentVisible="onlinePaymentVisible"
       :tableItemData="tableItemData"
@@ -277,65 +323,77 @@ export default {
       // 标题
       tableHeader: [
         {
-          title: "关联合同编号",
-          key: "contractNo",
-          width: 160,
+          slot: "expand",
+          align: "center",
+        },
+        {
+          title: "序号",
+          key: "id",
         },
         {
           title: "订单编号",
           key: "orderNo",
+          width: 160,
         },
         {
-          title: "发票代码",
-          slot: "invoiceCode",
+          title: "关联合同编号",
+          key: "contractNo",
+          width: 160,
         },
-        {
-          title: "发票号码",
-          slot: "invoiceNo",
-        },
+        // {
+        //   title: "发票代码",
+        //   slot: "invoiceCode",
+        // },
+        // {
+        //   title: "发票号码",
+        //   slot: "invoiceNo",
+        // },
 
-        {
-          title: "开票人",
-          key: "invoiceBy",
-        },
-        {
-          title: "收票人",
-          key: "receiveInvoiceBy",
-        },
+        // {
+        //   title: "开票人",
+        //   key: "invoiceBy ",
+        // },
+        // {
+        //   title: "收票人",
+        //   key: "receiveInvoiceBy",
+        // },
         {
           title: "发票状态",
           slot: "fpStatus", // 发票状态@ 1  待开票  2  待收票  3 待付款（已收票）  4  完成收款   5  拒绝收票
         },
+        // {
+        //   title: "支付方式",
+        //   slot: "fkType", // 支付方式fkType   1 在线支付  2 货到付款
+        // },
         {
-          title: "支付方式",
-          slot: "fkType", // 支付方式fkType   1 在线支付  2 货到付款
-        },
-        {
-          title: "订单金额",
+          title: "开票金额",
           key: "amount",
         },
-        {
-          title: "发票备注",
-          key: "invoiceRemark",
-        },
+        // {
+        //   title: "发票备注",
+        //   key: "invoiceRemark",
+        // },
         {
           title: "开票时间",
           key: "invoiceTime",
+          width: 140,
         },
-        {
-          title: "收票时间",
-          slot: "receiveInvoiceTime",
-        },
-        {
-          title: "交易时间",
-          key: "orderTime",
-        },
+        // {
+        //   title: "收票时间",
+        //   slot: "receiveInvoiceTime",
+        //   width: 90,
+        // },
+        // {
+        //   title: "交易时间",
+        //   key: "orderTime",
+        //   width: 90,
+        // },
 
         {
           title: "操作",
           slot: "operate",
           fixed: "right",
-          width: 180,
+          width: 90,
         },
       ],
       tableLoading: false, //表加载
@@ -367,6 +425,8 @@ export default {
       },
 
       onlinePaymentVisible: false, //在线支付弹框
+
+      fkType: 1, //1开启在线支付弹框，2开启货到付款支付弹框
     };
   },
   mounted() {
@@ -414,7 +474,6 @@ export default {
       this.tableData = [];
       buyerInvoiceFindInvoiceList(params)
         .then((res) => {
-          console.log(res);
           if (res.code == 200) {
             this.tableData = res.data.list;
             this.row = res.data.list.length;
@@ -503,6 +562,7 @@ export default {
     // 订单付款-按钮 (开启在线支付弹框)
     paymentButton(tableItemData) {
       this.tableItemData = tableItemData;
+      this.fkType = tableItemData.fkType;
       this.onlinePaymentVisible = true;
     },
 

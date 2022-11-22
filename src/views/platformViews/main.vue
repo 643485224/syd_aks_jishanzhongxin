@@ -8,10 +8,28 @@
       <Aside style="background: #545c64; width: 220px" v-if="!hiddenAside" />
       <div class="main-content">
         <breadCrumb v-if="!hiddenAside" />
-        <div :class="'itemBody ' + (hiddenAside ? ' hiddenAside' : ' showAside')">
+        <div
+          :class="'itemBody ' + (hiddenAside ? ' hiddenAside' : ' showAside')"
+        >
           <router-view></router-view>
-          <cu-dialog title="完善企业信息" width="1000px" :visible="completeInfoVisible" :center="true" :showClose="false">
-            <SupplierEnterpriseInfoComplete type="firstComplete" @close="closeInfoCompleteDialog"></SupplierEnterpriseInfoComplete>
+          <cu-dialog
+            title="完善企业信息"
+            width="1000px"
+            :visible="completeInfoVisible"
+            :center="true"
+            :showClose="false"
+          >
+            <SupplierEnterpriseInfoComplete
+              v-if="vuex_user.sysType === 3"
+              type="firstComplete"
+              @close="closeInfoCompleteDialog"
+            ></SupplierEnterpriseInfoComplete>
+            <purchaserEnterpriseInfoComplete
+              v-else
+              type="firstComplete"
+              @close="closeInfoCompleteDialog"
+              :valueData="buyerAccountManageGetBuyerRequest"
+            ></purchaserEnterpriseInfoComplete>
             <template #footer>
               <div></div>
             </template>
@@ -36,27 +54,31 @@ import Aside from "@/components/Aside.vue";
 import breadCrumb from "@/components/BreadCrumb.vue";
 import { mapState } from "vuex";
 import { getFlag } from "@/api/aksApi/platformApi/supplierPlatformApi.js";
+import { buyerAccountManageGetBuyer } from "@/api/aksApi/platformApi/purchaserPlatformApi.js";
 import SupplierEnterpriseInfoComplete from "@/views/platformViews/supplierPlatform/supplierAccountManagement/supplierEnterpriseInfoManage/components/supplierEnterpriseInfoComplete.vue";
-
+import purchaserEnterpriseInfoComplete from "@/views/platformViews/purchaserPlatform/accountManagement/enterpriseInformationManagement/components/purchaserEnterpriseInfoComplete.vue";
 export default {
   components: {
     Nav,
     Aside,
     breadCrumb,
-    SupplierEnterpriseInfoComplete
-},
+    SupplierEnterpriseInfoComplete,
+    purchaserEnterpriseInfoComplete,
+  },
   data() {
     return {
       currentPlatform: "",
-      completeInfoVisible: false
+      completeInfoVisible: false,
+      buyerAccountManageGetBuyerRequest: {},
     };
   },
-  created() {
-   },
+  created() {},
   mounted() {
     this.UserVerifyApi(); // 用户身份验证-接口
-    if(this.vuex_user.sysType === 3){
-      this.checkInfoComplete()
+    if (this.vuex_user.sysType === 3) {
+      this.checkInfoComplete();
+    } else if (this.vuex_user.sysType === 2) {
+      this.buyerAccountManageGetBuyerApi();
     }
     // this.currentPlatform = this.vuex_platform || "operation";
     // this.setRemUnit();
@@ -131,7 +153,6 @@ export default {
     },
     platformChange() {
       this.$store.commit("switchPlatform", this.currentPlatform);
-
       //  currentPlatform: "", //operation(运营)、supplier(供应)、purchaser(采购)
       if (this.currentPlatform == "operation") {
         this.$router.push("/main/operationManage/operationHome");
@@ -142,29 +163,49 @@ export default {
       }
     },
     // 检查企业信息是否需补全
-    checkInfoComplete(){
-      getFlag().then(res => {
+    checkInfoComplete() {
+      getFlag()
+        .then((res) => {
           console.log(res);
           if (res.code == 200) {
             // 0 未完善  1 已完善
-            if(res.data === 0){this.completeInfoVisible = true}
-          }
-          else {
+            if (res.data === 0) {
+              this.completeInfoVisible = true;
+            }
+          } else {
             this.$message.success(res.message);
           }
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
         });
     },
-    closeInfoCompleteDialog(){
-      console.log('ddddd');
-      this.completeInfoVisible = false;
+    // 检查企业信息是否需补全 - 获取企业信息接口
+    buyerAccountManageGetBuyerApi() {
+      buyerAccountManageGetBuyer()
+        .then((res) => {
+          if (res.code == 200) {
+            // 0 未完善  1 已完善
+            if (res.data.improveFlag === 0) {
+              this.buyerAccountManageGetBuyerRequest = res.data;
+              this.completeInfoVisible = true;
+            }
+          } else {
+            this.$message.warning("企业信息获取失败");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
-
+    closeInfoCompleteDialog() {
+      console.log("ddddd");
+      this.completeInfoVisible = false;
+    },
   },
   computed: {
-    ...mapState(["vuex_platform", "vuex_menu","vuex_user"]),
+    ...mapState(["vuex_platform", "vuex_menu", "vuex_user"]),
     hiddenAside() {
       return this.$route.meta.isHeaderNav;
     },
@@ -178,7 +219,7 @@ export default {
   // background: #f5f5f5;
   background-color: #00032f;
   overflow: hidden;
-  background: url("~@/components/image/BG.svg") no-repeat center 0px;
+  background: url("~@/components/image/BG.png") no-repeat center 0px;
   background-position: center 0px;
   background-size: cover;
 }
@@ -195,7 +236,6 @@ export default {
     padding-right: 20px;
   }
 }
-
 
 .itemBody {
   // height: calc(100vh - 111px - 14px - 68px - 18px);

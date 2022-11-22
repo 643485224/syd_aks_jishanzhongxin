@@ -4,7 +4,7 @@
       <div class="trade-tabs" v-show="distinguishName == '列表'">
         <el-tabs v-model="activeStatus" @tab-click="handleClick">
           <!-- 退货状态@ 1  无退货  2  退货中  3  退货成功  4  退货失败 -->
-          <el-tab-pane label="全部退货订单" name="0">
+          <el-tab-pane label="全部订单" name="0">
             <itemTabs
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
@@ -16,7 +16,7 @@
             ></itemTabs>
           </el-tab-pane>
 
-          <el-tab-pane label="退货中" name="2">
+          <el-tab-pane label="待审核" name="2">
             <itemTabs
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
@@ -27,7 +27,7 @@
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
-          <el-tab-pane label="退货成功" name="3">
+          <el-tab-pane label="已退货" name="3">
             <itemTabs
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
@@ -38,7 +38,7 @@
               @detailsButton="detailsButton"
             ></itemTabs>
           </el-tab-pane>
-          <el-tab-pane label="退货失败" name="4">
+          <!-- <el-tab-pane label="退货失败" name="4">
             <itemTabs
               :tableLoading="tableLoading"
               @chosetableLoading="chosetableLoading"
@@ -48,7 +48,7 @@
               :height="tableHeight"
               @detailsButton="detailsButton"
             ></itemTabs>
-          </el-tab-pane>
+          </el-tab-pane> -->
         </el-tabs>
       </div>
       <div

@@ -7,8 +7,6 @@
   </div>
 </template>
 <script>
-import webFinancialServiceVue from '../../../views/webpageViews/webFinancialService/webFinancialService.vue';
-
 export default {
   props: {
     treeList: {// 组件节点渲染数据

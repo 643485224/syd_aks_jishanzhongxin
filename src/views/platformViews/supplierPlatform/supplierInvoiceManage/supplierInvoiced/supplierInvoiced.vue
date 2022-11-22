@@ -42,9 +42,23 @@
     <cu-table class="sale-table" :loading="tableLoading" :height="tableHeight" :showTitle="false"
       :tableHeader="tableHeader" :tableData="tableData" @handleSizeChange="handleSizeChange"
       @handleCurrentChange="handleCurrentChange" :total="total">
-      <template slot="receiveInvoiceTime" slot-scope="value">
+      <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">发票信息</div>
+            <div class="content">
+              <div class="item"><div class="label">发票代码:</div><div class="value">{{value.value.invoiceCode}}</div></div>
+              <div class="item"><div class="label">订单编号:</div><div class="value">{{value.value.orderNo}}</div></div>
+              <div class="item"><div class="label">商品种类数量:</div><div class="value">{{value.value.goodsCategoryCount }}</div></div>
+              <div class="item"><div class="label">商品数量:</div><div class="value">{{value.value.goodsCount }}</div></div>
+              <div class="item"><div class="label">收票时间:</div><div class="value">{{value.value.receiveInvoiceTime ? new Date(value.value.receiveInvoiceTime).Format("yyyy-MM-dd") : ""}}</div></div>  
+              <div class="item"><div class="label">发票金额:</div><div class="value">{{value.value.invoiceAmount}}</div></div>
+              <div class="item"><div class="label">发票备注:</div><div class="value">{{value.value.invoiceRemark }}</div></div>
+            </div>
+          </div>
+        </template>
+      <!-- <template slot="receiveInvoiceTime" slot-scope="value">
         {{ value.value.receiveInvoiceTime ? new Date(value.value.receiveInvoiceTime).Format("yyyy-MM-dd") : "" }}
-      </template>
+      </template> -->
       <template slot="status" slot-scope="value">
         {{ statusType[value.value.status] }}
       </template>
@@ -96,10 +110,14 @@ export default {
       },
       tableHeader: [
         {
-          title: "发票代码",
-          key: "invoiceCode",
-          width: 120,
+          slot: "expand",
+          align: "center",
         },
+        // {
+        //   title: "发票代码",
+        //   key: "invoiceCode",
+        //   width: 120,代码
+        // },
         {
           title: "发票号码",
           key: "invoiceNo",
@@ -110,22 +128,22 @@ export default {
           key: "contractNo",
           width: 120,
         },
-        {
-          title: "订单编号",
-          key: "orderNo",
-          width: 160,
+        // {
+        //   title: "订单编号",
+        //   key: "orderNo",
+        //   width: 160,
 
-        },
+        // },
         {
           title: "开票时间",
           key: "invoiceTime",
           width: 160,
 
         },
-        {
-          title: "收票时间",
-          slot: "receiveInvoiceTime",
-        },
+        // {
+        //   title: "收票时间",
+        //   slot: "receiveInvoiceTime",
+        // },
         {
           title: "收票用户",
           key: "receiveInvoiceBy",
@@ -148,10 +166,10 @@ export default {
         //   title: "交易时间",
         //   key: "orderTime",
         // },
-        {
-          title: "发票金额",
-          key: "invoiceAmount",
-        },
+        //1 {
+        //   title: "发票金额",
+        //   key: "invoiceAmount",
+        // },
         // {
         //   title: "最迟付款时间",
         //   slot: "payLimit",
@@ -161,10 +179,10 @@ export default {
           title: "发票状态",
           slot: "fpStatus",// 发票状态@ 1  待开票  2  待收票  3 待付款（已收票）  4  完成收款   5  拒绝收票
         },
-        {
-          title: "发票备注",
-          key: "invoiceRemark",
-        },
+        // {
+        //   title: "发票备注",
+        //   key: "invoiceRemark",
+        // },
         {
           title: "操作",
           slot: "operate",

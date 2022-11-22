@@ -19,9 +19,9 @@
           <div class="info-item">
             <div class="label">登录账号:</div>{{ vuex_user.username }}
           </div>
-          <el-form-item class="info-item form-item" label="供应类型:" :prop="'supplierType'">
+          <el-form-item class="info-item form-item" label="类型:" :prop="'supplierType'">
             <template v-if="isEdit">
-              <el-select class="selectInput" placeholder="请选择供应类型" v-model="info.supplierType" clearable>
+              <el-select class="selectInput" placeholder="请选择类型" v-model="info.supplierType" clearable>
                 <el-option v-for="(label,value) in supplierTypes" :key="value" :label="label" :value="value">
                   {{label}}
                 </el-option>
@@ -42,25 +42,25 @@
           <el-form-item class="info-item form-item" label="营业执照:" :prop="'businessLicenseUrl'">
             <div class="img-item mb_10">
               <template v-if="isEdit">
-                <cu-upload-image :files.sync="uploadArrObj.businessLicenseUrl"
-                  @submit="submitFile(arguments,'businessLicenseUrl')" width="162px" height="118px">
+                <cu-upload-image :files.sync="uploadArrObj.businessLicenseUrl" size="large"
+                  @submit="submitFile(arguments,'businessLicenseUrl')" >
                 </cu-upload-image>
                 <span>营业执照图片</span>
               </template>
               <template v-else>
-                <img :src="info.businessLicenseUrl" alt="">
+                <img v-lazy :src="info.businessLicenseUrl" alt="">
                 <span>营业执照图片</span>
               </template>
 
             </div>
             <div class="img-item mb_10">
               <template v-if="isEdit">
-                <cu-upload-image :files.sync="uploadArrObj.licenceUrl" @submit="submitFile(arguments,'licenceUrl')"
-                  width="162px" height="118px"></cu-upload-image>
+                <cu-upload-image :files.sync="uploadArrObj.licenceUrl" @submit="submitFile(arguments,'licenceUrl')" size="large"
+                 ></cu-upload-image>
                 <span>许可证图片</span>
               </template>
               <template v-else>
-                <img :src="info.licenceUrl" alt="">
+                <img v-lazy :src="info.licenceUrl" alt="">
                 <span>许可证图片</span>
               </template>
 
@@ -69,10 +69,10 @@
           <el-form-item class="info-item form-item" label="企业logo:" :prop="'logoUrl'">
             <template v-if="isEdit">
               <cu-upload-image :files.sync="uploadArrObj.logoUrl" @submit="submitFile(arguments,'logoUrl')"
-                width="163px" height="163px"></cu-upload-image>
+               ></cu-upload-image>
             </template>
             <template v-else>
-              <img class="info-logo" :src="info.logoUrl" alt="">
+              <img v-lazy class="info-logo" :src="info.logoUrl" alt="">
             </template>
 
           </el-form-item>
@@ -80,12 +80,12 @@
             <div class="img-item">
               <template v-if="isEdit">
                 <cu-upload-image :files.sync="uploadArrObj.legalIdFrontUrl"
-                  @submit="submitFile(arguments,'legalIdFrontUrl')" width="162px" height="118px">
+                  @submit="submitFile(arguments,'legalIdFrontUrl')" size="large">
                 </cu-upload-image>
                 <span>身份证正面图片</span>
               </template>
               <template v-else>
-                <img :src="info.legalIdFrontUrl" alt="">
+                <img v-lazy :src="info.legalIdFrontUrl" alt="">
                 <span>身份证正面图片</span>
               </template>
 
@@ -93,12 +93,12 @@
             <div class="img-item ">
               <template v-if="isEdit">
                 <cu-upload-image :files.sync="uploadArrObj.legalIdBackUrl"
-                  @submit="submitFile(arguments,'legalIdBackUrl')" width="162px" height="118px">
+                  @submit="submitFile(arguments,'legalIdBackUrl')" size="large">
                 </cu-upload-image>
                 <span>身份证反面图片</span>
               </template>
               <template v-else>
-                <img :src="info.legalIdBackUrl" alt="">
+                <img v-lazy :src="info.legalIdBackUrl" alt="">
                 <span>身份证反面图片</span>
               </template>
 
@@ -212,7 +212,7 @@ import { getSupplier, updateSupplier } from "@/api/aksApi/platformApi/supplierPl
 import { mapState } from "vuex";
 import SelectTable from "./components/SelectTable.vue";
 import test from "@/cuview-ui/function/test";
-
+import { supplierTypes } from "@/utils/httpDataTypes.js";
 
 export default {
   components: {
@@ -252,10 +252,7 @@ export default {
 
 
     return {
-      supplierTypes: {
-        "1": "药品",
-        "2": "器械"
-      },
+      supplierTypes,// 供应商类型
       auditTypes: {
         1: "待审核",
         2: "审核通过",
@@ -284,7 +281,7 @@ export default {
         //   { required: true, message: '请填写对公账户', trigger: 'blur' },
         // ],
         supplierType: [
-          { required: true, message: '请选择供应类型', trigger: 'blur' },
+          { required: true, message: '请选择类型', trigger: 'blur' },
         ],
         businessPhone: [
           // { required: true, message: '请填写企业电话', trigger: 'blur' },
@@ -413,6 +410,9 @@ export default {
       console.log(this.info, this.uploadArrObj);
       delete this.info.ckId;
       this.info['ckid'] = this.info.list?this.info.list.map(item => item && item.id):[];
+      delete this.info.list;
+      delete this.info.payPassword;
+
       updateSupplier(this.info).then(res => {
         console.log(res);
         if (res.code == 200) {

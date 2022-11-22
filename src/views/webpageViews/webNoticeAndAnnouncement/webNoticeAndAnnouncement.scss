@@ -43,6 +43,14 @@
     background: #FFFFFF;
 }
 
+.bg_e0edff {
+    background: #e0edff !important;
+}
+
+.bg_fde5e5 {
+    background: #fde5e5 !important;
+}
+
 .content_two {
     margin-top: 50px;
     display: flex;
@@ -60,10 +68,12 @@
 
     .content_three1 {
         font-size: 14px;
+        line-height: 24px;
         font-family: Source Han Sans CN-Regular, Source Han Sans CN;
         font-weight: 400;
         color: #00023A;
-        text-indent: 2em;
+        text-indent: 1.5em;
+        padding: 20px;
     }
 }
 
@@ -85,6 +95,7 @@
     font-family: Source Han Sans CN-Regular, Source Han Sans CN;
     font-weight: 400;
     color: #00023A;
+    padding: 20px;
 
     .content_five1 {}
 

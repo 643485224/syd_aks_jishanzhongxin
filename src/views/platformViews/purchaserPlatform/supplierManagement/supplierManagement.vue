@@ -300,7 +300,7 @@
     <addSupply
       v-if="addSupplyVisible"
       :addSupplyVisible="addSupplyVisible"
-      :id="tableData[0].id"
+      :id="tableData.length > 0 ? tableData[0].id : null"
       @supplierDetailsButton="supplierDetailsButton"
       @addSupplyHandleClose="addSupplyHandleClose"
       @addSupplyHandleOk="addSupplyHandleOk"

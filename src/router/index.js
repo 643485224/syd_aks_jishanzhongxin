@@ -9,132 +9,68 @@ import {
 import {
   supplierRoute
 } from "./supplier.js"
+import {
+  webShoppingMallRoute
+} from "./webShoppingMall.js"
+import {
+  webPurchaserRoute
+} from "./webPurchaser.js"
+import {
+  webSupplierRoute
+} from "./webSupplier.js"
+import {
+  webRetailPurchaseRoute
+} from "./webRetailPurchase.js"
+import {
+  webSuperviseRoute
+} from "./webSupervise.js"
 const original = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
   return original.call(this, location).catch((err) => err);
 };
 Vue.use(VueRouter);
-console.log("operationRoute:", operationRoute);
-console.log("purchaserRoute:", purchaserRoute);
-console.log("supplierRoute:", supplierRoute);
+// 使用路由懒加载提高页面初次渲染时间
+// 路由同步加载模式： 一次性加载了所以的js文件
+// 路由懒加载模式：
+//        1. 路由懒加载的页面文件打包的时候被单独打包了
+//        2. 路由懒加载的页面文件不会被打包到主文件（首次页面加载的时候就不会加载没有访问到的页面文件）
+// /* webpackChunkName: "" */ 语义化文件名，更好区分文件打包
 // 设计理念-分两种模式： 网页模式  后台管理模式 可以相互切换
-const routes = [
-  // 网页模式
-  {
+const routes = [{ //商城平台入口
     path: '/',
     name: 'webMain',
-    component: () => import('../views/webpageViews/webMain'), //入口
+    component: () => import( /* webpackChunkName: "webMain" */ '../views/webpageViews/webMain.vue'),
     redirect: "/webHomePage", //重定向到网页首页
     meta: {
       hideInMenu: true,
       notCache: true
     },
-    children: [{
-        path: '/webHomePage', // 首页
-        name: 'webHomePage',
-        meta: {
-          hideInMenu: true,
-          title: '首页',
-          notCache: true,
-          icon: 'md-home'
-        },
-        component: () => import("../views/webpageViews/webHomePage/webHomePage.vue"),
-      },
-      {
-        path: "/webEntrepot", //集散中心
-        name: "webEntrepot",
-        component: () => import("../views/webpageViews/webEntrepot/webEntrepot.vue"),
-      },
-      {
-        path: "/webCentralTransaction", //中心交易
-        name: "webCentralTransaction",
-        component: () => import("../views/webpageViews/webCentralTransaction/webCentralTransaction.vue"),
-      },
-      {
-        path: "/webIndustrySupervision", //工业监管
-        name: "webIndustrySupervision",
-        component: () => import("../views/webpageViews/webIndustrySupervision/webIndustrySupervision.vue"),
-      },
-      {
-        path: "/webUnderConstruction", //建设中
-        name: "webUnderConstruction",
-        component: () => import("../views/webpageViews/webUnderConstruction/webUnderConstruction.vue"),
-      },
-      {
-        path: "/webTradingMall", // 交易商城
-        name: "webTradingMall",
-        component: () => import("../views/webpageViews/webTradingMall/webTradingMall.vue"),
-      },
-      {
-        path: "/webNoticeAndAnnouncement", // 通知公告
-        name: "webNoticeAndAnnouncement",
-        component: () => import("../views/webpageViews/webNoticeAndAnnouncement/webNoticeAndAnnouncement.vue"),
-      },
-      {
-        path: "/webPoliciesAndRegulations", // 政策法规
-        name: "webPoliciesAndRegulations",
-        component: () => import("../views/webpageViews/webPoliciesAndRegulations/webPoliciesAndRegulations.vue"),
-      },
-      {
-        path: "/webFinancialService", // 金融服务
-        name: "webFinancialService",
-        component: () => import("../views/webpageViews/webFinancialService/webFinancialService.vue"),
-      },
-      {
-        path: "/webPartyBuildingCulture", // 党建文化
-        name: "webPartyBuildingCulture",
-        component: () => import("../views/webpageViews/webPartyBuildingCulture/webPartyBuildingCulture.vue"),
-      },
-      {
-        path: "/textDetails", // 商城平台-文本类详情组件
-        name: "textDetails",
-        component: () => import("../views/webpageViews/components/textDetails/textDetails.vue"),
-      },
+    children: [
+      ...webShoppingMallRoute
     ]
   },
-
-  // 后台管理模式->三个平台：运营平台 采购商平台 供应商平台
-  {
-    path: '/login',
-    name: 'login',
-    meta: {
-      title: '登录',
-      hideInMenu: true
-    },
-    component: () => import("../views/platformViews/Login/Login.vue"),
+  { //个人中心入口 （采购商个人中心、供应商个人中心,零购用户个人中心）
+    path: '/webPersonalMain',
+    name: 'webPersonalMain',
+    component: () => import('../views/webPersonalCenter/webPersonalMain'),
+    children: [
+      ...webPurchaserRoute,
+      ...webSupplierRoute,
+      ...webRetailPurchaseRoute,
+    ]
   },
-  {
-    path: '/password',
-    name: 'password',
-    meta: {
-      title: '找回密码',
-      hideInMenu: true
-    },
-    component: () => import("../views/platformViews/Password/Password.vue"),
+  { //监管入口 （药品监管、企业监管、药械监管）
+    path: '/webSuperviseMain',
+    name: 'webSuperviseMain',
+    component: () => import('../views/webSupervise/webSuperviseMain'),
+    children: [
+      ...webSuperviseRoute
+    ]
   },
-  {
-    path: '/admin/login',
-    name: 'operatelogin',
-    meta: {
-      title: '登录',
-      hideInMenu: true
-    },
-    component: () => import("../views/platformViews/operateLogin/operateLogin.vue"),
-  },
-
-  {
-    path: '/register',
-    name: 'register',
-    meta: {
-      title: '注册',
-      hideInMenu: true
-    },
-    component: () => import("../views/platformViews/Register/Register.vue"),
-  },
-  {
+  { //后台入口 （运营平台、采购商平台、供应商平台）
     path: '/main',
     name: 'main',
-    component: () => import('../views/platformViews/main'), //入口
+    component: () => import('../views/platformViews/main'),
     meta: {
       hideInMenu: true,
       notCache: true
@@ -144,6 +80,51 @@ const routes = [
       ...purchaserRoute,
       ...supplierRoute,
     ]
+  },
+  {
+    path: '/login', //登录页面
+    name: 'login',
+    meta: {
+      title: '登录',
+      hideInMenu: true
+    },
+    component: () => import("../views/platformViews/Login/Login.vue"),
+  },
+  {
+    path: '/admin/login', // 运营登录页面
+    name: 'operatelogin',
+    meta: {
+      title: '登录',
+      hideInMenu: true
+    },
+    component: () => import("../views/platformViews/operateLogin/operateLogin.vue"),
+  },
+  {
+    path: '/password', // 找回密码页面
+    name: 'password',
+    meta: {
+      title: '找回密码',
+      hideInMenu: true
+    },
+    component: () => import("../views/platformViews/Password/Password.vue"),
+  },
+  {
+    path: '/register', // 注册页面
+    name: 'register',
+    meta: {
+      title: '注册',
+      hideInMenu: true
+    },
+    component: () => import("../views/platformViews/Register/Register.vue"),
+  },
+  {
+    path: '/RetailRegistration', // 用户注册页面
+    name: 'RetailRegistration',
+    meta: {
+      title: '注册',
+      hideInMenu: true
+    },
+    component: () => import("../views/platformViews/RetailRegistration/RetailRegistration.vue"),
   },
   {
     path: "/operationStatistics", // 运营数据展板
@@ -157,10 +138,12 @@ const routes = [
     component: () =>
       import("@/views/platformViews/operationStatistics/operationStatistics.vue"),
   },
-
-
-
-
+  {
+    path: "/payProperty", // 手机端支付页面
+    name: "payProperty",
+    component: () =>
+      import("@/views/platformViews/payProperty/payProperty.vue"),
+  },
 
 ];
 // routes.push(...operationRoute)
@@ -170,6 +153,11 @@ const router = new VueRouter({
 });
 // 性能优化-路由跳转的时候清空上一次页面的所有请求
 window._axiosPromiseArr = []
+/**
+ * @param {to} 将要去的路由
+ * @param {from} 出发的路由
+ * @param {next} 执行下一步
+ */
 router.beforeEach((to, from, next) => {
   window._axiosPromiseArr.forEach((ele, index) => {
     ele.cancel()

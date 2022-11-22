@@ -4,7 +4,7 @@
       <!-- v-for="(item,index) in statistics" :key="index" -->
       <div class="card-item logo-card">
         <div class="card-content">
-          <img class="logo" :src="logo" alt="" srcset="">
+          <img v-lazy class="logo" :src="logo" alt="" srcset="">
           <p class="logo-title">阿克苏药品集散中心</p>
         </div>
       </div>

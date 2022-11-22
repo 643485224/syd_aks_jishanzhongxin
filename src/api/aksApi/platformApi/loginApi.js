@@ -37,18 +37,21 @@ export const userInfo = (params = {
     .then((res) => res.data);
 };
 // 获取所有的菜单列表(非分页带层级关系用于绑定树形菜单控件)
-export const getAllMenuList = (params = { sysType: null}) => {
+export const getAllMenuList = (params = {
+  sysType: null
+}) => {
   return http
-    .get(`${baseURL}/sys/menu/getAllMenuList`,{params} )
+    .get(`${baseURL}/sys/menu/getAllMenuList`, {
+      params
+    })
     .then((res) => res.data);
 };
 
 // 通过用户ID查询菜单列表
 export const getMenusByUserId = () => {
   return http
-    .get(`${baseURL}/sys/menu/getMenusByUserId` )
+    .get(`${baseURL}/sys/menu/getMenusByUserId`)
     .then((res) => {
-      console.log(res);
       return res.data;
     });
 };
@@ -66,7 +69,17 @@ export const supplierLogin = (params = {}) => {
     .then((res) => res.data);
 };
 
+// 监管部门-监管部门登录-接口
+export const superviseLogin = (params = {}) => {
+  return http.post(`${baseURL}/superviseLogin`, params)
+    .then((res) => res.data);
+};
 
+// 零售用户登录-接口
+export const customerLogin = (params = {}) => {
+  return http.post(`${baseURL}/customer/login`, params)
+    .then((res) => res.data);
+};
 // 通用-用户注册-采购商注册-接口
 export const buyerRegister = (params = {}) => {
   return http
@@ -81,9 +94,9 @@ export const forgetPassword = (params = {}) => {
 };
 //通用 - 验证码
 export const payCaptcha = (params = {}) => {
-  return http.get(`${baseURL}/payCaptcha`,{
-    params
-  })
+  return http.get(`${baseURL}/payCaptcha`, {
+      params
+    })
     .then((res) => res.data);
 }
 //忘记密码-修改密码/
@@ -94,5 +107,10 @@ export const changePassword = (params = {}) => {
 //忘记密码-修改密码/
 export const verify = (params = {}) => {
   return http.post(`${baseURL}/captcha/verify`, params)
+    .then((res) => res.data);
+};
+//用户注册 
+export const userRegister = (params = {}) => {
+  return http.post(`${baseURL}/retail/userRegister`, params)
     .then((res) => res.data);
 };

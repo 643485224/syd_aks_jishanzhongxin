@@ -4,7 +4,7 @@
       <!-- v-for="(item,index) in statistics" :key="index" -->
       <div class="card-item logo-card">
         <div class="card-content">
-          <img class="logo" :src="logo" alt="" srcset="">
+          <img v-lazy class="logo" :src="logo" alt="" srcset="">
           <p class="logo-title">{{overViewData.username}}</p>
           <div class="logo_body">
             信用分:&nbsp;&nbsp;

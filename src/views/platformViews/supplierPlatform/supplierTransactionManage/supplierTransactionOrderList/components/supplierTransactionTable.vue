@@ -18,15 +18,27 @@
         <cu-table class="sale-table" :loading="tableLoading" :height="height" :showTitle="false"
             :tableHeader="tableHeader" :tableData="tableData" @handleSizeChange="handleSizeChange"
             @handleCurrentChange="handleCurrentChange" :total="orderTotal">
+            <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">订单信息</div>
+            <div class="content">
+              <div class="item"><div class="label">关联合同编号:</div><div class="value">{{value.value.contractNo}}</div></div>
+              <div class="item"><div class="label">商品种类:</div><div class="value">{{value.value.goodsCategoryCount}}</div></div>
+              <div class="item"><div class="label">支付方式:</div><div class="value">{{payType[value.value.fkType]}}</div></div>
+              <div class="item"><div class="label">交易时间:</div><div class="value">{{value.value.orderTime ? new Date(value.value.orderTime).Format("yyyy-MM-dd") : ""}}</div></div>
+          
+            </div>
+          </div>
+        </template>
             <template slot="status" slot-scope="value">
                 {{ statusType[value.value.status] }}
             </template>
-            <template slot="fkType" slot-scope="value">
+            <!-- <template slot="fkType" slot-scope="value">
                 {{ payType[value.value.fkType] }}
-            </template>
-            <template slot="orderTime" slot-scope="value">
+            </template> -->
+            <!-- <template slot="orderTime" slot-scope="value">
                 {{ value.value.orderTime ? new Date(value.value.orderTime).Format("yyyy-MM-dd") : "" }}
-            </template>
+            </template> -->
             <template slot="operate" slot-scope="value">
                 <el-button type="text" class="orange" @click="operation('returnPass',value.value.id)"
                     v-if="value.value.status == 11">退货</el-button>
@@ -105,7 +117,7 @@ export default {
                 5: '待付款',
                 6: '待评价',
                 7: '已取消',
-                8: '已拒绝',
+                8: '已拒绝',      
                 10: '待取消',
                 11: '待退货',
                 12: '已退货',
@@ -116,22 +128,13 @@ export default {
             },
             tableHeader: [
                 {
+                    slot: "expand",
+                    align: "center",
+                },
+                {
                     title: "订单编号",
                     key: "orderNo",
                     width: 160,
-                },
-                {
-                    title: "关联合同编号",
-                    key: "contractNo",
-                    width: 120,
-                },
-                {
-                    title: "商品种类",
-                    key: "goodsCategoryCount",
-                },
-                {
-                    title: "商品数量",
-                    key: "goodsCount",
                 },
                 {
                     title: "采购商名称",
@@ -139,22 +142,37 @@ export default {
                     width: 120,
                 },
                 {
+                    title: "商品数量",
+                    key: "goodsCount",
+                },
+                {
                     title: "订单状态",
                     slot: "status",//  1  待响应  2  待发货  3  待收货  4  已收货  5  待付款  6  已完成（待评价）  7  已取消 8 已拒绝   9 已评价
                 },
-                {
-                    title: "支付方式",
-                    slot: "fkType",//  1 在线支付  2 货到付款
-                },
-                {
-                    title: "交易时间",
-                    slot: "orderTime",
-                    width: 120,
-                },
+                // {
+                //     title: "交易时间",
+                //     slot: "orderTime",
+                //     width: 120,
+                // },
                 {
                     title: "订单金额",
                     key: "amount",
                 },
+
+                // {
+                //     title: "关联合同编号",
+                //     key: "contractNo",
+                //     width: 120,
+                // },
+                // {
+                //     title: "商品种类",
+                //     key: "goodsCategoryCount",
+                // },
+                // {
+                //     title: "支付方式",
+                //     slot: "fkType",//  1 在线支付  2 货到付款
+                // },
+                
                 {
                     title: "操作",
                     slot: "operate",
@@ -402,7 +420,36 @@ export default {
     }
 }
 
+//扩展信息
+.expand-info {
+    padding: 20px;
+    .title {
+        margin-bottom: 20px;
+        text-align: left;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        
 
+        .item {
+            display: flex;
+            width: 50%;
+            font-size: 16px;
+            margin: 4px 0;
+            .label {
+                color:#999999;
+
+            }
+            .value {
+                margin-left: 5px;
+            }
+        }
+    }
+
+}
 
 .operate-reason {
     display: flex;

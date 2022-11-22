@@ -79,7 +79,7 @@ export default {
       // 查询功能
       query: {
         supplierCode: "",
-        unitName: "",
+        buyerName: "",
       },
       statusType: {
         0: "禁用",
@@ -143,7 +143,7 @@ export default {
       selectTableHeader: [
         {
           title: "采购商名称",
-          key: "unitName",
+          key: "buyerName",
         },
         {
           title: "采购商分类",
@@ -212,7 +212,7 @@ export default {
       //   currPageNo: this.pages.current,
       //   pageSize: this.pages.size,
       //   supplierCode: this.query.supplierCode,
-      //   unitName: this.query.unitName,
+      //   buyerName: this.query.buyerName,
       // };
       getBuyerGroupList()
         .then((res) => {
@@ -252,7 +252,7 @@ export default {
     },
     // 页码改变回调
     handleCurrentChange2(value) {
-      console.log(this.group.buyerList.filter(item => item.unitName));
+      console.log(this.group.buyerList.filter(item => item.buyerName));
       this.pages2.current = value;
       let start = (this.pages2.current - 1) * this.pages2.size;
       let end = (this.pages2.current - 1) * this.pages2.size + this.pages2.size;
@@ -329,9 +329,10 @@ export default {
       // if (!this.group.buyerList.length) { return this.$message.warning("请选择分组内采购商") }
       console.log(this.group.buyerList);
       params.buyerList = this.group.buyerList.map(item => {
+        console.log(item.buyerId);
         return {
-          buyerId: item.id,
-          buyerName: item.unitName,
+          buyerId: item.buyerId,
+          buyerName: item.buyerName,
           unitType: item.unitType
         }
       });
@@ -389,6 +390,7 @@ export default {
           unitType: item.unitType
         }
       })
+      console.log(selectList);
       // let list = [...new Set([...this.group.buyerList, ...selectList])]
       let list = this.unique([...this.group.buyerList, ...selectList])
       this.group.buyerList = list

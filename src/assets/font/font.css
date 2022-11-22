@@ -1,6 +1,14 @@
-@font-face {
+/* @font-face {
     font-family: "Microsoft YaHei";
     src: url(./微软雅黑.ttf);
+    font-weight: normal;
+    font-style: normal;
+} */
+
+
+@font-face {
+    font-family: "FZXingKai-S04-Regular";
+    src: url(./米开软笔行楷.ttf);
     font-weight: normal;
     font-style: normal;
 }

@@ -31,7 +31,10 @@
                 :tableHeader="tableHeader" :tableData="tableData" @handleSizeChange="handleSizeChange"
                 @handleCurrentChange="handleCurrentChange" :total="orderTotal">
                 <template slot="supplierType" slot-scope="value">
-                    {{ getformatDate(value.value.supplierType) }}
+                    {{ supplierTypes[value.value.supplierType] }}
+                </template>auditStatus
+                <template slot="auditStatus" slot-scope="value">
+                    {{ auditType[value.value.auditStatus] }}
                 </template>
                 <template slot="operate" slot-scope="value">
                     <el-button type="text" @click="showDialog(value.value.id)">详情</el-button>
@@ -51,38 +54,38 @@
                             <span class="left-text">登录账号 :</span><span class="left-tex">{{ getSupplier.username}}</span>
                         </div>
                         <div class="supplier-left-text">
-                            <span class="left-text">供应类型 :</span><span class="left-tex">{{getclass(getSupplier.supplierType)}}</span>
+                            <span class="left-text">供应类型 :</span><span class="left-tex">{{supplierTypes[getSupplier.supplierType]}}</span>
                         </div>
                         <div class="supplier-left-text">
                             <span class="left-text"> 营业执照 :</span>
                             <div class="left-img">
                                 <div class="left-text-img">
-                                <img :src="getSupplier.businessLicenseUrl" alt="">
+                                <img v-lazy :src="getSupplier.businessLicenseUrl" alt="">
                                <p>营业执照图片</p>
                             </div>
                             <div class="left-text-img">
-                                <img :src="getSupplier.licenceUrl" alt="">
+                                <img v-lazy :src="getSupplier.licenceUrl" alt="">
                                <p>许可证图片</p>
                             </div>
                             </div>
-                            
+
                         </div>
                         <div class="supplier-left-text">
                             <span class="left-text img-text">法人身份证 :</span>
                              <div class="left-img">
                                 <div class="left-text-img">
-                                <img :src="getSupplier.legalIdFrontUrl" alt="">
+                                <img v-lazy :src="getSupplier.legalIdFrontUrl" alt="">
                                <p>身份证正面图片</p>
                             </div>
                             <div class="left-text-img">
-                                <img :src="getSupplier.legalIdBackUrl" alt="">
+                                <img v-lazy :src="getSupplier.legalIdBackUrl" alt="">
                                <p>身份证背面图片</p>
                             </div>
                             </div>
                         </div>
                     </div>
                     <div class="supplier-rihgt">
-                        
+
                         <div class="supplier-left-text">
                             <span class="left-text">状态 :</span><span class="left-tex">{{ getstatus(getSupplier.status) }}</span>
                         </div>
@@ -97,9 +100,9 @@
                             <span class="left-text img-text">法人身份证 :</span>
                              <div class="left-img">
                                 <div class="left-text-img">
-                                <img :src="getSupplier.logoUrl" class="logoUrl">
+                                <img v-lazy :src="getSupplier.logoUrl" class="logoUrl">
                             </div>
-                            
+
                             </div>
                         </div>
                         </div>
@@ -160,9 +163,17 @@
 
 import { supplierQuery, getSupplierInfo, supplierQueryExportXls } from "@/api/aksApi/platformApi/operationPlatformApi.js";
 import { downloadXls } from "@/utils/exportXls.js";
+import { supplierTypes } from "@/utils/httpDataTypes.js";
+
 export default {
     data() {
         return {
+          supplierTypes,// 供应商企业类型
+          auditType:{
+            1:'审核中',
+            2:'审核通过',
+            3:'审核未通过'
+          },
             tableHeader: [
                 {
                     title: "商户编号",
@@ -191,7 +202,7 @@ export default {
                 },
                 {
                     title: "状态",
-                    key: "auditStatusName",
+                    slot: "auditStatus",
                 },
                 {
                     title: "操作",
@@ -232,19 +243,12 @@ export default {
     methods: {
         getSupplierconta(value){
             if(value){
-                return value.split('').fill('*',1,3).join('') 
+                return value.split('').fill('*',1,3).join('')
             }
         },
         getphoneS(value){
             if(value){
-                return value.split('').fill('*',5,12).join('') 
-            }
-        },
-        getclass(times){
-            if(times==1){
-                return '药企 '
-            } else{
-                return '药械 '
+                return value.split('').fill('*',5,12).join('')
             }
         },
         getstatus(times){
@@ -257,13 +261,6 @@ export default {
         getckbh(id){
             // console.log(id.ckbh);
             // return id.warehouseList[0].ckbh
-        },
-        getformatDate(times) {
-           if(times==1){
-                return '药企 '
-            } else{
-                return '药械 '
-            }
         },
         pickDate(val) {
             console.log(val);
@@ -283,7 +280,7 @@ export default {
         },
         async getsupplierQuery() {
             this.tableLoading = true;
-            
+
             let params = {
                 currPageNo: this.pageNum,
                 pageSize: this.pageSize,
@@ -361,7 +358,7 @@ export default {
                 console.log(err);
             });
         },
-        
+
 
         addCar() {
 
@@ -371,7 +368,7 @@ export default {
                     if (res.code == 200) {
                     this.driverList = res.data;
                 }
-                
+
             }).catch((err) => {
                 console.log(err);
             });
@@ -390,7 +387,7 @@ export default {
                 console.log(err);
             });
         },
-        
+
         handleClose() {
             this.dialogVisible = false;
 
@@ -543,7 +540,7 @@ box-sizing: border-box;
             ::v-deep .el-input__inner {
                 height: 31px;
             }
-        
+
         }
 
         ::v-deep .el-range-editor.el-input__inner {

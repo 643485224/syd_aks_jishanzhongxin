@@ -18,7 +18,7 @@
             <div class="label">对公账户:</div>{{ info.corporateAccount }}
           </div>
           <div class="info-item">
-            <div class="label">供应类型:</div>{{ supplierTypes[info.supplierType] }}
+            <div class="label">类型:</div>{{ supplierTypes[info.supplierType] }}
           </div>
           <div class="info-item">
             <div class="label">企业电话:</div>{{ info.businessPhone }}
@@ -26,26 +26,26 @@
           <div class="info-item">
             <div class="label">营业执照:</div>
             <div class="img-item">
-              <img :src="info.businessLicenseUrl" alt="">
+              <img v-lazy :src="info.businessLicenseUrl" alt="">
               <span>营业执照图片</span>
             </div>
             <div class="img-item">
-              <img :src="info.licenceUrl" alt="">
+              <img v-lazy :src="info.licenceUrl" alt="">
               <span>许可证图片</span>
             </div>
           </div>
           <div class="info-item">
             <div class="label">企业logo:</div>
-            <img class="info-logo" :src="info.logoUrl" alt="">
+            <img v-lazy class="info-logo" :src="info.logoUrl" alt="">
           </div>
           <div class="info-item">
             <div class="label">法人身份证:</div>
             <div class="img-item">
-              <img :src="info.legalIdFrontUrl" alt="">
+              <img v-lazy :src="info.legalIdFrontUrl" alt="">
               <span>身份证正面图片</span>
             </div>
             <div class="img-item">
-              <img :src="info.legalIdBackUrl" alt="">
+              <img v-lazy :src="info.legalIdBackUrl" alt="">
               <span>身份证反面图片</span>
             </div>
           </div>
@@ -97,14 +97,12 @@
 <script>
 import { getBuyer } from "@/api/aksApi/platformApi/supplierPlatformApi.js";
 import { mapState } from "vuex";
+import { supplierTypes } from "@/utils/httpDataTypes.js";
 
 export default {
   data() {
     return {
-      supplierTypes: {
-        1: '药品',
-        2: '器械'
-      },
+      supplierTypes,// 供应商类型
       auditTypes: {
         1: '待审核',
         2: '审核通过',

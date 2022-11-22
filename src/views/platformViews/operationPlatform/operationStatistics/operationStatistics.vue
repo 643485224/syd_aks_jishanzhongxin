@@ -2,11 +2,11 @@
     <div class="page-container">
         <div class="page-header">
             <div class="header-item" v-for="(item, index) in statistics" :key="index">
-                <img class="icon" :src="item.icon" alt="" srcset="">
+                <img v-lazy class="icon" :src="item.icon" alt="" srcset="">
                 <div class="text">
                     <div class="tip" v-if="item.showTip">
                         <span>{{ item.tiptext }}</span>
-                        <img :src="datatip" alt="">
+                        <img v-lazy :src="datatip" alt="">
                         <span>{{ item.percent }}</span>
                     </div>
                     <count-to class="num" :decimals="item.key == 'orderAmount' ? 1 : 0" :startVal='0'
@@ -22,7 +22,7 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span>交易额数据</span>
-                            <img :src="titleLight" alt="">
+                            <img v-lazy :src="titleLight" alt="">
                         </div>
 
                     </div>
@@ -35,7 +35,7 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span>行政政策</span>
-                            <img :src="titleLight" alt="">
+                            <img v-lazy :src="titleLight" alt="">
                             <span class="more">查看更多</span>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span>企业销量分析</span>
-                            <img :src="titleLight" alt="">
+                            <img v-lazy :src="titleLight" alt="">
                         </div>
                     </div>
                     <div class="card-content">
@@ -85,7 +85,7 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span>药品器械批发数据</span>
-                            <img :src="titleLight" alt="">
+                            <img v-lazy :src="titleLight" alt="">
                         </div>
                     </div>
                     <div class="card-content">
@@ -93,7 +93,7 @@
                         <div class="sales-grid">
                             <div class="grid-row">
                                 <div class="grid-item">
-                                    <img src="./image/Stocks.png" alt="" srcset="">
+                                    <img v-lazy src="./image/Stocks.png" alt="" srcset="">
                                     <div class="item-right">
                                         <span class="text">批发总量</span>
                                         <span class="count">{{ wholeSalesData.sumCount }}</span>
@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="grid-light"></div>
                                 <div class="grid-item">
-                                    <img src="./image/SystemTask.png" alt="" srcset="">
+                                    <img v-lazy src="./image/SystemTask.png" alt="" srcset="">
                                     <div class="item-right">
                                         <span class="text">日批总量</span>
                                         <span class="count">{{ wholeSalesData.dayCount }}</span>
@@ -111,7 +111,7 @@
                             <div class="grid-light" style="width: 100%; height: 1px;"></div>
                             <div class="grid-row">
                                 <div class="grid-item">
-                                    <img src="./image/Inspection.png" alt="" srcset="">
+                                    <img v-lazy src="./image/Inspection.png" alt="" srcset="">
                                     <div class="item-right">
                                         <span class="text">周批发量</span>
                                         <span class="count">{{ wholeSalesData.weekCount }}</span>
@@ -121,7 +121,7 @@
                                 <div class="grid-light"></div>
 
                                 <div class="grid-item">
-                                    <img src="./image/Cheap.png" alt="" srcset="">
+                                    <img v-lazy src="./image/Cheap.png" alt="" srcset="">
                                     <div class="item-right">
                                         <span class="text">年批发量</span>
                                         <span class="count">{{ wholeSalesData.yearCount }}</span>
@@ -136,7 +136,7 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span>年度涨幅趋势</span>
-                            <img :src="titleLight" alt="">
+                            <img v-lazy :src="titleLight" alt="">
                         </div>
                     </div>
                     <div class="card-content">
@@ -166,7 +166,7 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span>便捷服务</span>
-                            <img :src="titleLight" alt="">
+                            <img v-lazy :src="titleLight" alt="">
                         </div>
                     </div>
                     <div class="card-content" id="serviceColumnWrap" ref="serviceColumnWrap">

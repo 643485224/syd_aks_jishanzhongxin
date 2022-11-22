@@ -25,6 +25,7 @@
             <el-button class="operation-btn search-btn" type="primary" @click="search">查询</el-button>
             <el-button class="operation-btn bgGreen" type="primary" @click="showDetails('add')">新增</el-button>
             <el-button class="operation-btn export-btn" type="primary" @click="exportXls">批量导出</el-button>
+            <el-button class="operation-btn export-btn" type="primary" @click="exportE">批量导入</el-button>
         </div>
         <cu-animation :type="'slideInRight'" :time=".5">
             <cu-table class="sale-table" :selection="true" :loading="tableLoading" :height="handleHeight" @handleSelectionChange="handleSelectionChange"
@@ -364,6 +365,10 @@ export default {
         ...mapState(["vuex_user"])
     },
     methods: {
+        exportE(){
+            console.log(11);
+            this.$router.push({name:'operationImportManage',params:{ypqxType:1}})
+        },
         async getsupplierQuery() {
             
             let params = {
@@ -541,12 +546,13 @@ export default {
        async getpropertyquery(){
         let params={
             feeType:this.clas,
+            currPageNo: this.pageNum,
             pageSize:this.pageSize,
             keyword:this.orderNum || ''
         }
         
-        getpropertyquery(params).then(res => {
-            console.log(res);
+       await getpropertyquery(params).then(res => {
+            console.log(res,212121);
             if(res.data.code ==200){
                 let data = res.data.data;
                     this.tableData = data.records;

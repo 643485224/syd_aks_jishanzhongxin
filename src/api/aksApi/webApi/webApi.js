@@ -119,3 +119,17 @@ export const announcementPageAnnouncementList = (params = {}) => {
     params
   }).then(res => res.data)
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+

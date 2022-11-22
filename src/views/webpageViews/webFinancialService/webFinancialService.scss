@@ -59,6 +59,7 @@
             list-style: none;
 
             li {
+               
                 padding-left: 23px;
                 box-sizing: border-box;
                 padding-top: 41px;
@@ -79,16 +80,21 @@
 
                 .li-but {
                     margin-top: 14px;
-                    width: 87px;
-                    height: 36px;
+                    width: 137px;
+                    height: 46px;
+                    line-height: 46px;
                     background: #FFFFFF;
                     border-radius: 4px 4px 4px 4px;
-                    font-size: 16px;
+                    font-size: 18px;
                     text-align: center;
                     font-family: Source Han Sans CN-Normal, Source Han Sans CN;
-                    font-weight: 400;
+                    font-weight: bold;
                     color: #FF480E;
-                    line-height: 36px;
+                    letter-spacing: 4px; 
+                    cursor: pointer;
+                    &:hover {
+                        transform: scale(1.04);
+                      }
                 }
 
                 .li-img {
@@ -181,6 +187,7 @@
                     width: 200px;
                     height: 50px;
                     display: block;
+                    cursor: pointer;
                 }
             }
 
@@ -196,7 +203,7 @@
                     li {
                         list-style: none;
                         width: 80px;
-
+                        cursor: pointer;
                         .two_img {
                             width: 80px;
                             height: 80px;
@@ -233,7 +240,16 @@
             margin-top: 21px;
         }
     }
-
+    .bg_e0edff {
+        background: #e0edff !important;
+      }
+      
+      .bg_fde5e5 {
+        background: #fde5e5 !important;
+      }
+      .bg_e2ffec {
+        background: #e2ffec !important;
+      }
     .content-three {
         margin-top: 50px;
         width: 1200px;

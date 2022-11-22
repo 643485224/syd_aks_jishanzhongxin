@@ -1,6 +1,6 @@
 <template>
   <!-- 友情链接（商城底部使用） -->
-  <div class="content">
+  <div class="content bg_e2ffec">
     <div class="content-title">
       <span class="mr_10">友情链接</span>
       <span>MONTHLY SALES LIST</span>
@@ -173,6 +173,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.bg_e2ffec {
+  background: #e2ffec !important;
+}
 .content {
   margin: 20px 0px;
   height: 180px;
@@ -228,4 +231,5 @@ export default {
     }
   }
 }
+
 </style>

@@ -1,12 +1,26 @@
 <template>
   <!-- 弹框组件 -->
   <div class="elDialog-wrapper">
-    <el-dialog :top="top" class="elDialog" :title="title" :width="width" :visible.sync="visible"
-      :before-close="handleClose" :center="center" :fullscreen="fullscreen" :modal="modal" :show-close="showClose"
-      :close-on-click-modal="closeOnClickModal" :close-on-press-escape="closeOnEsc" :destroy-on-close="destroyOnClose" :append-to-body="appendToBody"
-      :modal-append-to-body="modalAppendToBody">
+    <el-dialog
+      :top="top"
+      class="elDialog"
+      :title="title"
+      :width="width"
+      :visible.sync="visible"
+      :before-close="handleClose"
+      :center="center"
+      :fullscreen="fullscreen"
+      :modal="modal"
+      :show-close="showClose"
+      :close-on-click-modal="closeOnClickModal"
+      :close-on-press-escape="closeOnEsc"
+      :destroy-on-close="destroyOnClose"
+      :append-to-body="appendToBody"
+      :modal-append-to-body="modalAppendToBody"
+    >
       <!-- 使用头部插槽 页面不使用即为下方状态 -->
-      <div slot="title" :style="{ 'background': '#0E78F3', 'color': 'white' }">
+      <!-- <div slot="title" :style="{ 'background': '#0E78F3', 'color': 'white' }"> -->
+      <div slot="title">
         <slot name="title">
           <div class="dialog-title">{{ title }}</div>
         </slot>
@@ -16,8 +30,12 @@
       <div slot="footer">
         <slot name="footer">
           <div class="dialog-footer">
-            <el-button class="elButtonTwo" @click="handleClose">取 消</el-button>
-            <el-button class="elButtonOne" type="primary" @click="handleOk">确 定</el-button>
+            <el-button class="elButtonTwo" @click="handleClose"
+              >取 消</el-button
+            >
+            <el-button class="elButtonOne" type="primary" @click="handleOk"
+              >确 定</el-button
+            >
           </div>
         </slot>
       </div>
@@ -91,7 +109,6 @@ export default {
       type: Boolean,
       default: false,
     },
-
   },
   methods: {
     // 点击遮罩层 或 右上角X
@@ -113,14 +130,14 @@ export default {
   font-size: 16px;
   // line-height: 32px;
   // color: #000000;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .dialog-footer {
   display: flex;
   justify-content: center;
 
-  .elButtonOne{
+  .elButtonOne {
     width: 120px;
     height: 32px;
     margin-right: 40px;
@@ -139,10 +156,9 @@ export default {
 }
 
 // .elDialog-wrapper {
-  .el-dialog {
-    border-radius: 8px;
-
-  }
+.el-dialog {
+  border-radius: 8px;
+}
 // }
 
 // 遮罩层样式
@@ -155,7 +171,7 @@ export default {
   // padding: 20px 20px 20px 20px;
   padding: 17px;
   border-radius: 8px 8px 0 0;
-  background-color: #0E78F3;
+  background-color: #0e78f3;
 
   .el-dialog__headerbtn {
     top: 15px;
@@ -163,10 +179,10 @@ export default {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 
     .el-icon-close {
-      color: #0E78F3;
+      color: #0e78f3;
     }
   }
 }

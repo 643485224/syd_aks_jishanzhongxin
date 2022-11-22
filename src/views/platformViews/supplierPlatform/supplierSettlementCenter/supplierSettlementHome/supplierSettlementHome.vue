@@ -67,8 +67,24 @@
     <div class="label mb_20">待支付发票</div>
     <div>
       <cu-table class="sale-table" :showTitle="false" :height="tableHeight" :loading="tableLoading"
-        :tableHeader="tableHeader" :tableData="tableData" :total="pages.total" @handleSizeChange="handleSizeChange"
+        :tableHeader="tableHeader" :tableData="tableData" 编号:total="pages.total" @handleSizeChange="handleSizeChange"
         @handleCurrentChange="handleCurrentChange">
+        <template slot="expand" slot-scope="value">
+          <div class="expand-info">
+            <div class="title">待支付发票信息</div>
+            <div class="content">
+              <div class="item"><div class="label">发票代码:</div><div class="value">{{value.value.invoiceCode}}</div></div>
+              <div class="item"><div class="label">关联合同编号:</div><div class="value">{{value.value.contractNo}}</div></div>
+              <div class="item"><div class="label">最迟付款时间:</div><div class="value">{{value.value.payLimit}}</div></div>
+              <div class="item"><div class="label">收票用户:</div><div class="value">{{value.value.receiveInvoiceBy}}</div></div>
+              <div class="item"><div class="label">发票金额:</div><div class="value">{{value.value.invoiceAmount}}</div></div>  
+              <div class="item"><div class="label">发票状态:</div><div class="value">{{value.value.fpStatus}}</div></div>
+              <!-- <div class="item"><div class="label">上架时间:</div><div class="value">{{formatDate(value.value.uploadTime, "yyyy-MM-dd")}}</div></div> -->
+
+          
+            </div>
+          </div>
+        </template>
         <template slot="status" >
           待支付
         </template>
@@ -144,17 +160,21 @@ export default {
         //   align: "center",
         // },
         {
-          title: "发票代码",
-          key: "invoiceCode",
+          slot: "expand",
+          align: "center",
         },
+        // {
+        //   title: "发票代码",
+        //   key: "invoiceCode",
+        // },
         {
           title: "发票号码",
           key: "invoiceNo",
         },
-        {
-          title: "关联合同编号",
-          key: "contractNo",
-        },
+        // {
+        //   title: "关联合同编号",
+        //   key: "contractNo",
+        // },
         {
           title: "关联订单编号",
           key: "orderNo",
@@ -165,24 +185,24 @@ export default {
           slot: "invoiceTime",
           width: "180",
         },
-        {
-          title: "最迟付款时间",
-          slot: "payLimit",
-          width: "180",
+        // {
+        //   title: "最迟付款时间",
+        //   slot: "payLimit",
+        //   width: "180",
 
-        },
-        {
-          title: "收票用户",
-          key: "receiveInvoiceBy",
-        },
-        {
-          title: "发票金额",
-          key: "invoiceAmount",
-        },
-        {
-          title: "发票状态",
-          key: "fpStatus",
-        },
+        // },
+        // {
+        //   title: "收票用户",
+        //   key: "receiveInvoiceBy",
+        // },
+        // {
+        //   title: "发票金额",
+        //   key: "invoiceAmount",
+        // },
+        // {
+        //   title: "发票状态",
+        //   key: "fpStatus",
+        // },
         {
           title: "付款状态",
           slot: "status",

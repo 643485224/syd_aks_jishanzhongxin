@@ -20,6 +20,7 @@
                 </cu-animation>
               </div> -->
               <img
+                v-lazy
                 class="content-LB-img"
                 src="./image/webHomePage-LB2.png"
                 alt=""
@@ -40,11 +41,10 @@
                   </div>
                 </cu-animation>
               </div> -->
-              <div>
-
-              </div>
+              <div></div>
               <div class="content-LB-dw" @click="clickButton('申请入驻')"></div>
               <img
+                v-lazy
                 class="content-LB-img"
                 src="./image/webHomePage-LB1.png"
                 alt=""
@@ -66,6 +66,7 @@
                 </cu-animation>
               </div> -->
               <img
+                v-lazy
                 class="content-LB-img"
                 src="./image/webHomePage-LB3.png"
                 alt=""
@@ -91,8 +92,9 @@
             <div class="itemTitle">申请入驻</div>
             <div class="itemTitlePY">APPLICATION IN</div>
           </div>
-          <img class="itemImage" :src="gifSrc3" alt="" />
+          <img v-lazy class="itemImage" :src="gifSrc3" alt="" />
         </div>
+
         <div
           class="content_btnItem btnItem_four"
           @click="clickButton('我是采购商')"
@@ -101,7 +103,7 @@
             <div class="itemTitle">我是采购商</div>
             <div class="itemTitlePY">PURCHASER</div>
           </div>
-          <img class="itemImage" :src="gifSrc1" alt="" />
+          <img v-lazy class="itemImage" :src="gifSrc1" alt="" />
         </div>
 
         <div
@@ -112,18 +114,18 @@
             <div class="itemTitle">我是供应商</div>
             <div class="itemTitlePY">SUPPLIER</div>
           </div>
-          <img class="itemImage mr_20" :src="gifSrc2" alt="" />
+          <img v-lazy class="itemImage mr_20" :src="gifSrc2" alt="" />
         </div>
 
         <div
           class="content_btnItem btnItem_one"
-          @click="clickButton('我是采购商')"
+          @click="clickButton('我是监管机构')"
         >
           <div class="itemBox">
             <div class="itemTitle">我是监管机构</div>
             <div class="itemTitlePY">I'M THE REGULATOR</div>
           </div>
-          <img class="itemImage" :src="gifSrc4" alt="" />
+          <img v-lazy class="itemImage" :src="gifSrc4" alt="" />
         </div>
       </div>
 
@@ -144,11 +146,12 @@
             moveHover == 1
               ? 'content_five_1 moveHover1'
               : moveHover != 1 && moveHover != 2
-              ? 'content_five_1 moveHoverNo1No2'
-              : 'content_five_1'
+              ? 'content_five_1 moveHoverNo1No2 bg_e2ffec'
+              : 'content_five_1 bg_e2ffec'
           "
         >
           <img
+            v-lazy
             v-if="moveHover == 1"
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/top1B.png"
             width="320px"
@@ -157,6 +160,7 @@
             style="position: absolute; right: 0; bottom: 0"
           />
           <img
+            v-lazy
             v-else
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/top1W.png"
             width="130px"
@@ -169,7 +173,10 @@
               国内独家线下药企集聚基地、线上线下同企多业务融合平台。国内独家线下线上无缝粘合采配管运服平台。
             </div>
             <div class="content_five_113">
-              <el-button class="content_five_113_btn" type="primary" @click="getapp"
+              <el-button
+                class="content_five_113_btn"
+                type="primary"
+                @click="getapp"
                 >查看详情</el-button
               >
             </div>
@@ -181,11 +188,12 @@
             moveHover == 2
               ? 'content_five_2 moveHover1'
               : moveHover != 1 && moveHover != 2
-              ? 'content_five_2 moveHoverNo1No2'
-              : 'content_five_2'
+              ? 'content_five_2 moveHoverNo1No2 bg_e0edff'
+              : 'content_five_2 bg_e0edff'
           "
         >
           <img
+            v-lazy
             v-if="moveHover == 2"
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/top2B.png"
             width="320px"
@@ -194,6 +202,7 @@
             style="position: absolute; right: 0; bottom: 0"
           />
           <img
+            v-lazy
             v-else
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/top2W.png"
             width="130px"
@@ -206,8 +215,11 @@
               九州通官网汇集九州通集团商务网、九州通医药集团门户网于一体的综合性官方网站，九州通医药集团股份有限公司以传递健康，创造价值为企业宗旨。
             </div>
             <div class="content_five_213">
-              <el-button class="content_five_213_btn" type="primary"
-              @click="getapp">查看详情</el-button
+              <el-button
+                class="content_five_213_btn"
+                type="primary"
+                @click="getapp"
+                >查看详情</el-button
               >
             </div>
           </div>
@@ -220,11 +232,12 @@
             moveHover == 3
               ? 'content_six_1 moveHover1'
               : moveHover != 3 && moveHover != 4 && moveHover != 5
-              ? 'content_six_1 moveHoverNo1No2'
-              : 'content_six_1'
+              ? 'content_six_1 moveHoverNo1No2 bg_e2ffec'
+              : 'content_six_1 bg_e2ffec'
           "
         >
           <img
+            v-lazy
             v-if="moveHover == 3"
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/bottom1B.png"
             width="320px"
@@ -233,6 +246,7 @@
             style="position: absolute; right: 0; bottom: 0"
           />
           <img
+            v-lazy
             v-else
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/bottom1W.png"
             width="130px"
@@ -251,8 +265,11 @@
               v-if="moveHover != 4 && moveHover != 5"
               class="content_six_113"
             >
-              <el-button class="content_six_113_btn" type="primary"
-              @click="getapp">查看详情</el-button
+              <el-button
+                class="content_six_113_btn"
+                type="primary"
+                @click="getapp"
+                >查看详情</el-button
               >
             </div>
           </div>
@@ -260,14 +277,15 @@
         <div
           @mouseenter="moveChange(4)"
           :class="
-            moveHover == 4
+           moveHover == 4
               ? 'content_six_1 moveHover1'
               : moveHover != 3 && moveHover != 4 && moveHover != 5
-              ? 'content_six_1 moveHoverNo1No2'
-              : 'content_six_1'
+              ? 'content_six_1 moveHoverNo1No2 bg_e0edff'
+              : 'content_six_1 bg_e0edff'
           "
         >
           <img
+            v-lazy
             v-if="moveHover == 4"
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/bottom2B.png"
             width="320px"
@@ -276,6 +294,7 @@
             style="position: absolute; right: 0; bottom: 0"
           />
           <img
+            v-lazy
             v-else
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/bottom2W.png"
             width="130px"
@@ -294,8 +313,11 @@
               v-if="moveHover != 3 && moveHover != 5"
               class="content_six_113"
             >
-              <el-button class="content_six_113_btn" type="primary"
-              @click="getapp">查看详情</el-button
+              <el-button
+                class="content_six_113_btn"
+                type="primary"
+                @click="getapp"
+                >查看详情</el-button
               >
             </div>
           </div>
@@ -306,11 +328,12 @@
             moveHover == 5
               ? 'content_six_1 moveHover1'
               : moveHover != 3 && moveHover != 4 && moveHover != 5
-              ? 'content_six_1 moveHoverNo1No2'
-              : 'content_six_1'
+              ? 'content_six_1 moveHoverNo1No2 bg_fde5e5'
+              : 'content_six_1 bg_fde5e5'
           "
         >
           <img
+            v-lazy
             v-if="moveHover == 5"
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/bottom3B.png"
             width="320px"
@@ -319,6 +342,7 @@
             style="position: absolute; right: 0; bottom: 0"
           />
           <img
+            v-lazy
             v-else
             src="https://p2.ssl.qhimg.com/d/inn/1c330b0e8238/product/bottom3W.png"
             width="130px"
@@ -337,8 +361,11 @@
               v-if="moveHover != 3 && moveHover != 4"
               class="content_six_113"
             >
-              <el-button class="content_six_113_btn" type="primary"
-              @click="getapp" >查看详情</el-button
+              <el-button
+                class="content_six_113_btn"
+                type="primary"
+                @click="getapp"
+                >查看详情</el-button
               >
             </div>
           </div>
@@ -357,7 +384,7 @@
               <div class="content_seven_212">集采 集配 线上管理运营</div>
             </div>
             <div class="content_seven_22">
-              <img src="./image/webHomePage-24.png" alt="" />
+              <img v-lazy src="./image/webHomePage-24.png" alt="" />
             </div>
           </div>
           <div class="content_seven_3">为什么入驻集散中心</div>
@@ -365,6 +392,7 @@
             <div class="content_seven_41">
               <div class="content_seven_411">
                 <img
+                  v-lazy
                   src="https://p4.ssl.qhimg.com/t01737fd7a3b3543e62.jpg"
                   alt=""
                 />
@@ -378,6 +406,7 @@
             <div class="content_seven_41">
               <div class="content_seven_411">
                 <img
+                  v-lazy
                   src="https://p3.ssl.qhimg.com/t019d6d4a6486e26256.jpg"
                   alt=""
                 />
@@ -391,6 +420,7 @@
             <div class="content_seven_41">
               <div class="content_seven_411">
                 <img
+                  v-lazy
                   src="https://p2.ssl.qhimg.com/t0172db840caa2ee439.jpg"
                   alt=""
                 />
@@ -430,51 +460,49 @@
           </div>
         </div>
       </div>
-      <div class="content_eight">
-        力争亿万客户共同将平台的便捷力转化为实力
-      </div>
+      <div class="content_eight">力争亿万客户共同将平台的便捷力转化为实力</div>
       <div class="content_nine">为您服务</div>
       <div class="content_ten mt_60">
         <div class="content_ten1">
           <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
           </div>
           <div class="content_ten11">
-            <img src="./image/webHomePage-23.png" alt="" />
+            <img v-lazy src="./image/webHomePage-23.png" alt="" />
           </div>
           <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
           </div>
           <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
-          </div>
-        </div>
-        <div class="content_ten1 mt_30">
-          <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
-          </div>
-          <div class="content_ten11">
-            <img src="./image/webHomePage-23.png" alt="" />
-          </div>
-          <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
-          </div>
-          <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
           </div>
         </div>
         <div class="content_ten1 mt_30">
           <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
           </div>
           <div class="content_ten11">
-            <img src="./image/webHomePage-23.png" alt="" />
+            <img v-lazy src="./image/webHomePage-23.png" alt="" />
           </div>
           <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
           </div>
           <div class="content_ten11">
-            <img src="./image/webHomePage-22.png" alt="" />
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
+          </div>
+        </div>
+        <div class="content_ten1 mt_30">
+          <div class="content_ten11">
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
+          </div>
+          <div class="content_ten11">
+            <img v-lazy src="./image/webHomePage-23.png" alt="" />
+          </div>
+          <div class="content_ten11">
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
+          </div>
+          <div class="content_ten11">
+            <img v-lazy src="./image/webHomePage-22.png" alt="" />
           </div>
         </div>
       </div>
@@ -482,135 +510,172 @@
       <div class="logo mt_60 mb_60">
         <!-- <div class="logo__box">
           <div class="logo__box__nav logo__box__add1">
-            <img src="./image/1.png" />
+            <img
+            v-lazy src="./image/1.png" />
           </div>
           <div class="logo__box__nav logo__box__add2">
-            <img src="./image/1.png" />
+            <img
+            v-lazy src="./image/1.png" />
           </div>
           <div class="logo__box__nav logo__box__add3">
-            <img src="./image/2.png" />
+            <img
+            v-lazy src="./image/2.png" />
           </div>
           <div class="logo__box__nav logo__box__add4">
-            <img src="./image/3.png" />
+            <img
+            v-lazy src="./image/3.png" />
           </div>
           <div class="logo__box__nav logo__box__add5">
-            <img src="./image/4.png" />
+            <img
+            v-lazy src="./image/4.png" />
           </div>
           <div class="logo__box__nav logo__box__add6">
-            <img src="./image/5.png" />
+            <img
+            v-lazy src="./image/5.png" />
           </div>
           <div class="logo__box__nav logo__box__nav2">
-            <img src="./image/6.png" />
+            <img
+            v-lazy src="./image/6.png" />
           </div>
           <div class="logo__box__nav logo__box__nav3">
-            <img src="./image/7.png" />
+            <img
+            v-lazy src="./image/7.png" />
           </div>
           <div class="logo__box__nav logo__box__nav4">
-            <img src="./image/8.png" />
+            <img
+            v-lazy src="./image/8.png" />
           </div>
           <div class="logo__box__nav logo__box__nav5">
-            <img src="./image/9.png" />
+            <img
+            v-lazy src="./image/9.png" />
           </div>
           <div class="logo__box__nav logo__box__nav6">
-            <img src="./image/10.png" />
+            <img
+            v-lazy src="./image/10.png" />
           </div>
           <div class="logo__box__nav logo__box__nav7">
-            <img src="./image/11.png" />
+            <img
+            v-lazy src="./image/11.png" />
           </div>
           <div class="logo__box__nav logo__box__nav8">
-            <img src="./image/12.png" />
+            <img
+            v-lazy src="./image/12.png" />
           </div>
           <div class="logo__box__nav9">
             <div>1800+</div>
             <p>合作药企共创</p>
           </div>
           <div class="logo__box__nav logo__box__nav10">
-            <img src="./image/13.png" />
+            <img
+            v-lazy src="./image/13.png" />
           </div>
           <div class="logo__box__nav logo__box__nav11">
-            <img src="./image/14.png" />
+            <img
+            v-lazy src="./image/14.png" />
           </div>
           <div class="logo__box__nav logo__box__nav12">
-            <img src="./image/15.png" />
+            <img
+            v-lazy src="./image/15.png" />
           </div>
           <div class="logo__box__nav logo__box__nav13">
-            <img src="./image/16.png" />
+            <img
+            v-lazy src="./image/16.png" />
           </div>
           <div class="logo__box__nav logo__box__nav14">
-            <img src="./image/17.png" />
+            <img
+            v-lazy src="./image/17.png" />
           </div>
           <div class="logo__box__nav logo__box__nav15">
-            <img src="./image/18.png" />
+            <img
+            v-lazy src="./image/18.png" />
           </div>
           <div class="logo__box__nav logo__box__nav16">
-            <img src="./image/19.png" />
+            <img
+            v-lazy src="./image/19.png" />
           </div>
           <div class="logo__box__nav logo__box__nav17">
-            <img src="./image/20.png" />
+            <img
+            v-lazy src="./image/20.png" />
           </div>
           <div class="logo__box__nav logo__box__nav18">
-            <img src="./image/21.png" />
+            <img
+            v-lazy src="./image/21.png" />
           </div>
           <div class="logo__box__nav logo__box__nav19">
-            <img src="./image/22.png" />
+            <img
+            v-lazy src="./image/22.png" />
           </div>
           <div class="logo__box__nav logo__box__nav20">
-            <img src="./image/23.png" />
+            <img
+            v-lazy src="./image/23.png" />
           </div>
         </div> -->
 
         <div class="logo__box">
           <div class="logo__box__nav logo__box__add1">
             阿克苏海萍康商贸
-            <!-- <img src="https://p0.ssl.qhimg.com/t01d4947505d36059dc.png" /> -->
+            <!-- <img
+            v-lazy src="https://p0.ssl.qhimg.com/t01d4947505d36059dc.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__add2">
             阿克苏江右商贸
-            <!-- <img src="https://p4.ssl.qhimg.com/t01f51dcd250625cf12.png" /> -->
+            <!-- <img
+            v-lazy src="https://p4.ssl.qhimg.com/t01f51dcd250625cf12.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__add3">
             温宿益鸣医疗器械
-            <!-- <img src="https://p2.ssl.qhimg.com/t015fc308971b18bbfd.png" /> -->
+            <!-- <img
+            v-lazy src="https://p2.ssl.qhimg.com/t015fc308971b18bbfd.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__add4">
             阿克苏远大商贸
-            <!-- <img src="https://p0.ssl.qhimg.com/t0173b73f9036049c57.png" /> -->
+            <!-- <img
+            v-lazy src="https://p0.ssl.qhimg.com/t0173b73f9036049c57.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__add5">
             阿克苏众维达商贸
-            <!-- <img src="https://p4.ssl.qhimg.com/t01ed3fa84e99c8d547.png" /> -->
+            <!-- <img
+            v-lazy src="https://p4.ssl.qhimg.com/t01ed3fa84e99c8d547.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__add6">
             阿克苏维尔康医疗器械
-            <!-- <img src="https://p1.ssl.qhimg.com/t0180cb071893d8bacb.png" /> -->
+            <!-- <img
+            v-lazy src="https://p1.ssl.qhimg.com/t0180cb071893d8bacb.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav2">
             新疆蓝天白云医疗器械
-            <!-- <img src="https://p3.ssl.qhimg.com/t01a6026b065077e023.png" /> -->
+            <!-- <img
+            v-lazy src="https://p3.ssl.qhimg.com/t01a6026b065077e023.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav3">
             阿克德信成医疗用品
-            <!-- <img src="https://p3.ssl.qhimg.com/t01630c353d0e4998c2.png" /> -->
+            <!-- <img
+            v-lazy src="https://p3.ssl.qhimg.com/t01630c353d0e4998c2.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav4">
             疆南春（新疆）医疗科技
-            <!-- <img src="https://p4.ssl.qhimg.com/t01011f845c14e655f9.png" /> -->
+            <!-- <img
+            v-lazy src="https://p4.ssl.qhimg.com/t01011f845c14e655f9.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav5">
             阿克苏赫尔斯商贸
-            <!-- <img src="https://p1.ssl.qhimg.com/t01738f0ec0dc26b31c.png" /> -->
+            <!-- <img
+            v-lazy src="https://p1.ssl.qhimg.com/t01738f0ec0dc26b31c.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav6">
             新疆壹动力医疗用品
-            <!-- <img src="https://p1.ssl.qhimg.com/t01079610511ca7cad5.png" /> -->
+            <!-- <img
+            v-lazy src="https://p1.ssl.qhimg.com/t01079610511ca7cad5.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav7">
             新疆倍佳康医疗器械
-            <!-- <img src="https://p0.ssl.qhimg.com/t01052237f74eb7ace7.png" /> -->
+            <!-- <img
+            v-lazy src="https://p0.ssl.qhimg.com/t01052237f74eb7ace7.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav8">
             阿克苏赣商进出口贸易
-            <!-- <img src="https://p1.ssl.qhimg.com/t01da7084c2c28deacb.png" /> -->
+            <!-- <img
+            v-lazy src="https://p1.ssl.qhimg.com/t01da7084c2c28deacb.png" /> -->
           </div>
           <div class="logo__box__nav9">
             <div>1800+</div>
@@ -618,47 +683,58 @@
           </div>
           <div class="logo__box__nav logo__box__nav10">
             新疆雅迪尔生物制品
-            <!-- <img src="https://p4.ssl.qhimg.com/t01616bb8c18ee4f057.png" /> -->
+            <!-- <img
+            v-lazy src="https://p4.ssl.qhimg.com/t01616bb8c18ee4f057.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav11">
             阿克苏豪信商贸
-            <!-- <img src="https://p3.ssl.qhimg.com/t019c3306261be38de7.png" /> -->
+            <!-- <img
+            v-lazy src="https://p3.ssl.qhimg.com/t019c3306261be38de7.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav12">
             新疆贝尔康商贸
-            <!-- <img src="https://p2.ssl.qhimg.com/t01ee4e8236cb9e9f57.png" /> -->
+            <!-- <img
+            v-lazy src="https://p2.ssl.qhimg.com/t01ee4e8236cb9e9f57.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav13">
             阿克苏创兴恒康商贸
-            <!-- <img src="https://p3.ssl.qhimg.com/t0140b12b93ab3718cd.png" /> -->
+            <!-- <img
+            v-lazy src="https://p3.ssl.qhimg.com/t0140b12b93ab3718cd.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav14">
             阿克苏天润发商贸
-            <!-- <img src="https://p1.ssl.qhimg.com/t01af552fd53bc7c4e3.png" /> -->
+            <!-- <img
+            v-lazy src="https://p1.ssl.qhimg.com/t01af552fd53bc7c4e3.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav15">
             阿克苏康鑫源医疗器械
-            <!-- <img src="https://p1.ssl.qhimg.com/t019fa7efb1ad95bf82.png" /> -->
+            <!-- <img
+            v-lazy src="https://p1.ssl.qhimg.com/t019fa7efb1ad95bf82.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav16">
             新疆鑫豫源贸易
-            <!-- <img src="https://p4.ssl.qhimg.com/t019d647fb8af946a22.png" /> -->
+            <!-- <img
+            v-lazy src="https://p4.ssl.qhimg.com/t019d647fb8af946a22.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav17">
             阿克苏科创利丰贸易
-            <!-- <img src="https://p1.ssl.qhimg.com/t0165d0d0f4c2cb91e5.png" /> -->
+            <!-- <img
+            v-lazy src="https://p1.ssl.qhimg.com/t0165d0d0f4c2cb91e5.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav18">
             新疆康尔健医疗器械
-            <!-- <img src="https://p3.ssl.qhimg.com/t010c8edd48ea21dd67.png" /> -->
+            <!-- <img
+            v-lazy src="https://p3.ssl.qhimg.com/t010c8edd48ea21dd67.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav19">
             阿克苏振波医疗器械
-            <!-- <img src="https://p0.ssl.qhimg.com/t01b5d88cd5442c6f6c.png" /> -->
+            <!-- <img
+            v-lazy src="https://p0.ssl.qhimg.com/t01b5d88cd5442c6f6c.png" /> -->
           </div>
           <div class="logo__box__nav logo__box__nav20">
             阿克苏新百特医疗设备
-            <!-- <img src="https://p2.ssl.qhimg.com/t01ffb382bf2059d1a5.png" /> -->
+            <!-- <img
+            v-lazy src="https://p2.ssl.qhimg.com/t01ffb382bf2059d1a5.png" /> -->
           </div>
         </div>
       </div>
@@ -742,10 +818,6 @@ export default {
     imgLoad() {
       this.$nextTick(() => {
         this.bannerHeight = (540 / 1920) * window.innerWidth;
-        console.log(
-          "this.$refs.bannerHeight[0].bannerHeight:",
-          this.$refs.bannerHeight[0].bannerHeight
-        );
       });
     },
     //查询信息表中通知公告分页列表信息（ 1 通知公告 2 中标公告 3 招标公告）-接口
@@ -898,19 +970,38 @@ export default {
     // 各平台入口点击回调
     clickButton(value) {
       if (value == "我是采购商") {
-        this.$store.commit("switchPlatform", "purchaser");
-        this.$router.push("/login");
+        if (this.$store.state.vuex_user.sysType == 2) {
+          this.$message.success("您已登录，无需再次登录");
+        } else {
+          this.$store.commit("switchPlatform", "purchaser");
+          this.$router.push("/login");
+        }
       } else if (value == "我是供应商") {
         this.$store.commit("switchPlatform", "supplier");
         this.$router.push("/login");
       } else if (value == "申请入驻") {
         this.$store.commit("switchPlatform", "operation");
         this.$router.push("/Register");
+      } else if (value == "我是监管机构") {
+        if (this.$store.state.vuex_user.sysType == 4) {
+          this.$router.push("/webSuperviseMain/webSuperviseDrugs");
+        } else {
+          this.$store.commit("switchPlatform", "supervise");
+          this.$router.push("/login");
+        }
+        // this.$router.push("/webUnderConstruction");
+        // this.$router.push("/login");
+        // this.$store.commit("switchPlatform", "supervise");
+
+        // this.$router.push("/webIndustrySupervision");
+        // this.$store.commit("$uStore", {
+        //   name: "vuex_webName",
+        //   value: "webHomePage",
+        // });
       }
     },
-    getapp(){
-      console.log(1111);
-   this.$router.push("/webUnderConstruction");
+    getapp() {
+      this.$router.push("/webHomePageRegister");
     },
     // 点击更多进行跳转
     moreRouter(value) {
@@ -940,7 +1031,6 @@ export default {
     elCarouselChange(value) {
       // this.$refs.cu_animation.again();
       this.setActiveItem = value;
-      console.log("setActiveItem:", this.setActiveItem);
     },
     moveChange(value) {
       this.moveHover = value;
@@ -950,10 +1040,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "./webHomePage.scss";
-el-carousel-item{
+el-carousel-item {
   position: relative;
 }
-.content-LB-dw{
+.content-LB-dw {
   position: absolute;
   left: 5%;
   bottom: 23%;
